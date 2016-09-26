@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncClipboardService.cs" />
+    <Compile Include="WindowsClipboardService.cs" />
     <Compile Include="Clipboard\ClipboardDataType.cs" />
     <Compile Include="Helpers\TaskHelper.cs" />
     <Compile Include="IClipboardService.cs" />
