@@ -7,11 +7,16 @@ namespace AsyncWindowsClipboard.Helpers
     internal class TaskHelper
     {
         /// <summary>
-        ///     Runs the func in a STA thread.
+        ///     Runs the given <param name="func"/> as a <see cref="Task"/>.
         /// </summary>
-        public static Task<T> StartStaTask<T>(Func<T> func)
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="func">The function to run.</param>
+        /// <returns>A <see cref="Task{TResult}"/> that runs <param name="func"></param></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
+        public static Task<TResult> StartStaTask<TResult>(Func<TResult> func)
         {
-            var tcs = new TaskCompletionSource<T>();
+            if (func == null) throw new ArgumentNullException(nameof(func));
+            var tcs = new TaskCompletionSource<TResult>();
             var thread = new Thread(() =>
             {
                 try

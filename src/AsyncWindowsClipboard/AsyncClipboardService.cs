@@ -29,7 +29,10 @@ namespace AsyncWindowsClipboard
             if (textService == null) throw new ArgumentNullException(nameof(textService));
             _textService = textService;
         }
-
+        /// <summary>
+        /// Gets the static instance of <see cref="WindowsClipboardService"/>.
+        /// </summary>
+        /// <value>The static instance of <see cref="WindowsClipboardService"/>.</value>
         public static IClipboardService StaticInstance => StaticInstanceLazy.Value;
         private static Lazy<WindowsClipboardService> StaticInstanceLazy => new Lazy<WindowsClipboardService>();
 
