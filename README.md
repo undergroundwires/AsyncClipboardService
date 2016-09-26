@@ -1,4 +1,4 @@
-# AsyncClipboardService
+# AsyncWindowsClipboard
 An async windows clipboard service implementation for .NET, C#.
 
 Communication with windows api for clipboard actions needs to be in STA-thread. AsyncClipboardService wraps this communication in an asynchronous context.
