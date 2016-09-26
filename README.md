@@ -15,7 +15,7 @@ You can use a new instance of WindowsClipboardService :
 
 Or you can use directly the static instance of WindowsClipboardService :
 ```c#
-     var text = "Hello world";
+            var text = "Hello world";
             await WindowsClipboardService.StaticInstance.SetText(text);
             var data = await WindowsClipboardService.StaticInstance.GetAsString();
             Debug.Assert(data.Equals(text));
