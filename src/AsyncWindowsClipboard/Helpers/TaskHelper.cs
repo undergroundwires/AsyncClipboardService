@@ -13,7 +13,7 @@ namespace AsyncWindowsClipboard.Helpers
         /// <param name="func">The function to run.</param>
         /// <returns>A <see cref="Task{TResult}"/> that runs <param name="func"></param></returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
-        public static Task<TResult> StartStaTask<TResult>(Func<TResult> func)
+        internal static Task<TResult> StartStaTask<TResult>(Func<TResult> func)
         {
             if (func == null) throw new ArgumentNullException(nameof(func));
             var tcs = new TaskCompletionSource<TResult>();

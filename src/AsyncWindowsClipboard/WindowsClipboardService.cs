@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Helpers;
 using AsyncWindowsClipboard.Text;
 
 namespace AsyncWindowsClipboard
@@ -11,9 +14,9 @@ namespace AsyncWindowsClipboard
     ///     Connects to and controls windows clipboard asynchronously using <see cref="WindowsClipboard" />
     /// </summary>
     /// <remarks>Use <see cref="WindowsClipboard" /> to manipulate Windows clipboard in a lower level.</remarks>
-    /// <seealso cref="IClipboardService" />
+    /// <seealso cref="IAsyncClipboardService" />
     /// <seealso cref="WindowsClipboard" />
-    public class WindowsClipboardService : IClipboardService
+    public class WindowsClipboardService : IAsyncClipboardService
     {
         private readonly ITextService _textService;
 
@@ -29,12 +32,15 @@ namespace AsyncWindowsClipboard
             if (textService == null) throw new ArgumentNullException(nameof(textService));
             _textService = textService;
         }
+
         /// <summary>
-        /// Gets the static instance of <see cref="WindowsClipboardService"/>.
+        ///     Gets the static instance of <see cref="WindowsClipboardService" />.
         /// </summary>
-        /// <value>The static instance of <see cref="WindowsClipboardService"/>.</value>
-        public static IClipboardService StaticInstance => StaticInstanceLazy.Value;
+        /// <value>The static instance of <see cref="WindowsClipboardService" />.</value>
+        public static IAsyncClipboardService StaticInstance => StaticInstanceLazy.Value;
+
         private static Lazy<WindowsClipboardService> StaticInstanceLazy => new Lazy<WindowsClipboardService>();
+
 
         /// <summary>
         ///     Sets unicode (UTF16 little endian) bytes to the clipboard.
@@ -43,61 +49,65 @@ namespace AsyncWindowsClipboard
         /// <returns>If the operation was successful.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="textBytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException"><paramref name="textBytes" /> is empty.</exception>
-        /// <exception cref="OperationCanceledException">Clipboard could not be reached.</exception>
-        public async Task<bool> SetUnicodeBytes(byte[] textBytes)
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        public Task<bool> SetUnicodeBytes(byte[] textBytes)
         {
             if (textBytes == null) throw new ArgumentNullException(nameof(textBytes));
             if (!textBytes.Any()) throw new ArgumentException($"{nameof(textBytes)} cannot be empty.");
-            using (var clipboard = new WindowsClipboard())
+            return TaskHelper.StartStaTask(() =>
             {
-                if (!await clipboard.OpenAsync())
-                    throw new OperationCanceledException("Clipboard could not be reached.");
-                if (!await clipboard.ClearAsync()) Debug.Assert(false);
-                var unicodeData = TransformToUnicodeClipboardBytes(textBytes);
-                try
+                using (var clipboard = new WindowsClipboard())
                 {
-                    var result = await clipboard.SetDataAsync(ClipboardDataType.UnicodeLittleEndianText, unicodeData);
-                    return result;
+                    OpenConnection(clipboard);
+                    ClearClipboard(clipboard);
+                    var unicodeData = TransformToUnicodeClipboardBytes(textBytes);
+                    try
+                    {
+                        var result = clipboard.SetData(ClipboardDataType.UnicodeLittleEndianText, unicodeData);
+                        return result.IsSuccessful;
+                    }
+                    finally
+                    {
+                        Array.Clear(unicodeData, 0, unicodeData.Length);
+                    }
                 }
-                finally
-                {
-                    Array.Clear(unicodeData, 0, unicodeData.Length);
-                }
-            }
+            });
         }
 
         /// <summary>
         ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes.
         /// </summary>
-        /// <exception cref="OperationCanceledException">Clipboard could not be reached.</exception>
-        public async Task<byte[]> GetAsUnicodeBytes()
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        public Task<byte[]> GetAsUnicodeBytes()
         {
             var clipboardData = (byte[]) null;
-            using (var clipboard = new WindowsClipboard())
+            return TaskHelper.StartStaTask(() =>
             {
-                var isUnicode = await clipboard.IsContentTypeOf(ClipboardDataType.UnicodeLittleEndianText);
-                if (!isUnicode) return null;
-                if (!await clipboard.OpenAsync())
-                    throw new OperationCanceledException("Clipboard could not be reached.");
-                clipboardData = await clipboard.GetDataAsync(ClipboardDataType.UnicodeLittleEndianText);
-            }
-            try
-            {
-                if ((clipboardData == null) || (clipboardData.Length <= 2))
-                    return clipboardData;
-                return GetBytes(clipboardData, true);
-            }
-            finally
-            {
-                if (clipboardData != null) Array.Clear(clipboardData, 0, clipboardData.Length);
-            }
+                using (var clipboard = new WindowsClipboard())
+                {
+                    var isUnicode = clipboard.IsContentTypeOf(ClipboardDataType.UnicodeLittleEndianText);
+                    if (!isUnicode) return null;
+                    OpenConnection(clipboard);
+                    clipboardData = clipboard.GetData(ClipboardDataType.UnicodeLittleEndianText);
+                }
+                try
+                {
+                    if ((clipboardData == null) || (clipboardData.Length <= 2))
+                        return clipboardData;
+                    return GetBytes(clipboardData, true);
+                }
+                finally
+                {
+                    if (clipboardData != null) Array.Clear(clipboardData, 0, clipboardData.Length);
+                }
+            });
         }
 
         /// <summary>
         ///     Gets the clipboard data as string.
         /// </summary>
-        /// <exception cref="OperationCanceledException">Clipboard could not be reached.</exception>
-        public async Task<string> GetAsString()
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        public async Task<string> GetText()
         {
             var unicodeBytes = await GetAsUnicodeBytes();
             if ((unicodeBytes == null) || !unicodeBytes.Any()) return null;
@@ -107,11 +117,36 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Sets a string as the clipboard data.
         /// </summary>
-        /// <exception cref="OperationCanceledException">Clipboard could not be reached.</exception>
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<bool> SetText(string value)
         {
             var bytes = _textService.GetBytes(value);
             return await SetUnicodeBytes(bytes);
+        }
+
+        /// <summary>
+        ///     Clears the clipboard.
+        /// </summary>
+        private static void ClearClipboard(IWindowsClipboard clipboard)
+        {
+            var clearResult = clipboard.Clear();
+            if (!clearResult.IsSuccessful) Debug.Assert(false);
+        }
+
+        /// <summary>
+        ///     Opens the connection.
+        /// </summary>
+        /// <param name="clipboard">The clipboard.</param>
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        private static void OpenConnection(IWindowsClipboard clipboard)
+        {
+            var openResult = clipboard.Open();
+            if (!openResult.IsSuccessful)
+            {
+                if (openResult.LastError.HasValue)
+                    throw new Win32Exception((int) openResult.LastError.Value);
+                throw new Win32Exception("Clipboard could not be reached.");
+            }
         }
 
         /// <summary>

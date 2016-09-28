@@ -1,38 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AsyncWindowsClipboard.Clipboard;
 
-namespace AsyncWindowsClipboard
+namespace AsyncClipboardService.Clipboard
 {
     /// <summary>
-    /// Reveals methods from windows native methods.
+    ///     Reveals synchronous c# methods for windows native functions.
     /// </summary>
     internal interface IWindowsClipboard : IDisposable
     {
         /// <summary>
-        ///   Opens the clipboard for examination. 
+        ///     A <see cref="bool" /> representing whether the instance has an open communication with the windows clipboard.
+        /// </summary>
+        /// <remarks>
+        ///     <p>Use <see cref="Open" /> method to open the communication</p>
+        ///     <p>Use <see cref="Close" /> method to close the communication</p>
+        /// </remarks>
+        /// <seealso cref="Open" />
+        /// <seealso cref="Close" />
+        bool IsOpen { get; }
+
+        /// <summary>
+        ///     Opens the clipboard for examination.
         /// </summary>
         /// <returns>If the operation method is successful.</returns>
-        Task<bool> OpenAsync();
+        IClipboardOperationResult Open();
+
         /// <summary>
-        ///   Closes the the clipboard.
+        ///     Closes the the clipboard.
         /// </summary>
         /// <returns>If the operation method is successful.</returns>
-        Task<bool> CloseAsync();
+        IClipboardOperationResult Close();
+
         /// <summary>
-        /// Clears the clipboard.
+        ///     Clears the clipboard.
         /// </summary>
         /// <returns><c>true</c> if the function succeeds, <c>false</c> the function fails.</returns>
-        Task<bool> ClearAsync();
+        IClipboardOperationResult Clear();
+
         /// <summary>
-        /// Determines whether the content of the clipboard is unicode text.
+        ///     Determines whether the content of the clipboard is unicode text.
         /// </summary>
         /// <returns><c>true</c> if content of the clipboard is unicode text, otherwise; <c>false</c>.</returns>
-        Task<bool> IsContentTypeOf(ClipboardDataType dataType);
-        Task<bool> SetDataAsync(ClipboardDataType dataType, byte[] data);
-        Task<byte[]> GetDataAsync(ClipboardDataType dataType);
+        bool IsContentTypeOf(ClipboardDataType dataType);
+
+        /// <summary>
+        ///     Places data on the clipboard in a specified clipboard format.
+        /// </summary>
+        IClipboardOperationResult SetData(ClipboardDataType dataType, byte[] data);
+
+        /// <summary>
+        ///     Retrieves data from the clipboard in a specified format.
+        /// </summary>
+        byte[] GetData(ClipboardDataType dataType);
     }
 }

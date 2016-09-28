@@ -3,9 +3,9 @@
 namespace AsyncWindowsClipboard
 {
     /// <summary>
-    ///     Represents a service capable of transferring data to the system clipboard.
+    ///     Represents a service capable of transferring data to the system clipboard asynchronously.
     /// </summary>
-    public interface IClipboardService
+    public interface IAsyncClipboardService
     {
         /// <summary>
         ///     Sets unicode bytes as text in the clipboard.
@@ -24,7 +24,7 @@ namespace AsyncWindowsClipboard
         ///     Gets the clipboard data as a <see cref="string" />.
         /// </summary>
         /// <returns>The data in the clipboard as <see cref="string" /></returns>
-        Task<string> GetAsString();
+        Task<string> GetText();
 
         /// <summary>
         ///     Sets the text.

@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncWindowsClipboard", "AsyncWindowsClipboard\AsyncWindowsClipboard.csproj", "{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncWindowsClipboard.Tests", "AsyncWindowsClipboard.Tests\AsyncWindowsClipboard.Tests.csproj", "{F0590555-0533-404B-B4E4-6A7A3EAD01E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncWindowsClipboard.WpfTests", "AsyncWindowsClipboard.WpfTests\AsyncWindowsClipboard.WpfTests.csproj", "{D0A868A9-1F4B-4854-83CF-EAEF0697F9CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0590555-0533-404B-B4E4-6A7A3EAD01E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0590555-0533-404B-B4E4-6A7A3EAD01E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0590555-0533-404B-B4E4-6A7A3EAD01E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0590555-0533-404B-B4E4-6A7A3EAD01E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0A868A9-1F4B-4854-83CF-EAEF0697F9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A868A9-1F4B-4854-83CF-EAEF0697F9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A868A9-1F4B-4854-83CF-EAEF0697F9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A868A9-1F4B-4854-83CF-EAEF0697F9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
