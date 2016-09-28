@@ -36,11 +36,3 @@ If you want to go lower levels, you can use WindowsClipboard class :
 The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats.
 
 Feel free to contribute to the project.
-
-
-
-
-License
-----
-
-MIT
