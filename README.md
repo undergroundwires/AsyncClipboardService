@@ -1,5 +1,7 @@
-# AsyncWindowsClipboard
+## AsyncWindowsClipboard
 An async windows clipboard service implementation for .NET, C#.
+
+## Nuget package https://nuget.org/packages/AsyncClipboardService/
 
 Communication with windows api for clipboard actions needs to be in STA-thread. AsyncClipboardService wraps this communication in an asynchronous context.
 
@@ -36,3 +38,7 @@ If you want to go lower levels, you can use WindowsClipboard class :
 The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats.
 
 Feel free to contribute to the project.
+
+## Licence
+
+[GNU General Public License](./LICENSE.txt)
