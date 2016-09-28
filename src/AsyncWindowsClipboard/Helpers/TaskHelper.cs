@@ -21,7 +21,8 @@ namespace AsyncWindowsClipboard.Helpers
             {
                 try
                 {
-                    tcs.SetResult(func());
+                    var result = func();
+                    tcs.SetResult(result);
                 }
                 catch (Exception e)
                 {

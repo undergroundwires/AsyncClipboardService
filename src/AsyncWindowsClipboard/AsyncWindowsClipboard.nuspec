@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/undergroundwires/AsyncWindowsClipboard/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</iconUrl>
+	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial nuget release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>windows wpf clipboard asynchronous c# .net</tags>
+  </metadata>
+  <files>
+    <file src="..\..\README.md" target="" />
+	<file src="..\..\LICENSE.txt" target="" />
+  </files>
+</package>
