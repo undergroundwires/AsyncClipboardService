@@ -1,5 +1,5 @@
 ## AsyncWindowsClipboard
-An async windows clipboard service implementation for .NET, C#.
+An async, thread-safe windows clipboard service implementation for .NET, C#.
 
 ## Nuget package https://nuget.org/packages/AsyncClipboardService/
 
@@ -21,18 +21,6 @@ Or you can use directly the static instance of WindowsClipboardService :
             await WindowsClipboardService.StaticInstance.SetText(text);
             var data = await WindowsClipboardService.StaticInstance.GetAsString();
             Debug.Assert(data.Equals(text));
-```
-
-If you want to go lower levels, you can use WindowsClipboard class :
-
-```c#
-            using (var clipboard = new WindowsClipboard())
-            {
-                await clipboard.OpenAsync();
-                await clipboard.SetDataAsync(ClipboardDataType.UnicodeLittleEndianText,
-                    System.Text.Encoding.Unicode.GetBytes(text)
-                );
-            }
 ```
 
 The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats.
