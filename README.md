@@ -1,7 +1,7 @@
 ## AsyncWindowsClipboard
 An async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
 
-Async api's are always good, on the other hand it's also recommended for applications (such as WPF) where thread safety plays role.
+Async API's are always good, on the other hand it's also recommended for applications (such as WPF) where thread safety plays role.
 
 ## Nuget package https://nuget.org/packages/AsyncClipboardService/
 
