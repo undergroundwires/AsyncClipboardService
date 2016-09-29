@@ -23,7 +23,7 @@ Or you can use directly the static instance of WindowsClipboardService :
             Debug.Assert(data.Equals(text));
 ```
 
-The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats.
+The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats. Just take a look at Readers and Writers in project.
 
 Feel free to contribute to the project.
 
