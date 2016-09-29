@@ -43,19 +43,33 @@
     <Compile Include="Clipboard\ClipboardOperationResult.cs" />
     <Compile Include="Clipboard\ClipboardOperationResultCode.cs" />
     <Compile Include="Clipboard\IClipboardOperationResult.cs" />
+    <Compile Include="Clipboard\Modifiers\ClipboardModifierBase.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\Base\ClipboardReaderBase.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\Base\ClipboardReadingContext.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\Base\IClipboardReader.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\Base\IClipboardReadingContext.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\StringReader.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\UnicodeBytesReader.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\Base\ClipboardWriterBase.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\Base\ClipboardWritingContext.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\Base\IClipboardWriter.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\Base\IClipboardWritingContext.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\StringWriter.cs" />
+    <Compile Include="Clipboard\Modifiers\Writers\UnicodeBytesWriter.cs" />
     <Compile Include="WindowsClipboardService.cs" />
-    <Compile Include="Clipboard\ClipboardDataType.cs" />
-    <Compile Include="Helpers\TaskHelper.cs" />
+    <Compile Include="ClipboardDataType.cs" />
+    <Compile Include="Clipboard\Helpers\TaskHelper.cs" />
     <Compile Include="IAsyncClipboardService.cs" />
-    <Compile Include="Clipboard\IWindowsClipboard.cs" />
-    <Compile Include="Clipboard\WindowsClipboard.cs" />
+    <Compile Include="Clipboard\IWindowsClipboardSession.cs" />
+    <Compile Include="Clipboard\WindowsClipboardSession.cs" />
     <Compile Include="Clipboard\Native\Dlls.cs" />
     <Compile Include="Clipboard\Native\NativeMethods.Win.cs" />
     <Compile Include="Clipboard\Native\NativeMethods.Win.Defs..cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Text\ITextService.cs" />
-    <Compile Include="Text\UnicodeTextService.cs" />
+    <Compile Include="Clipboard\Text\ITextService.cs" />
+    <Compile Include="Clipboard\Text\UnicodeTextService.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

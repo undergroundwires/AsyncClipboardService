@@ -1,12 +1,12 @@
 ﻿using System;
-using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard;
 
 namespace AsyncClipboardService.Clipboard
 {
     /// <summary>
-    ///     Reveals synchronous c# methods for windows native functions.
+    ///     Reveals bunch of methods for synchronous communication with the windows native functions.
     /// </summary>
-    internal interface IWindowsClipboard : IDisposable
+    internal interface IWindowsClipboardSession
     {
         /// <summary>
         ///     A <see cref="bool" /> representing whether the instance has an open communication with the windows clipboard.

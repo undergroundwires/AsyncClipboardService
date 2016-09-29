@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="WindowsClipboardServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowsClipboardTests.cs" />
+    <Compile Include="WindowsClipboardSessionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

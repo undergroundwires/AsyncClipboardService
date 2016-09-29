@@ -4,7 +4,7 @@
     ///     Defines an interface to convert between a <see cref="byte" /> array and <see cref="string" /> with an constant
     ///     encoding.
     /// </summary>
-    public interface ITextService
+    internal interface ITextService
     {
         /// <summary>
         ///     Decodes a sequence of bytes into a string.

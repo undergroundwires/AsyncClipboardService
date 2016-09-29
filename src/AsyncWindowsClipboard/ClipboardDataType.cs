@@ -1,6 +1,6 @@
 ﻿using AsyncWindowsClipboard.Native;
 
-namespace AsyncWindowsClipboard.Clipboard
+namespace AsyncWindowsClipboard
 {
     public enum ClipboardDataType : uint
     {

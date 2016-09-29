@@ -2,23 +2,24 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard;
 using AsyncWindowsClipboard.Native;
 
 namespace AsyncClipboardService.Clipboard
 {
     /// <summary>
-    ///     A wrapper for native windows methods.
+    ///     A wrapper for native windows methods. It should be used to communicate with the native methods.
     /// </summary>
     /// <remarks>
     ///     <p>This class is not thread safe and should be consumed in the same thread.</p>
+    ///     <p>Calls <see cref="Close"/> when being on <see cref="IDisposable.Dispose()"/>.</p>
     /// </remarks>
-    /// <seealso cref="IWindowsClipboard" />
+    /// <seealso cref="IWindowsClipboardSession" />
     /// <seealso cref="IDisposable" />
-    public class WindowsClipboard : IWindowsClipboard
+    internal class WindowsClipboardSession : IWindowsClipboardSession, IDisposable
     {
         /// <summary>
-        ///     A <see cref="bool" /> representing whether this <seealso cref="WindowsClipboard" /> instance has an open
+        ///     A <see cref="bool" /> representing whether this <seealso cref="WindowsClipboardSession" /> instance has an open
         ///     communication with the windows clipboard.
         /// </summary>
         /// <remarks>

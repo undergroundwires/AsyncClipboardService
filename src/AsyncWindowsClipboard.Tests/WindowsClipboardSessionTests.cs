@@ -3,10 +3,10 @@ using NUnit.Framework;
 
 namespace AsyncWindowsClipboard.Tests
 {
-    /// <see cref="IWindowsClipboard" />
+    /// <see cref="IWindowsClipboardSession" />
     /// <see cref="WindowsClipboard" />
     [TestFixture]
-    public class WindowsClipboardTests
+    public class WindowsClipboardSessionTests
     {
         [Test]
         public void OpenAsync_Sets_IsOpen_To_True()
@@ -75,6 +75,6 @@ namespace AsyncWindowsClipboard.Tests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        private IWindowsClipboard GetSut() => new WindowsClipboard();
+        private IWindowsClipboardSession GetSut() => new WindowsClipboardSession();
     }
 }

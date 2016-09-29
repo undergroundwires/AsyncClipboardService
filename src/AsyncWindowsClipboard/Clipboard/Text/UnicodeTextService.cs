@@ -9,7 +9,7 @@ namespace AsyncWindowsClipboard.Text
     ///     <seealso cref="Encoding.Unicode" /> as encoding object.
     /// </summary>
     /// <seealso cref="ITextService" />
-    public class UnicodeTextService : ITextService
+    internal class UnicodeTextService : ITextService
     {
         public static ITextService StaticInstance => StaticInstanceLazy.Value;
         private static Lazy<UnicodeTextService> StaticInstanceLazy => new Lazy<UnicodeTextService>();
