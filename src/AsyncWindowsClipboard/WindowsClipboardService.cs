@@ -77,6 +77,7 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes.
         /// </summary>
+        /// <returns>The data in the clipboard as bytes</returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public Task<byte[]> GetAsUnicodeBytes()
         {
@@ -104,8 +105,12 @@ namespace AsyncWindowsClipboard
         }
 
         /// <summary>
-        ///     Gets the clipboard data as string.
+        ///     Gets the clipboard data as a <see cref="string" />.
         /// </summary>
+        /// <returns>
+        ///     <p>The data in the clipboard as <see cref="string" /></p>
+        ///     <p><see langword="null" /> if there is no string data available in the clipboard</p>
+        /// </returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<string> GetText()
         {
@@ -113,6 +118,7 @@ namespace AsyncWindowsClipboard
             if ((unicodeBytes == null) || !unicodeBytes.Any()) return null;
             return _textService.GetString(unicodeBytes);
         }
+
 
         /// <summary>
         ///     Sets a string as the clipboard data.

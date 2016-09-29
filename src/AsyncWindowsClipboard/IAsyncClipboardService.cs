@@ -23,7 +23,10 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Gets the clipboard data as a <see cref="string" />.
         /// </summary>
-        /// <returns>The data in the clipboard as <see cref="string" /></returns>
+        /// <returns>
+        ///     <p>The data in the clipboard as <see cref="string" /></p>
+        ///     <p><see langword="null" /> if there is no string data available in the clipboard</p>
+        /// </returns>
         Task<string> GetText();
 
         /// <summary>
