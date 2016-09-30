@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AsyncWindowsClipboard.Modifiers.Readers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {

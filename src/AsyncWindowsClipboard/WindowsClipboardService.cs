@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
-using AsyncWindowsClipboard.Modifiers.Readers;
-using AsyncWindowsClipboard.Modifiers.Writers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
 
 namespace AsyncWindowsClipboard
 {

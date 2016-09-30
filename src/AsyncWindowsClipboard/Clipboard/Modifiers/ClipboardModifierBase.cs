@@ -3,7 +3,7 @@ using System.Diagnostics;
 using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Text;
 
-namespace AsyncWindowsClipboard.Modifiers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers
 {
     /// <summary>
     ///     <p>Provides helper methods to manipulate a clipboard connection.</p>

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AsyncWindowsClipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
     /// <summary>
     ///     Abstraction for a clipboard data setter.

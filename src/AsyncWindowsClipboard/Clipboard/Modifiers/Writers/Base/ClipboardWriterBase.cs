@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Helpers;
-using AsyncWindowsClipboard.Modifiers.Readers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 
-namespace AsyncWindowsClipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
     /// <summary>
     ///     <p>Base class that clipboard writers must implement.</p>

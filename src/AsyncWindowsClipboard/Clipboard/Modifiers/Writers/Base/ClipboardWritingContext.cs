@@ -1,7 +1,7 @@
 ﻿using System;
 using AsyncClipboardService.Clipboard;
 
-namespace AsyncWindowsClipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
     /// <summary>
     ///     <p>A class to be used during write operations.</p>

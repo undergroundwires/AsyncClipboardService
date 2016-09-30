@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Modifiers.Writers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {

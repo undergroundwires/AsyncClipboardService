@@ -2,7 +2,7 @@
 using System.Linq;
 using AsyncClipboardService.Clipboard;
 
-namespace AsyncWindowsClipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
     /// <summary>
     ///     Writes a byte array containing unicode characters to a <see cref="IClipboardWritingContext" />.

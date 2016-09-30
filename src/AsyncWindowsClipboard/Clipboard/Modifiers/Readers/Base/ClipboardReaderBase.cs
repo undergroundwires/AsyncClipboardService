@@ -4,7 +4,7 @@ using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Helpers;
 using AsyncWindowsClipboard.Text;
 
-namespace AsyncWindowsClipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
     /// <summary>
     ///     <p>Base class that clipboard readers must implement.</p>
