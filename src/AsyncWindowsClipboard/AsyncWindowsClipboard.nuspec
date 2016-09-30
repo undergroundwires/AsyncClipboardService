@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</iconUrl>
 	<requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Code refactorings</releaseNotes>
+    <releaseNotes>FileDropList support + async method names are changed.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>windows wpf clipboard asynchronous c# .net thread-safe</tags>
   </metadata>

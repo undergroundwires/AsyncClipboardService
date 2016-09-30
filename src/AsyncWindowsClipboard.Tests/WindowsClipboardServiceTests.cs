@@ -17,8 +17,8 @@ namespace AsyncWindowsClipboard.Tests
         {
             var sut = new WindowsClipboardService();
             var expected = "Hello world";
-            await sut.SetText(expected);
-            var actual = await sut.GetText();
+            await sut.SetTextAsync(expected);
+            var actual = await sut.GetTextAsync();
             Assert.That(actual, Is.EqualTo(expected));
         }
 
