@@ -32,6 +32,6 @@ The project only supports text handling at the moment, but it's very easy to ext
 
 Feel free to contribute to the project. 
 
-## Licence
+## License
 
 [GNU General Public License](./LICENSE.txt)
