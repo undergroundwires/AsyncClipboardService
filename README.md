@@ -10,16 +10,16 @@ You can use a new instance of WindowsClipboardService :
 ```c#
             var text = "Hello world";
             var clipboardService = new WindowsClipboardService();
-            await clipboardService.SetText(text);
-            var data = await clipboardService.GetText();
+            await clipboardService.SetTextAsync(text);
+            var data = await clipboardService.GetTextAsync();
             Debug.Assert(data.Equals(text));
 ```
 
 Or you can use directly the static instance of WindowsClipboardService :
 ```c#
             var text = "Hello world";
-            await WindowsClipboardService.StaticInstance.SetText(text);
-            var data = await WindowsClipboardService.StaticInstance.GetText();
+            await WindowsClipboardService.StaticInstance.SetTextAsync(text);
+            var data = await WindowsClipboardService.StaticInstance.GetTextAsync();
             Debug.Assert(data.Equals(text));
 ```
 
