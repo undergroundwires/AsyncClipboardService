@@ -2,7 +2,7 @@
 
 namespace AsyncWindowsClipboard
 {
-    public enum ClipboardDataType : uint
+    internal enum ClipboardDataType : uint
     {
         /// <summary>
         ///     The unicode little endian text.
@@ -19,6 +19,10 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Represents audio data in one of the standard wave formats, such as 11 kHz or 22 kHz PCM.
         /// </summary>
-        Wave = NativeMethods.CF_WAVE
+        Wave = NativeMethods.CF_WAVE,
+        /// <summary>
+        ///     Collection of file names. 
+        /// </summary>
+        FileDropList = NativeMethods.CF_HDROP
     }
 }

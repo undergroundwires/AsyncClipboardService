@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace AsyncWindowsClipboard.WpfTests
 {
@@ -14,18 +15,38 @@ namespace AsyncWindowsClipboard.WpfTests
             InitializeComponent();
         }
 
-        private async void ButtonCopy_Click(object sender, RoutedEventArgs e)
+        private async void ButtonCopyText_Click(object sender, RoutedEventArgs e)
         {
-            var text = TextBox.Text;
+            var text = TextBoxText.Text;
             if (string.IsNullOrEmpty(text)) return;
             var result = await _asyncClipboardService.SetText(text);
             if (!result) MessageBox.Show("Failed");
         }
 
-        private async void ButtonPaste_Click(object sender, RoutedEventArgs e)
+        private async void ButtonPasteText_Click(object sender, RoutedEventArgs e)
         {
             var text = await _asyncClipboardService.GetText();
-            TextBox.Text = text;
+            TextBoxText.Text = text;
+        }
+
+        private async void ButtonDropFileListPaste_Click(object sender, RoutedEventArgs e)
+        {
+            var files = await _asyncClipboardService.GetFileDropList();
+            if (files != null)
+            {
+                TextBoxText.Text = string.Join(System.Environment.NewLine, files);
+            }
+        }
+
+        private async void ButtonDropFileListCopy_Click(object sender, RoutedEventArgs e)
+        {
+            var data = TextBoxText.Text;
+            if (string.IsNullOrEmpty(data)) return;
+            var list = data.Replace(Environment.NewLine, "\n").Split('\n');
+            //System.Windows.Clipboard.Clear();
+            //System.Windows.Clipboard.SetData(DataFormats.FileDrop, list);
+            var result = await _asyncClipboardService.SetFileDropList(list);
+            if (!result) MessageBox.Show("Failed");
         }
     }
 }

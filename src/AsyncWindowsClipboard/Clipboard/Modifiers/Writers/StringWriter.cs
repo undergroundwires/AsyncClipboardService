@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Modifiers.Readers;
 
 namespace AsyncWindowsClipboard.Modifiers.Writers
@@ -9,7 +10,7 @@ namespace AsyncWindowsClipboard.Modifiers.Writers
     /// <seealso cref="IClipboardWritingContext" />
     internal class StringWriter : ClipboardWriterBase<string>
     {
-        public override bool Write(IClipboardWritingContext context, string data)
+        public override IClipboardOperationResult Write(IClipboardWritingContext context, string data)
         {
             var bytes = TextService.GetBytes(data);
             var unicodeBytesWriter = new UnicodeBytesWriter();

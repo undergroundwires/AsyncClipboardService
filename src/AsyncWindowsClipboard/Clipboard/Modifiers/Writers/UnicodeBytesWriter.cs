@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AsyncClipboardService.Clipboard;
 
 namespace AsyncWindowsClipboard.Modifiers.Writers
 {
@@ -11,14 +12,14 @@ namespace AsyncWindowsClipboard.Modifiers.Writers
     {
         /// <exception cref="ArgumentNullException"><paramref name="data" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException"><paramref name="data" /> is empty.</exception>
-        public override bool Write(IClipboardWritingContext context, byte[] data)
+        public override IClipboardOperationResult Write(IClipboardWritingContext context, byte[] data)
         {
             if (!data.Any()) throw new ArgumentException($"{nameof(data)} cannot be empty.");
             var unicodeData = TransformToUnicodeClipboardBytes(data);
             try
             {
                 var result = context.SetData(ClipboardDataType.UnicodeLittleEndianText, unicodeData);
-                return result.IsSuccessful;
+                return result;
             }
             finally
             {

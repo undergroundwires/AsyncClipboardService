@@ -1,28 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
+using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
 using AsyncWindowsClipboard.Modifiers.Readers;
 using AsyncWindowsClipboard.Modifiers.Writers;
-using AsyncWindowsClipboard.Text;
 
 namespace AsyncWindowsClipboard
 {
     /// <summary>
-    ///     Connects to and controls windows clipboard asynchronously using <see cref="WindowsClipboard" />
+    ///     Connects to and controls windows clipboard asynchronously.
     /// </summary>
-    /// <remarks>Use <see cref="WindowsClipboard" /> to manipulate Windows clipboard in a lower level.</remarks>
     /// <seealso cref="IAsyncClipboardService" />
-    /// <seealso cref="WindowsClipboard" />
     public class WindowsClipboardService : IAsyncClipboardService
     {
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="WindowsClipboardService" /> class.
-        /// </summary>
-        public WindowsClipboardService()
-        {
-        }
-
         /// <summary>
         ///     Gets the static instance of <see cref="WindowsClipboardService" />.
         /// </summary>
@@ -50,7 +42,7 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes.
         /// </summary>
-        /// <returns>The data in the clipboard as bytes</returns>
+        /// <returns>The data in the clipboard as bytes, <see langword="null" /> if no data exists in clipboard.</returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public Task<byte[]> GetAsUnicodeBytes()
         {
@@ -59,11 +51,11 @@ namespace AsyncWindowsClipboard
         }
 
         /// <summary>
-        ///     Gets the clipboard data as a <see cref="string" />.
+        ///     Retrieves the text in clipboard as a <see cref="string" />.
         /// </summary>
         /// <returns>
         ///     <p>The data in the clipboard as <see cref="string" /></p>
-        ///     <p><see langword="null" /> if there is no string data available in the clipboard</p>
+        ///     <p><see langword="null" /> if there is no string data available in the clipboard.</p>
         /// </returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<string> GetText()
@@ -73,7 +65,6 @@ namespace AsyncWindowsClipboard
             return result;
         }
 
-
         /// <summary>
         ///     Sets a string as the clipboard data.
         /// </summary>
@@ -82,6 +73,28 @@ namespace AsyncWindowsClipboard
         {
             var writer = new StringWriter();
             var result = await writer.WriteAsync(value);
+            return result;
+        }
+
+        /// <summary>
+        ///     Retrieves a collection of file names from the clipboard.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="IEnumerable{String}" /> containing file names or <see langword="null" /> if the clipboard does not
+        ///     contain any data that is in the FileDrop format or can be converted to that format.
+        /// </returns>
+        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        public async Task<IEnumerable<string>> GetFileDropList()
+        {
+            var reader = new FileDropListReader();
+            var result = await reader.ReadAsync();
+            return result;
+        }
+
+        public async Task<bool> SetFileDropList(IEnumerable<string> filePaths)
+        {
+            var writer = new FileDropListWriter();
+            var result = await writer.WriteAsync(filePaths);
             return result;
         }
     }

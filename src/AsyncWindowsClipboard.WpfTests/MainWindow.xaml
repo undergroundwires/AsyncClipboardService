@@ -7,10 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <StackPanel>
-            <TextBox x:Name="TextBox" />
-            <Button x:Name="ButtonCopy" Click="ButtonCopy_Click">Copy</Button>
-            <Button x:Name="ButtonPaste" Click="ButtonPaste_Click">Paste</Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <TextBox x:Name="TextBoxText" Height="100" />
+            <Button x:Name="ButtonTextCopy" Click="ButtonCopyText_Click">Copy text</Button>
+            <Button x:Name="ButtonTextPaste" Click="ButtonPasteText_Click">Paste text</Button>
+            <Button x:Name="ButtonDropFileListPaste" Click="ButtonDropFileListPaste_Click">Paste drop file list</Button>
+            <Button x:Name="ButtonDropFileListCopy" Click="ButtonDropFileListCopy_Click">Copy drop file list</Button>
         </StackPanel>
+
+
     </Grid>
 </Window>

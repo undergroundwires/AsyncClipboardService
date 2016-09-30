@@ -96,6 +96,15 @@
         /// <summary>
         ///     A handle to type <c>HDROP</c> that identifies a list of files.
         ///     An application can retrieve information about the files by passing the handle to the <c>DragQueryFile</c> function.
+        ///     <remarks>
+        ///         The file name array consists of a series of strings, each containing one file's fully qualified path, including
+        ///         the terminating NULL character. An additional null character is appended to the final string to terminate the
+        ///         array. For example, if the files c:\temp1.txt and c:\temp2.txt are being transferred, the character array looks
+        ///         like this:
+        ///         <c>
+        ///             c:\temp1.txt'\0'c:\temp2.txt'\0''\0'
+        ///         </c>
+        ///     </remarks>
         /// </summary>
         public const uint CF_HDROP = 15;
 
