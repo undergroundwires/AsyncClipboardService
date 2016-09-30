@@ -7,8 +7,8 @@
     <ProjectGuid>{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AsyncClipboardService</RootNamespace>
-    <AssemblyName>AsyncClipboardService</AssemblyName>
+    <RootNamespace>AsyncWindowsClipboard</RootNamespace>
+    <AssemblyName>AsyncWindowsClipboard</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
