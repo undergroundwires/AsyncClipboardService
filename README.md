@@ -28,9 +28,14 @@ Further documentation for the code can be found at [doc/Help.chm](./doc/Help.chm
 
 ## Contribute
 
-The project only supports text handling at the moment, but it's very easy to extend it for other clipboard formats. Just take a look at Readers and Writers in project.
-
 Feel free to contribute to the project. 
+
+It only supports :
+- Text reading/writing
+- Unicode bytes reading/writing
+- and FileDropList reading/writing
+
+However it's very easy to extend it for other clipboard formats. Just take a look at Readers and Writers in project and create your own easily.
 
 ## License
 
