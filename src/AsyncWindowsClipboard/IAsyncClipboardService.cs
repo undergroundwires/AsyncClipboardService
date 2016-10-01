@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard
@@ -52,5 +54,13 @@ namespace AsyncWindowsClipboard
         ///     <p><see langword="null" /> if there is no file drop list  in the clipboard.</p>
         /// </returns>
         Task<IEnumerable<string>> GetFileDropListAsync();
+
+        /// <summary>
+        /// Indicates whether there is data on the clipboard that is in the specified format or can be converted to that format. 
+        /// </summary>
+        /// <param name="format">The format of the data to look for.</param>
+        /// <returns>TRUE if there is data on the clipboard that is in the specified <see cref="format"/> or can be converted to that format; otherwise, false.</returns>
+        /// <seealso cref="ClipboardDataFormat"/>
+        Task<bool> ContainsAsync(ClipboardDataFormat format);
     }
 }

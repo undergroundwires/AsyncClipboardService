@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
+using AsyncWindowsClipboard.Clipboard.Modifiers;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
 
@@ -15,6 +14,23 @@ namespace AsyncWindowsClipboard
     /// <seealso cref="IAsyncClipboardService" />
     public class WindowsClipboardService : IAsyncClipboardService
     {
+        private readonly IClipboardModifierFactory _clipboardModifierFactory;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="WindowsClipboardService" /> class.
+        /// </summary>
+        public WindowsClipboardService() : this(ClipboardModifierFactory.StaticInstance)
+        {
+        }
+
+        /// <summary>
+        ///     Internal constructor for dependency injections.
+        /// </summary>
+        internal WindowsClipboardService(IClipboardModifierFactory clipboardModifierFactory)
+        {
+            _clipboardModifierFactory = clipboardModifierFactory;
+        }
+
         /// <summary>
         ///     Gets the static instance of <see cref="WindowsClipboardService" />.
         /// </summary>
@@ -22,7 +38,6 @@ namespace AsyncWindowsClipboard
         public static IAsyncClipboardService StaticInstance => StaticInstanceLazy.Value;
 
         private static Lazy<WindowsClipboardService> StaticInstanceLazy => new Lazy<WindowsClipboardService>();
-
 
         /// <summary>
         ///     Sets unicode (UTF16 little endian) bytes to the clipboard asynchronously.
@@ -34,7 +49,7 @@ namespace AsyncWindowsClipboard
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public Task<bool> SetUnicodeBytesAsync(byte[] textBytes)
         {
-            var writer = new UnicodeBytesWriter();
+            var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>();
             var result = writer.WriteAsync(textBytes);
             return result;
         }
@@ -46,7 +61,7 @@ namespace AsyncWindowsClipboard
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public Task<byte[]> GetAsUnicodeBytesAsync()
         {
-            var reader = new UnicodeBytesReader();
+            var reader = _clipboardModifierFactory.Get<UnicodeBytesReader>();
             return reader.ReadAsync();
         }
 
@@ -60,18 +75,18 @@ namespace AsyncWindowsClipboard
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<string> GetTextAsync()
         {
-            var reader = new StringReader();
+            var reader = _clipboardModifierFactory.Get<StringReader>();
             var result = await reader.ReadAsync();
             return result;
         }
 
         /// <summary>
-        ///     Sets a <see cref="string"/> as the clipboard data asynchronously.
+        ///     Sets a <see cref="string" /> as the clipboard data asynchronously.
         /// </summary>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<bool> SetTextAsync(string value)
         {
-            var writer = new StringWriter();
+            var writer = _clipboardModifierFactory.Get<StringWriter>();
             var result = await writer.WriteAsync(value);
             return result;
         }
@@ -86,13 +101,13 @@ namespace AsyncWindowsClipboard
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
         public async Task<IEnumerable<string>> GetFileDropListAsync()
         {
-            var reader = new FileDropListReader();
+            var reader = _clipboardModifierFactory.Get<FileDropListReader>();
             var result = await reader.ReadAsync();
             return result;
         }
 
         /// <summary>
-        ///     Sets list of file path <see cref="string"/>'s as file drop list.
+        ///     Sets list of file path <see cref="string" />'s as file drop list.
         /// </summary>
         /// <param name="filePaths">List of absolute file paths.</param>
         /// <returns>If the operation was successful.</returns>
@@ -102,6 +117,34 @@ namespace AsyncWindowsClipboard
             var writer = new FileDropListWriter();
             var result = await writer.WriteAsync(filePaths);
             return result;
+        }
+        /// <summary>
+        /// Indicates whether there is data on the clipboard that is in the specified format or can be converted to that format. 
+        /// </summary>
+        /// <param name="format">The format of the data to look for.</param>
+        /// <returns>TRUE if there is data on the clipboard that is in the specified <see cref="format"/> or can be converted to that format; otherwise, false.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><see cref="format"/> is unknown.</exception>
+        /// <seealso cref="ClipboardDataFormat"/>
+        public Task<bool> ContainsAsync(ClipboardDataFormat format)
+        {
+            var checker = GetDataChecker(format);
+            return checker.ExistsAsync();
+        }
+        /// <summary>
+        /// Gets right <seealso cref="IClipboardDataChecker"/> instance for the given format.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><see cref="format"/> is unknown.</exception>
+        private IClipboardDataChecker GetDataChecker(ClipboardDataFormat format)
+        {
+            switch (format)
+            {
+                case ClipboardDataFormat.Text:
+                    return _clipboardModifierFactory.Get<StringReader>();
+                case ClipboardDataFormat.FileDropList:
+                    return _clipboardModifierFactory.Get<StringReader>();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(format), format, $"{nameof(format)} is unknown.");
+            }
         }
     }
 }

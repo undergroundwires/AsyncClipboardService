@@ -7,11 +7,10 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
     ///     Abstraction for different data readers from clipboard.
     /// </summary>
     /// <typeparam name="TResult">Result data type from reading operation.</typeparam>
-    internal interface IClipboardReader<TResult>
+    /// <seealso cref="IClipboardDataChecker" />
+    internal interface IClipboardReader<TResult> : IClipboardDataChecker
         where TResult : class
     {
         Task<TResult> ReadAsync();
-        Task<bool> ExistsAsync();
     }
-
 }
