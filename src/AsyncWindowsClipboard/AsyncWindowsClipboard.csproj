@@ -40,12 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClipboardDataFormat.cs" />
     <Compile Include="Clipboard\ClipboardOperationResult.cs" />
     <Compile Include="Clipboard\ClipboardOperationResultCode.cs" />
     <Compile Include="Clipboard\IClipboardOperationResult.cs" />
     <Compile Include="Clipboard\Modifiers\ClipboardModifierBase.cs" />
+    <Compile Include="Clipboard\Modifiers\ClipboardModifierFactory.cs" />
     <Compile Include="Clipboard\Modifiers\Readers\Base\ClipboardReaderBase.cs" />
     <Compile Include="Clipboard\Modifiers\Readers\Base\ClipboardReadingContext.cs" />
+    <Compile Include="Clipboard\Modifiers\Readers\Base\IClipboardDataChecker.cs" />
     <Compile Include="Clipboard\Modifiers\Readers\Base\IClipboardReader.cs" />
     <Compile Include="Clipboard\Modifiers\Readers\Base\IClipboardReadingContext.cs" />
     <Compile Include="Clipboard\Modifiers\Readers\FileDropListReader.cs" />
