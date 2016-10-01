@@ -118,22 +118,42 @@ namespace AsyncWindowsClipboard
             var result = await writer.WriteAsync(filePaths);
             return result;
         }
+
         /// <summary>
-        /// Indicates whether there is data on the clipboard that is in the specified format or can be converted to that format. 
+        ///     Indicates whether there is data on the clipboard that is in the specified format or can be converted to that
+        ///     format.
         /// </summary>
+        /// <remarks>
+        ///     The alternative way of checking if the data format exists can be using one of Get methods and check if the result
+        ///     is <see langword="null" />.
+        ///     Because get methods (<see cref="GetTextAsync" />, <see cref="GetFileDropListAsync" />,
+        ///     <see cref="GetAsUnicodeBytesAsync" />)
+        ///     returns <see langword="null" />, if the clipboard does not contain any data that is in the wanted format or
+        ///     can be converted to that format.
+        ///     <example>
+        ///         <code>
+        ///            var result = await ContainsAsync(ClipboardDataFormat.Text); //returns if text format exists in the clipboard
+        ///            var same = await GetTextAsync() == null; //gives same result
+        ///         </code>
+        ///     </example>
+        /// </remarks>
         /// <param name="format">The format of the data to look for.</param>
-        /// <returns>TRUE if there is data on the clipboard that is in the specified <see cref="format"/> or can be converted to that format; otherwise, false.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format"/> is unknown.</exception>
-        /// <seealso cref="ClipboardDataFormat"/>
+        /// <returns>
+        ///     TRUE if there is data on the clipboard that is in the specified <see cref="format" /> or can be converted to
+        ///     that format; otherwise, false.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
+        /// <seealso cref="ClipboardDataFormat" />
         public Task<bool> ContainsAsync(ClipboardDataFormat format)
         {
             var checker = GetDataChecker(format);
             return checker.ExistsAsync();
         }
+
         /// <summary>
-        /// Gets right <seealso cref="IClipboardDataChecker"/> instance for the given format.
+        ///     Gets right <seealso cref="IClipboardDataChecker" /> instance for the given format.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format"/> is unknown.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
         private IClipboardDataChecker GetDataChecker(ClipboardDataFormat format)
         {
             switch (format)
