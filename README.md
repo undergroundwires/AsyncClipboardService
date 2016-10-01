@@ -35,7 +35,7 @@ It only supports :
 - Unicode bytes reading/writing
 - and FileDropList reading/writing
 
-However it's pretty simple to extend it for other clipboard formats. Just take a look at Readers and Writers in project and create your own easily.
+However it's pretty simple to extend it for other clipboard formats. Just take a look at [Readers](./src/AsyncWindowsClipboard/Clipboard/Modifiers/Readers) and [Writers](./src/AsyncWindowsClipboard/Clipboard/Modifiers/Reader) in project and create your own easily.
 
 ## License
 
