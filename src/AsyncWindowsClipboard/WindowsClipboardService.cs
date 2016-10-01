@@ -50,8 +50,7 @@ namespace AsyncWindowsClipboard
         public Task<bool> SetUnicodeBytesAsync(byte[] textBytes)
         {
             var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>();
-            var result = writer.WriteAsync(textBytes);
-            return result;
+            return writer.WriteAsync(textBytes);
         }
 
         /// <summary>
@@ -73,22 +72,20 @@ namespace AsyncWindowsClipboard
         ///     <p><see langword="null" /> if there is no string data available in the clipboard.</p>
         /// </returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
-        public async Task<string> GetTextAsync()
+        public Task<string> GetTextAsync()
         {
             var reader = _clipboardModifierFactory.Get<StringReader>();
-            var result = await reader.ReadAsync();
-            return result;
+            return reader.ReadAsync();
         }
 
         /// <summary>
         ///     Sets a <see cref="string" /> as the clipboard data asynchronously.
         /// </summary>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
-        public async Task<bool> SetTextAsync(string value)
+        public Task<bool> SetTextAsync(string value)
         {
             var writer = _clipboardModifierFactory.Get<StringWriter>();
-            var result = await writer.WriteAsync(value);
-            return result;
+            return writer.WriteAsync(value);
         }
 
         /// <summary>
@@ -99,11 +96,10 @@ namespace AsyncWindowsClipboard
         ///     contain any data that is in the FileDrop format or can be converted to that format.
         /// </returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
-        public async Task<IEnumerable<string>> GetFileDropListAsync()
+        public Task<IEnumerable<string>> GetFileDropListAsync()
         {
             var reader = _clipboardModifierFactory.Get<FileDropListReader>();
-            var result = await reader.ReadAsync();
-            return result;
+            return reader.ReadAsync();
         }
 
         /// <summary>
@@ -112,11 +108,10 @@ namespace AsyncWindowsClipboard
         /// <param name="filePaths">List of absolute file paths.</param>
         /// <returns>If the operation was successful.</returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
-        public async Task<bool> SetFileDropListAsync(IEnumerable<string> filePaths)
+        public Task<bool> SetFileDropListAsync(IEnumerable<string> filePaths)
         {
-            var writer = new FileDropListWriter();
-            var result = await writer.WriteAsync(filePaths);
-            return result;
+            var writer = _clipboardModifierFactory.Get<FileDropListWriter>();
+            return writer.WriteAsync(filePaths);
         }
 
         /// <summary>
