@@ -39,4 +39,4 @@ However it's pretty simple to extend it for other clipboard formats. Just take a
 
 ## License
 
-[GNU General Public License](./LICENSE.txt)
+[GNU General Public License](./LICENSE)
