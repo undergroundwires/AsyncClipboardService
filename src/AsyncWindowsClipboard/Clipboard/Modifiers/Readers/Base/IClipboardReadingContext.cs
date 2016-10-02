@@ -4,10 +4,10 @@ using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
     /// <summary>
-    /// Context to be used by clipboard readers in an <see cref="IWindowsClipboardSession"/>
+    ///     Context to be used by clipboard readers in an <see cref="IWindowsClipboardSession" />
     /// </summary>
-    /// <seealso cref="IClipboardWritingContext"/>
-    /// <seealso cref="Writers"/>
+    /// <seealso cref="IClipboardWritingContext" />
+    /// <seealso cref="Writers" />
     internal interface IClipboardReadingContext
     {
         /// <summary>

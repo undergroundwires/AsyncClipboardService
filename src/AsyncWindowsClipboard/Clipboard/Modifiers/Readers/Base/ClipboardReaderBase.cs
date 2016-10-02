@@ -2,24 +2,27 @@
 using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Helpers;
-using AsyncWindowsClipboard.Text;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
     /// <summary>
     ///     <p>Base class that clipboard readers must implement.</p>
-    ///     <p>Starts and ends asynchronous <see cref="IWindowsClipboardSession" />'s and send its context to its member classes.</p>
+    ///     <p>
+    ///         Starts and ends asynchronous <see cref="IWindowsClipboardSession" />'s and send its context to its member
+    ///         classes.
+    ///     </p>
     ///     <p>Provides helper classes for its members.</p>
     /// </summary>
     /// <typeparam name="TResult">Result data type from reading operation.</typeparam>
-    /// <seealso cref="IClipboardReadingContext"/>
+    /// <seealso cref="IClipboardReadingContext" />
     /// <seealso cref="IClipboardReader{TResult}" />
     /// <seealso cref="ClipboardModifierBase" />
-    internal abstract class ClipboardReaderBase<TResult> : ClipboardModifierBase, IClipboardReader<TResult> where TResult : class
+    internal abstract class ClipboardReaderBase<TResult> : ClipboardModifierBase, IClipboardReader<TResult>
+        where TResult : class
     {
-
         /// <summary>
-        ///     <p>Reads and returns the
+        ///     <p>
+        ///         Reads and returns the
         ///         <typeparam name="TResult" />
         ///     </p>
         ///     <p>Starts a <see cref="WindowsClipboardSession" /> in an async contexts.</p>
@@ -37,14 +40,15 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
                 {
                     var context = new ClipboardReadingContext(session);
                     if (!Exists(context)) return null;
-                    base.EnsureOpenConnection(session);
+                    EnsureOpenConnection(session);
                     var result = Read(context);
                     return result;
                 }
             });
         }
+
         /// <summary>
-        /// Returns if the data type exists in the clipboard.
+        ///     Returns if the data type exists in the clipboard.
         /// </summary>
         /// <returns><c>TRUE</c> if exists, <c>False</c> if it does not.</returns>
         /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>

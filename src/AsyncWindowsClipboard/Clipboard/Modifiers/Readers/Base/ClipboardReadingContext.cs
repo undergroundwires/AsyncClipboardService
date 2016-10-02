@@ -13,12 +13,15 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
     internal class ClipboardReadingContext : IClipboardReadingContext
     {
         private readonly IWindowsClipboardSession _session;
+
         public ClipboardReadingContext(IWindowsClipboardSession session)
         {
             if (session == null) throw new ArgumentNullException(nameof(session));
             _session = session;
         }
+
         public bool IsContentTypeOf(ClipboardDataType dataType) => _session.IsContentTypeOf(dataType);
+
         public byte[] GetData(ClipboardDataType dataType)
             => _session.GetData(dataType);
     }

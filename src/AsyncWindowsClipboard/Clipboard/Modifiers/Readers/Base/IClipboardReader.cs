@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AsyncWindowsClipboard.Clipboard.Modifiers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
