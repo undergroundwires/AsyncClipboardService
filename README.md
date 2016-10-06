@@ -1,8 +1,7 @@
 ## AsyncWindowsClipboard
-An async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
+**AsyncWindowsClipboard** An async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
 
 ## Nuget package https://nuget.org/packages/AsyncClipboardService/
-
 
 ## What is it?
 Communication with windows api for clipboard actions needs to be in `STA` thread. `AsyncClipboardService `wraps this communication in an asynchronous context with a timeout.
@@ -42,11 +41,11 @@ Further documentation for the code can be found at [doc/Help.chm](./doc/Help.chm
 
 Feel free to contribute to the project. 
 
-It only supports :
-- Text reading/writing
-- Unicode bytes reading/writing
-- and FileDropList reading/writing
-
+What works so far is :
+ - Text reading/writing
+ - Unicode bytes reading/writing
+ - FileDropList reading/writing
+ 
 However it's pretty simple to extend it for other clipboard formats. Just take a look at [Readers](./src/AsyncWindowsClipboard/Modifiers/Readers) and [Writers](./src/AsyncWindowsClipboard/Modifiers/Writers) in project and create your own easily.
 
 ## License
