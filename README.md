@@ -7,7 +7,7 @@ An async, thread-safe windows clipboard service implementation for .NET, C#. It'
 ## What is it?
 Communication with windows api for clipboard actions needs to be in `STA` thread. `AsyncClipboardService `wraps this communication in an asynchronous context with a timeout.
 
-It's good for `WPF` applications, asynchronous code bases and applications that wants to make sure that clipboard operation ends successfuly.
+It's good for `WPF` applications (as it provides threat-safey), asynchronous code bases and applications that wants to make sure that clipboard operation ends successfuly.
 
 ## Simple usage
 You can use a new instance of `WindowsClipboardService` to retrieve data. It's okay to use the instance from different threads.
