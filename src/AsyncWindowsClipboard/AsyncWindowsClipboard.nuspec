@@ -13,10 +13,10 @@
     <description>$description$</description>
     <releaseNotes>Timeout strategy is added.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>windows wpf clipboard asynchronous c# .net thread-safe timeout</tags>
+    <tags>windows wpf clipboard asynchronous c# .net thread safe timeout</tags>
   </metadata>
   <files>
-    <file src="..\..\README.md" target="" />
-	<file src="..\..\LICENSE" target="" />
+    <file src="..\..\README.md" />
+	<file src="..\..\LICENSE" />
   </files>
 </package>
