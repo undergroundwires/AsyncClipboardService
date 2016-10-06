@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard.Helpers
 {
-    internal class TaskHelper
+    internal static class TaskHelper
     {
         /// <summary>
         ///     Runs the given <param name="func"/> as a <see cref="Task"/>.

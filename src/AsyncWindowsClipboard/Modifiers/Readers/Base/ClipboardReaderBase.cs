@@ -1,6 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
+using AsyncWindowsClipboard.Exceptions;
 using AsyncWindowsClipboard.Helpers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
@@ -31,7 +32,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
         /// <returns>Null if <see cref="Exists" /> method returns <c>FALSE</c>; otherwise result from <see cref="Read" /></returns>
         /// <seealso cref="Exists" />
         /// <seealso cref="Read" />
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<TResult> ReadAsync()
         {
             return TaskHelper.StartStaTask(() =>
@@ -51,7 +52,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
         ///     Returns if the data type exists in the clipboard.
         /// </summary>
         /// <returns><c>TRUE</c> if exists, <c>False</c> if it does not.</returns>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public async Task<bool> ExistsAsync() => await ReadAsync() == null;
 
         /// <summary>

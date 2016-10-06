@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
+using AsyncWindowsClipboard.Exceptions;
 using AsyncWindowsClipboard.Helpers;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
     /// <summary>
     ///     <p>Base class that clipboard writers must implement.</p>
-    ///     <p>Starts and ends asynchronous <see cref="IWindowsClipboardSession" />'s and send its context to its member classes.</p>
+    ///     <p>
+    ///         Starts and ends asynchronous <see cref="IWindowsClipboardSession" />'s and send its context to its member
+    ///         classes.
+    ///     </p>
     ///     <p>Provides helper classes and navigation properties for its members.</p>
     /// </summary>
     /// <typeparam name="TData">Data type that'll be set during this operation.</typeparam>
-    /// <seealso cref="IClipboardWritingContext"/>
+    /// <seealso cref="IClipboardWritingContext" />
     /// <seealso cref="IClipboardWriter{TResult}" />
     /// <seealso cref="ClipboardModifierBase" />
     internal abstract class ClipboardWriterBase<TData> : ClipboardModifierBase, IClipboardWriter<TData>
     {
-        /// <exception cref="Win32Exception"><p>Communication with windows API's has failed.</p>
-        /// <p>Connection to the clipboard could not be opened</p>
+
+        /// <exception cref="ClipboardWindowsApiException">
+        ///     <p>Communication with windows API's has failed.</p>
+        ///     <p>Connection to the clipboard could not be opened</p>
         /// </exception>
         public Task<bool> WriteAsync(TData data)
         {
@@ -32,8 +33,8 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
                 using (var clipboard = new WindowsClipboardSession())
                 {
                     var context = new ClipboardWritingContext(clipboard);
-                    base.EnsureOpenConnection(clipboard);
-                    base.ClearClipboard(clipboard);
+                    EnsureOpenConnection(clipboard);
+                    ClearClipboard(clipboard);
                     var result = Write(context, data);
                     //ThrowIfNotSuccessful(result);
                     return result.IsSuccessful;
@@ -41,21 +42,15 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
             });
         }
 
-        /// <exception cref="Win32Exception">Communication with windows API's has failed.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Communication with windows API's has failed.</exception>
         private static void ThrowIfNotSuccessful(IClipboardOperationResult result)
         {
             if (!result.IsSuccessful)
             {
                 var message = result.ResultCode.ToString();
                 if (result.LastError.HasValue)
-                {
-                    var win32ErrorCode = (int)result.LastError.Value;
-                    throw new Win32Exception(win32ErrorCode, message);
-                }
-                else
-                {
-                    throw new Win32Exception(message);
-                }
+                    throw new ClipboardWindowsApiException(result.LastError.Value, message);
+                throw new ClipboardWindowsApiException(message);
             }
         }
 

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
     /// <summary>
-    /// Reads the clipboard data as a list of file paths
+    ///     Reads the clipboard data as a list of file paths
     /// </summary>
-    /// 
     internal class FileDropListReader : ClipboardReaderBase<IEnumerable<string>>
     {
         public override bool Exists(IClipboardReadingContext context)
@@ -22,7 +17,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
         public override IEnumerable<string> Read(IClipboardReadingContext context)
         {
             var clipboardData = context.GetData(ClipboardDataType.FileDropList);
-            if (clipboardData == null || !clipboardData.Any()) return null;
+            if ((clipboardData == null) || !clipboardData.Any()) return null;
             //    From windows api documentation : https://msdn.microsoft.com/en-us/library/windows/desktop/bb776902(v=vs.85).aspx#CF_HDROP
             //  The file name array consists of a series of strings, each containing one file's fully qualified path, including
             //  the terminating NULL character. An additional null character is appended to the final string to terminate the

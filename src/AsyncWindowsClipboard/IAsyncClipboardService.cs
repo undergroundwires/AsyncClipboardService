@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard
@@ -10,6 +9,19 @@ namespace AsyncWindowsClipboard
     /// </summary>
     public interface IAsyncClipboardService
     {
+        /// <summary>
+        ///     <p>
+        ///         If value is <see langword="null" /> then the instance will have no time out strategy. It'll  try to open a connection to
+        ///         the windows clipboard api and returns failed status if the initial try fails.
+        ///     </p>
+        ///     <p>
+        ///         If value is not <see langword="null" /> the instance will try to connect to the windows
+        ///         clipboard until the value of <see cref="Timeout" /> is reached. This might be needed if clipboard is locked by
+        ///         another application.
+        ///     </p>
+        /// </summary>
+        TimeSpan? Timeout { get; set; }
+
         /// <summary>
         ///     Sets unicode bytes as text in the clipboard asynchronously.
         /// </summary>
@@ -56,11 +68,15 @@ namespace AsyncWindowsClipboard
         Task<IEnumerable<string>> GetFileDropListAsync();
 
         /// <summary>
-        /// Indicates whether there is data on the clipboard that is in the specified format or can be converted to that format. 
+        ///     Indicates whether there is data on the clipboard that is in the specified format or can be converted to that
+        ///     format.
         /// </summary>
         /// <param name="format">The format of the data to look for.</param>
-        /// <returns>TRUE if there is data on the clipboard that is in the specified <see cref="format"/> or can be converted to that format; otherwise, false.</returns>
-        /// <seealso cref="ClipboardDataFormat"/>
+        /// <returns>
+        ///     TRUE if there is data on the clipboard that is in the specified <see cref="format" /> or can be converted to
+        ///     that format; otherwise, false.
+        /// </returns>
+        /// <seealso cref="ClipboardDataFormat" />
         Task<bool> ContainsAsync(ClipboardDataFormat format);
     }
 }

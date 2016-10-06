@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 
@@ -13,7 +14,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
         public override IClipboardOperationResult Write(IClipboardWritingContext context, string data)
         {
             var bytes = TextService.GetBytes(data);
-            var unicodeBytesWriter = new UnicodeBytesWriter();
+            var unicodeBytesWriter = Factory.Get<UnicodeBytesWriter>();
             var result = unicodeBytesWriter.Write(context, bytes);
             return result;
         }

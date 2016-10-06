@@ -32,7 +32,6 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
             var bytes = TextService.GetBytes(stringData);
             var result = context.SetData(ClipboardDataType.FileDropList, bytes);
             return result;
-
         }
 
     }

@@ -12,5 +12,9 @@ namespace AsyncWindowsClipboard.WpfTests
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var bitmap = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(100));
+        }
     }
 }

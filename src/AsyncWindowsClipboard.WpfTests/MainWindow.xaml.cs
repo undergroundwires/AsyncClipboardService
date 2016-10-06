@@ -8,7 +8,7 @@ namespace AsyncWindowsClipboard.WpfTests
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IAsyncClipboardService _asyncClipboardService = new WindowsClipboardService();
+        private readonly IAsyncClipboardService _asyncClipboardService = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(100));
 
         public MainWindow()
         {

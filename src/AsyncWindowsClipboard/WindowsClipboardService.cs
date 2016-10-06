@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
+using AsyncWindowsClipboard.Clipboard.Connection;
 using AsyncWindowsClipboard.Clipboard.Modifiers;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
 using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
+using AsyncWindowsClipboard.Exceptions;
 
 namespace AsyncWindowsClipboard
 {
     /// <summary>
     ///     Connects to and controls windows clipboard asynchronously.
+    ///     This class is thread-safe and stateless.
     /// </summary>
     /// <seealso cref="IAsyncClipboardService" />
     public class WindowsClipboardService : IAsyncClipboardService
@@ -17,8 +19,34 @@ namespace AsyncWindowsClipboard
         private readonly IClipboardModifierFactory _clipboardModifierFactory;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="WindowsClipboardService" /> class.
+        ///     <p>Initializes a new instance of the <see cref="WindowsClipboardService" /> class with timeout strategy.</p>
+        ///     <p>
+        ///         This constructor will set <see cref="Timeout" /> property a not-<see langword="null" /> value which will
+        ///         eventually activate the
+        ///         time out strategy. In this case if the initial try of opening a connection to clipboard fails (might be due
+        ///         to another thread / or application locking it), this <see cref="WindowsClipboardService" /> instance will
+        ///         then try to connect to the the windows clipboard until <paramref name="timeout" /> is reached.
+        ///     </p>
         /// </summary>
+        /// <param name="timeout">The timeout to stop trying to access the clipboard.</param>
+        /// <seealso cref="Timeout" />
+        public WindowsClipboardService(TimeSpan timeout) : this(ClipboardModifierFactory.StaticInstance)
+        {
+            Timeout = timeout;
+        }
+
+        /// <summary>
+        ///     <p>Initializes a new instance of the <see cref="WindowsClipboardService" /> class without the timeout strategy.</p>
+        ///     <p>
+        ///         The instance will try to connect to the windows clipboard and fail if the connection is locked by another
+        ///         application.
+        ///     </p>
+        /// </summary>
+        /// <remarks>
+        ///     <p>The timeout strategy can be by setting <see cref="Timeout" /> property to a not <see langword="null" /> value.</p>
+        /// </remarks>
+        /// <seealso cref="WindowsClipboardService(TimeSpan)" />
+        /// <seealso cref="Timeout" />
         public WindowsClipboardService() : this(ClipboardModifierFactory.StaticInstance)
         {
         }
@@ -40,16 +68,32 @@ namespace AsyncWindowsClipboard
         private static Lazy<WindowsClipboardService> StaticInstanceLazy => new Lazy<WindowsClipboardService>();
 
         /// <summary>
+        ///     <p>Gets or sets the timeout.</p>
+        ///     <p>
+        ///         If value is <see langword="null" /> then the  <see cref="WindowsClipboardService" />  instance will have no
+        ///         time out strategy. It'll  try to open a connection to the windows clipboard api and returns failed status if
+        ///         the initial try fails.
+        ///     </p>
+        ///     <p>
+        ///         If value is not <see langword="null" /> the <see cref="WindowsClipboardService" /> instance will try to connect
+        ///         to the windows clipboard until the value of <see cref="Timeout" /> is reached. This might be needed if
+        ///         clipboard is locked by another application.
+        ///     </p>
+        /// </summary>
+        /// <seealso cref="ClipboardOpenerWithTimeout" />
+        public TimeSpan? Timeout { get; set; }
+
+        /// <summary>
         ///     Sets unicode (UTF16 little endian) bytes to the clipboard asynchronously.
         /// </summary>
         /// <param name="textBytes">Unicode (UTF16 little endian) byte representation of the text.</param>
         /// <returns>If the operation was successful.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="textBytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException"><paramref name="textBytes" /> is empty.</exception>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<bool> SetUnicodeBytesAsync(byte[] textBytes)
         {
-            var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>();
+            var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>(Timeout);
             return writer.WriteAsync(textBytes);
         }
 
@@ -57,10 +101,10 @@ namespace AsyncWindowsClipboard
         ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes asynchronously.
         /// </summary>
         /// <returns>The data in the clipboard as bytes, <see langword="null" /> if no data exists in clipboard.</returns>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<byte[]> GetAsUnicodeBytesAsync()
         {
-            var reader = _clipboardModifierFactory.Get<UnicodeBytesReader>();
+            var reader = _clipboardModifierFactory.Get<UnicodeBytesReader>(Timeout);
             return reader.ReadAsync();
         }
 
@@ -71,20 +115,20 @@ namespace AsyncWindowsClipboard
         ///     <p>The data in the clipboard as <see cref="string" /></p>
         ///     <p><see langword="null" /> if there is no string data available in the clipboard.</p>
         /// </returns>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<string> GetTextAsync()
         {
-            var reader = _clipboardModifierFactory.Get<StringReader>();
+            var reader = _clipboardModifierFactory.Get<StringReader>(Timeout);
             return reader.ReadAsync();
         }
 
         /// <summary>
         ///     Sets a <see cref="string" /> as the clipboard data asynchronously.
         /// </summary>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<bool> SetTextAsync(string value)
         {
-            var writer = _clipboardModifierFactory.Get<StringWriter>();
+            var writer = _clipboardModifierFactory.Get<StringWriter>(Timeout);
             return writer.WriteAsync(value);
         }
 
@@ -95,10 +139,10 @@ namespace AsyncWindowsClipboard
         ///     A <see cref="IEnumerable{String}" /> containing file names or <see langword="null" /> if the clipboard does not
         ///     contain any data that is in the FileDrop format or can be converted to that format.
         /// </returns>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<IEnumerable<string>> GetFileDropListAsync()
         {
-            var reader = _clipboardModifierFactory.Get<FileDropListReader>();
+            var reader = _clipboardModifierFactory.Get<FileDropListReader>(Timeout);
             return reader.ReadAsync();
         }
 
@@ -107,10 +151,10 @@ namespace AsyncWindowsClipboard
         /// </summary>
         /// <param name="filePaths">List of absolute file paths.</param>
         /// <returns>If the operation was successful.</returns>
-        /// <exception cref="Win32Exception">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<bool> SetFileDropListAsync(IEnumerable<string> filePaths)
         {
-            var writer = _clipboardModifierFactory.Get<FileDropListWriter>();
+            var writer = _clipboardModifierFactory.Get<FileDropListWriter>(Timeout);
             return writer.WriteAsync(filePaths);
         }
 

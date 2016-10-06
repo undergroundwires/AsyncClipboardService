@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace AsyncWindowsClipboard.Tests
 {
     /// <see cref="IWindowsClipboardSession" />
-    /// <see cref="WindowsClipboard" />
+    /// <see cref="WindowsClipboardSession" />
     [TestFixture]
     public class WindowsClipboardSessionTests
     {

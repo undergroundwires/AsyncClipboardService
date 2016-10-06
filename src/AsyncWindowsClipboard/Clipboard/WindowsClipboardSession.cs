@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using AsyncWindowsClipboard;
+using AsyncWindowsClipboard.Exceptions;
 using AsyncWindowsClipboard.Native;
 
 namespace AsyncClipboardService.Clipboard
@@ -12,12 +16,21 @@ namespace AsyncClipboardService.Clipboard
     /// </summary>
     /// <remarks>
     ///     <p>This class is not thread safe and should be consumed in the same thread.</p>
-    ///     <p>Calls <see cref="Close"/> when being on <see cref="IDisposable.Dispose()"/>.</p>
+    ///     <p>Calls <see cref="Close" /> when being on <see cref="IDisposable.Dispose()" />.</p>
     /// </remarks>
     /// <seealso cref="IWindowsClipboardSession" />
     /// <seealso cref="IDisposable" />
     internal class WindowsClipboardSession : IWindowsClipboardSession, IDisposable
     {
+        /// <summary>
+        ///     Calls <see cref="Clear" />
+        /// </summary>
+        public void Dispose()
+        {
+            if (IsOpen)
+                Close();
+        }
+
         /// <summary>
         ///     A <see cref="bool" /> representing whether this <seealso cref="WindowsClipboardSession" /> instance has an open
         ///     communication with the windows clipboard.
@@ -47,17 +60,8 @@ namespace AsyncClipboardService.Clipboard
         {
             ThrowIfNotOpen();
             var result = NativeMethods.EmptyClipboard();
-            if (result) return ClipboardOperationResult.SuccesResult;
+            if (result) return ClipboardOperationResult.SuccessResult;
             return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
-        }
-
-        /// <summary>
-        ///     Calls <see cref="Clear" />
-        /// </summary>
-        public void Dispose()
-        {
-            if (IsOpen)
-                Close();
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace AsyncClipboardService.Clipboard
             }
             // SetClipboardData takes ownership of dataPtr upon success.
             dataPtr = IntPtr.Zero;
-            return ClipboardOperationResult.SuccesResult;
+            return ClipboardOperationResult.SuccessResult;
         }
 
         /// <summary>
@@ -130,7 +134,7 @@ namespace AsyncClipboardService.Clipboard
         ///     <paramref name="dataType" /> should be defined in
         ///     <seealso cref="ClipboardDataType" /> enum.
         /// </exception>
-        /// <exception cref="Win32Exception">
+        /// <exception cref="ClipboardWindowsApiException">
         ///     <p>If the <c>GlobalSize</c> function of windows api for the size of the clipboard handle fails.</p>
         ///     <p>If the <c>GlobalLock</c> function of windows api for the size of the clipboard handle fails.</p>
         /// </exception>
@@ -144,10 +148,10 @@ namespace AsyncClipboardService.Clipboard
             if (dataPtr == IntPtr.Zero) return null;
 
             var sizePtr = NativeMethods.GlobalSize(dataPtr);
-            if (sizePtr == UIntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
+            if (sizePtr == UIntPtr.Zero) throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
 
             var lockedMemoryPtr = NativeMethods.GlobalLock(dataPtr);
-            if (lockedMemoryPtr == IntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
+            if (lockedMemoryPtr == IntPtr.Zero) throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
 
             var buffer = new byte[sizePtr.ToUInt64()];
             Marshal.Copy(lockedMemoryPtr, buffer, 0, buffer.Length);
@@ -157,27 +161,21 @@ namespace AsyncClipboardService.Clipboard
             return buffer;
         }
 
-        /// <summary>
-        ///     Opens the clipboard for examination and prevents other applications from modifying the clipboard content
-        /// </summary>
-        /// <remarks>
-        ///     The connection will only be usable in the same thread.
-        /// </remarks>
-        /// <returns><c>true</c> if successful operation or connection is already open, <c>false</c> otherwise.</returns>
-        /// <seealso cref="Clear" />
-        /// <seealso cref="Close" />
-        /// <seealso cref="SetData" />
         public IClipboardOperationResult Open()
         {
-            if (IsOpen) return ClipboardOperationResult.SuccesResult;
+            if (IsOpen) return ClipboardOperationResult.SuccessResult;
             var hOwner = NativeMethods.GetConsoleWindow();
             var result = NativeMethods.OpenClipboard(hOwner);
             if (result)
             {
                 IsOpen = true;
-                return ClipboardOperationResult.SuccesResult;
+                return ClipboardOperationResult.SuccessResult;
             }
             return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorOpenClipboard);
+        }
+        public void OpenUntilSucceed(TimeSpan timeOut)
+        {
+
         }
 
         /// <summary>
@@ -210,7 +208,7 @@ namespace AsyncClipboardService.Clipboard
             if (result)
             {
                 IsOpen = false;
-                return ClipboardOperationResult.SuccesResult;
+                return ClipboardOperationResult.SuccessResult;
             }
             return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorCloseClipboard);
         }
@@ -233,6 +231,7 @@ namespace AsyncClipboardService.Clipboard
             return result;
         }
 
+
         /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
         private void ThrowIfNotOpen()
         {
@@ -250,5 +249,7 @@ namespace AsyncClipboardService.Clipboard
                 throw new ArgumentOutOfRangeException(nameof(dataType),
                     $"Value must be defined in the {nameof(ClipboardDataType)} enum.");
         }
+
+
     }
 }

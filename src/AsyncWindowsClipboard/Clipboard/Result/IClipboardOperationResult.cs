@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace AsyncClipboardService.Clipboard
 {
-    public interface IClipboardOperationResult
+    internal interface IClipboardOperationResult
     {
         ClipboardOperationResultCode ResultCode { get; }
         uint? LastError { get;  }
+        uint[] LastErrors { get; }
         bool IsSuccessful { get; }
+        string Message { get; }
     }
 }
