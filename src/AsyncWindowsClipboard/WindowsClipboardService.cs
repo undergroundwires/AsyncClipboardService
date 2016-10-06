@@ -60,14 +60,6 @@ namespace AsyncWindowsClipboard
         }
 
         /// <summary>
-        ///     Gets the static instance of <see cref="WindowsClipboardService" />.
-        /// </summary>
-        /// <value>The static instance of <see cref="WindowsClipboardService" />.</value>
-        public static IAsyncClipboardService StaticInstance => StaticInstanceLazy.Value;
-
-        private static Lazy<WindowsClipboardService> StaticInstanceLazy => new Lazy<WindowsClipboardService>();
-
-        /// <summary>
         ///     <p>Gets or sets the timeout.</p>
         ///     <p>
         ///         If value is <see langword="null" /> then the  <see cref="WindowsClipboardService" />  instance will have no
