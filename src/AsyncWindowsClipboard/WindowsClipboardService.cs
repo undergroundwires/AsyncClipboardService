@@ -10,9 +10,15 @@ using AsyncWindowsClipboard.Exceptions;
 namespace AsyncWindowsClipboard
 {
     /// <summary>
-    ///     Connects to and controls windows clipboard asynchronously.
-    ///     This class is thread-safe and stateless.
+    ///     <p>Connects to and controls windows clipboard asynchronously.</p>
+    ///     <p>This class is thread-safe, and it's state is depended on <see cref="Timeout" /> property.</p>
     /// </summary>
+    /// <remark>
+    ///     <p>
+    ///         It's recommended to use it with a <see cref="Timeout" /> setting, as it'll then wait for the thread that blocks
+    ///         the windows api instead of failing.
+    ///     </p>
+    /// </remark>
     /// <seealso cref="IAsyncClipboardService" />
     public class WindowsClipboardService : IAsyncClipboardService
     {
@@ -22,8 +28,8 @@ namespace AsyncWindowsClipboard
         ///     <p>Initializes a new instance of the <see cref="WindowsClipboardService" /> class with timeout strategy.</p>
         ///     <p>
         ///         This constructor will set <see cref="Timeout" /> property a not-<see langword="null" /> value which will
-        ///         eventually activate the
-        ///         time out strategy. In this case if the initial try of opening a connection to clipboard fails (might be due
+        ///         eventually activate the time out strategy. In this case if the initial try of opening a connection to clipboard
+        ///         fails (might be due
         ///         to another thread / or application locking it), this <see cref="WindowsClipboardService" /> instance will
         ///         then try to connect to the the windows clipboard until <paramref name="timeout" /> is reached.
         ///     </p>
@@ -74,20 +80,6 @@ namespace AsyncWindowsClipboard
         /// </summary>
         /// <seealso cref="ClipboardOpenerWithTimeout" />
         public TimeSpan? Timeout { get; set; }
-
-        /// <summary>
-        ///     Sets unicode (UTF16 little endian) bytes to the clipboard asynchronously.
-        /// </summary>
-        /// <param name="textBytes">Unicode (UTF16 little endian) byte representation of the text.</param>
-        /// <returns>If the operation was successful.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="textBytes" /> is <see langword="null" />.</exception>
-        /// <exception cref="ArgumentException"><paramref name="textBytes" /> is empty.</exception>
-        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        public Task<bool> SetUnicodeBytesAsync(byte[] textBytes)
-        {
-            var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>(Timeout);
-            return writer.WriteAsync(textBytes);
-        }
 
         /// <summary>
         ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes asynchronously.
@@ -179,6 +171,20 @@ namespace AsyncWindowsClipboard
         {
             var checker = GetDataChecker(format);
             return checker.ExistsAsync();
+        }
+
+        /// <summary>
+        ///     Sets unicode (UTF16 little endian) bytes to the clipboard asynchronously.
+        /// </summary>
+        /// <param name="textBytes">Unicode (UTF16 little endian) byte representation of the text.</param>
+        /// <returns>If the operation was successful.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="textBytes" /> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentException"><paramref name="textBytes" /> is empty.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
+        public Task<bool> SetUnicodeBytesAsync(byte[] textBytes)
+        {
+            var writer = _clipboardModifierFactory.Get<UnicodeBytesWriter>(Timeout);
+            return writer.WriteAsync(textBytes);
         }
 
         /// <summary>
