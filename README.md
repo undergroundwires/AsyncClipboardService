@@ -22,7 +22,7 @@ You can use a new instance of `WindowsClipboardService` to retrieve data. It's o
 ```
 
 ## Recommended usage
-However, it's recommended to use `WindowsClipboardService` with a timeout strategy, as it'll then wait for the thread that blocks the windows api instead of failing. You can activate the timeout strategy by setting it in the constructor:
+However, it's recommended to use `WindowsClipboardService` with a timeout strategy, as it'll then wait (in a spinning state) for the thread that blocks the windows api instead of failing. You can activate the timeout strategy by setting it in the constructor:
 
 ```c#
             var clipboardService = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(200));
