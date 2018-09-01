@@ -48,7 +48,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup />
-  <!--<Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+  <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
     <Exec Command="makeNuget.cmd $(Configuration) Release &quot;../../versions/packages/&quot;" />
-  </Target>-->
+  </Target>
 </Project>
