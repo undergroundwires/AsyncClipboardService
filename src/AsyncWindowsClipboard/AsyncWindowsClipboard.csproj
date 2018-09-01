@@ -28,7 +28,7 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <Version>1.6.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Including documentation file
+    <PackageReleaseNotes>- Included documentation file
 - Added support for net45, net451, net46, net462, net47, net471, net472</PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</PackageIconUrl>
   </PropertyGroup>
