@@ -2,21 +2,23 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
+    <version>1.5.1.</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/undergroundwires/AsyncWindowsClipboard/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</iconUrl>
-	<requireLicenseAcceptance>false</requireLicenseAcceptance>
+	  <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Timeout strategy is added.</releaseNotes>
-    <copyright>Copyright 2016</copyright>
+    <releaseNotes>
+         Added support for net462, net47, net471, net472
+    </releaseNotes>
+    <copyright>Copyright 2016 - 2018</copyright>
     <tags>windows wpf clipboard asynchronous c# .net thread safe timeout</tags>
   </metadata>
   <files>
     <file src="..\..\README.md" />
-	<file src="..\..\LICENSE" />
+    <file src="..\..\LICENSE" />
   </files>
 </package>

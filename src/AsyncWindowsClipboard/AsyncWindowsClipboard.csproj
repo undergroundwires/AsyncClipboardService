@@ -1,85 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Description>SafeOrbit is easy-to-use and strong security toolkit for .NET and .NET Core.</Description>
+    <Copyright>MIT-licensed</Copyright>
+    <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
+    <Authors>Erkin Ekici</Authors>
+    <AssemblyName>AsyncWindowsClipboard</AssemblyName>
+    <PackageId>AsyncWindowsClipboard</PackageId>
+    <PackageProjectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/undergroundwires/SafeOrbit</RepositoryUrl>
     <ProjectGuid>{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AsyncWindowsClipboard</RootNamespace>
     <AssemblyName>AsyncClipboardService</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+	  <TargetFrameworks>
+      net451;net452;net46;net461;net462;net47;net471;net472
+	    <!--https://docs.microsoft.com/en-us/dotnet/standard/frameworks-->
+	  </TargetFrameworks>
     <FileAlignment>512</FileAlignment>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="ClipboardDataFormat.cs" />
-    <Compile Include="Clipboard\Result\ClipboardOperationResult.cs" />
-    <Compile Include="Clipboard\ClipboardOperationResultCode.cs" />
-    <Compile Include="Clipboard\Connection\ClipboardOpenerWithTimeout.cs" />
-    <Compile Include="Clipboard\Connection\IClipboardOpenerWithTimeout.cs" />
-    <Compile Include="Clipboard\Exceptions\ClipboardTimeoutException.cs" />
-    <Compile Include="Clipboard\Exceptions\ClipboardWindowsApiException.cs" />
-    <Compile Include="Clipboard\Helpers\TimeoutHelper.cs" />
-    <Compile Include="Clipboard\Result\IClipboardOperationResult.cs" />
-    <Compile Include="Modifiers\ClipboardModifierBase.cs" />
-    <Compile Include="Modifiers\ClipboardModifierFactory.cs" />
-    <Compile Include="Modifiers\IClipboardModifierFactory.cs" />
-    <Compile Include="Modifiers\Readers\Base\ClipboardReaderBase.cs" />
-    <Compile Include="Modifiers\Readers\Base\ClipboardReadingContext.cs" />
-    <Compile Include="Modifiers\Readers\Base\IClipboardDataChecker.cs" />
-    <Compile Include="Modifiers\Readers\Base\IClipboardReader.cs" />
-    <Compile Include="Modifiers\Readers\Base\IClipboardReadingContext.cs" />
-    <Compile Include="Modifiers\Readers\FileDropListReader.cs" />
-    <Compile Include="Modifiers\Readers\StringReader.cs" />
-    <Compile Include="Modifiers\Readers\UnicodeBytesReader.cs" />
-    <Compile Include="Modifiers\Writers\Base\ClipboardWriterBase.cs" />
-    <Compile Include="Modifiers\Writers\Base\ClipboardWritingContext.cs" />
-    <Compile Include="Modifiers\Writers\Base\IClipboardWriter.cs" />
-    <Compile Include="Modifiers\Writers\Base\IClipboardWritingContext.cs" />
-    <Compile Include="Modifiers\Writers\FileDropListWriter.cs" />
-    <Compile Include="Modifiers\Writers\StringWriter.cs" />
-    <Compile Include="Modifiers\Writers\UnicodeBytesWriter.cs" />
-    <Compile Include="WindowsClipboardService.cs" />
-    <Compile Include="Clipboard\ClipboardDataType.cs" />
-    <Compile Include="Clipboard\Helpers\TaskHelper.cs" />
-    <Compile Include="IAsyncClipboardService.cs" />
-    <Compile Include="Clipboard\IWindowsClipboardSession.cs" />
-    <Compile Include="Clipboard\WindowsClipboardSession.cs" />
-    <Compile Include="Clipboard\Native\Dlls.cs" />
-    <Compile Include="Clipboard\Native\NativeMethods.Win.cs" />
-    <Compile Include="Clipboard\Native\NativeMethods.Win.Defs..cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Clipboard\Text\ITextService.cs" />
-    <Compile Include="Clipboard\Text\UnicodeTextService.cs" />
-  </ItemGroup>
+  
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <!--<Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
+    <Exec Command="makeNuget.cmd $(Configuration) Release &quot;../../versions/packages/&quot;" />
+  </Target>-->
 </Project>
