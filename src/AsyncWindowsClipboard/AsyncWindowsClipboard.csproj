@@ -16,8 +16,8 @@
     <RootNamespace>AsyncWindowsClipboard</RootNamespace>
     <AssemblyName>AsyncClipboardService</AssemblyName>
 	  <TargetFrameworks>
-      net451;net452;net46;net461;net462;net47;net471;net472
-	    <!--https://docs.microsoft.com/en-us/dotnet/standard/frameworks-->
+	    net451;net452;net46;net461;net462;net47;net471;net472
+      <!--https://docs.microsoft.com/en-us/dotnet/standard/frameworks-->
 	  </TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -29,7 +29,7 @@
     <Version>1.6.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>- Including documentation file
-- Added support for net462, net47, net471, net472</PackageReleaseNotes>
+- Added support for net452, net46, net462, net47, net471, net472</PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</PackageIconUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -48,6 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
