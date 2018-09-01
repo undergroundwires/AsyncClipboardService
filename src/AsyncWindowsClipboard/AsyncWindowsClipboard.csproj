@@ -3,7 +3,7 @@
     <Description>SafeOrbit is easy-to-use and strong security toolkit for .NET and .NET Core.</Description>
     <Copyright>MIT-licensed</Copyright>
     <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
-    <Authors>Erkin Ekici</Authors>
+    <Authors>undergroundwires</Authors>
     <AssemblyName>AsyncWindowsClipboard</AssemblyName>
     <PackageId>AsyncWindowsClipboard</PackageId>
     <PackageProjectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</PackageProjectUrl>
