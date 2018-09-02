@@ -5,11 +5,11 @@
     <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
     <Authors>undergroundwires</Authors>
     <AssemblyName>AsyncWindowsClipboard</AssemblyName>
-    <PackageId>AsyncWindowsClipboard</PackageId>
+    <PackageId>AsyncClipboardService</PackageId>
     <PackageProjectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/undergroundwires/SafeOrbit</RepositoryUrl>
+    <RepositoryUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</RepositoryUrl>
     <ProjectGuid>{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>

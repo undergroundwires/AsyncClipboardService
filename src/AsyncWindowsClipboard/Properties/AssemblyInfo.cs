@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Thread-safe, asynchronous windows clipboard service with timeout strategy for .NET, C#.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://github.com/undergroundwires/")]
-[assembly: AssemblyProduct("AsyncWindowsClipboard")]
+[assembly: AssemblyProduct("AsyncClipboardService")]
 [assembly: AssemblyCopyright("Copyright ©  2016 - 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
