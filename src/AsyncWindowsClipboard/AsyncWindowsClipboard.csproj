@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Description>SafeOrbit is easy-to-use and strong security toolkit for .NET and .NET Core.</Description>
+    <Description>Thread-safe, asynchronous windows clipboard service with timeout strategy for .NET, C#.</Description>
     <Copyright>MIT-licensed</Copyright>
     <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
     <Authors>undergroundwires</Authors>
