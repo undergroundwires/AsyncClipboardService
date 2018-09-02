@@ -1,53 +1,56 @@
-## AsyncWindowsClipboard
+# AsyncWindowsClipboard
 **AsyncWindowsClipboard** is an async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
 
-## Nuget package https://nuget.org/packages/AsyncClipboardService/
+## Nuget package  [![NuGet Status](https://img.shields.io/nuget/v/AsyncClipboardService.svg?style=flat)](https://nuget.org/packages/AsyncClipboardService/)
 
 ## What is it?
-Communication with windows api for clipboard actions needs to be in `STA` thread. `AsyncClipboardService `wraps this communication in an asynchronous context with a timeout.
+- It gives async/await syntax to communicate with Windows clipboard API's.
+- It is thread safe.
+- It gives lower level access to clipboard than .NET Framework implementation where you can get/set data as binaries.
+- Implemends retry strategies to connect to the clipboard when it's locked.
 
-It's good for `WPF` applications (as it provides thread safety), asynchronous code bases and applications that wants to make sure that clipboard operation ends successfully.
+## How it works?
+Communication with windows api for clipboard actions needs to be in `STA` thread. `AsyncClipboardService` ensures the `Task` runs in STA thread that makes the service thread-safe.
+It's good for `WPF` applications (as it provides thread safety), asynchronous code bases and applications that wants to make sure that clipboard operation ends successfully with time-out strategies.
 
 ## Simple usage
 You can use a new instance of `WindowsClipboardService` to retrieve data. It's okay to use the instance from different threads.
 
 ```c#
-            var text = "Hello world";
-            var clipboardService = new WindowsClipboardService();
-			//set the text
-            await clipboardService.SetTextAsync(text);
-			//read the text
-            var data = await clipboardService.GetTextAsync();
+    var clipboardService = new WindowsClipboardService();
+    //set the text
+    await clipboardService.SetTextAsync("Hello world");
+    //read the text
+    var data = await clipboardService.GetTextAsync(); // returns "Hello world"
 ```
 
 ## Recommended usage
 However, it's recommended to use `WindowsClipboardService` with a timeout strategy, as it'll then wait (in a spinning state) for the thread that blocks the windows api instead of failing. You can activate the timeout strategy by setting it in the constructor:
 
 ```c#
-            var clipboardService = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(200));
+    var clipboardService = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(200));
 ```
 
 or via it's property:
 
 ```c#
-            var clipboardService = new WindowsClipboardService();
-			clipboardService.Timeout = TimeSpan.FromMilliseconds(200);
+    var clipboardService = new WindowsClipboardService();
+    clipboardService.Timeout = TimeSpan.FromMilliseconds(200);
 ```
 
-## Further documentation
-Further documentation for the code can be found at [doc/Help.chm](./doc/Help.chm)
-
 ## Contribute
-
 Feel free to contribute to the project. 
 
-What works so far is :
- - Text reading/writing
- - Unicode bytes reading/writing
- - FileDropList reading/writing
+What's supoorted so far are :
+ - Text read + write
+ - Unicode bytes read + write
+ - FileDropList read + write
+
+Missing:
+ - Audio read + write
+ - Image read + write
  
-However it's pretty simple to extend it for other clipboard formats. Just take a look at [Readers](./src/AsyncWindowsClipboard/Modifiers/Readers) and [Writers](./src/AsyncWindowsClipboard/Modifiers/Writers) for examples.
+Feel free to extend it for audio & images as well. Just take a look at [Readers](./src/AsyncWindowsClipboard/Modifiers/Readers) and [Writers](./src/AsyncWindowsClipboard/Modifiers/Writers) for examples.
 
 ## License
-
 [GNU General Public License](./LICENSE)
