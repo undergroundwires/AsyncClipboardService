@@ -5,12 +5,18 @@
     <LangVersion>latest</LangVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Link="LICENSE" Pack="true" PackagePath="" />
+    <Content Include="..\..\README.md" Link="README.md" Pack="true" PackagePath="" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>true</Optimize>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>Thread-safe, asynchronous windows clipboard service with timeout strategy for .NET, C#.</Description>
-    <Copyright>MIT-licensed</Copyright>
+    <Copyright>Copyright 2016 - 2019</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
     <Authors>undergroundwires</Authors>
     <AssemblyName>AsyncWindowsClipboard</AssemblyName>
@@ -23,6 +29,7 @@
     <AssemblyName>AsyncClipboardService</AssemblyName>
     <Version>1.6.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+
     <PackageReleaseNotes>
       - Included documentation file
       - Added support for net45, net451, net46, net462, net47, net471, net472
