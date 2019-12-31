@@ -27,9 +27,9 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
             var errorCodes = new List<uint>();
             var counter = 0;
             var result = TimeoutHelper.RetryUntilSuccessOrTimeout(
-                task: () => TryOpenSession(session, errorCodes, ref counter),
-                timeOut: timeout,
-                delayMilliseconds: delayMilliseconds);
+                func: () => TryOpenSession(session, errorCodes, ref counter),
+                timeout: timeout,
+                delayInMs: delayMilliseconds);
             return result ? ClipboardOperationResult.SuccessResult : GetErrorResult(errorCodes, counter);
         }
 
