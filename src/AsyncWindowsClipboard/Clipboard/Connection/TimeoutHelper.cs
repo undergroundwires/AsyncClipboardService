@@ -9,37 +9,60 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
         ///     Runs the given <see cref="Func{Boolean}" /> until it returns true.
         ///     It keeps track of time and only runs it until given <see cref="TimeSpan" /> is reached.
         /// </summary>
-        /// <param name="task">Task to run.</param>
-        /// <param name="timeOut">Time out for the trying cycle.</param>
-        /// <param name="delayMilliseconds">Delay to wait after each execution of the function.</param>
+        /// <param name="func">Task to run.</param>
+        /// <param name="timeout">Time out for the trying cycle.</param>
+        /// <param name="delayInMs">Delay to wait after each execution of the function.</param>
         /// <returns>
-        ///     <c>TRUE</c> if the <paramref name="task" /> returns true before <paramref name="timeOut" /> otherwise;<c>FALSE</c>
+        ///     <c>TRUE</c> if the <paramref name="func" /> returns true before <paramref name="timeout" /> otherwise;<c>FALSE</c>
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     <p><paramref name="timeOut" /> is too short. It must be higher than 30.</p>
-        ///     <p><paramref name="delayMilliseconds" /> is too short. It must be higher than 15.</p>
+        ///     <p><paramref name="timeout" /> is too short. It must be higher than 30.</p>
+        ///     <p><paramref name="delayInMs" /> is too short. It must be higher than 15.</p>
         /// </exception>
         /// <exception cref="ArgumentException">
-        ///     <paramref name="timeOut" /> must is lower than <paramref name="delayMilliseconds" />
+        ///     <paramref name="timeout" /> must is lower than <paramref name="delayInMs" />
         /// </exception>
-        public static bool RetryUntilSuccessOrTimeout(this Func<bool> task, TimeSpan timeOut, int delayMilliseconds = 0)
+        public static bool RetryUntilSuccessOrTimeout(this Func<bool> func, TimeSpan timeout, int delayInMs = 0)
         {
-            //validate parameters
-            if (timeOut.TotalMilliseconds < 30)
-                throw new ArgumentOutOfRangeException(nameof(timeOut),
-                    $"{timeOut} is too short. It must be higher than {30}");
-            if (delayMilliseconds < 15)
-                throw new ArgumentOutOfRangeException(nameof(delayMilliseconds),
-                    $"{delayMilliseconds} is too short. It must be higher than {30}");
-            if (timeOut.TotalMilliseconds < delayMilliseconds)
+            ValidateParameters(timeout, delayInMs);
+            // Validate parameters
+            var session = new RetrySession(timeout, delayInMs);
+            while (session.CanRun)
+                session.Run(func);
+            return session.IsSuccess;
+        }
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <p><paramref name="timeout" /> is too short. It must be higher than 30.</p>
+        ///     <p><paramref name="delayInMs" /> is too short. It must be higher than 15.</p>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="timeout" /> must is lower than <paramref name="delayInMs" />
+        /// </exception>
+        private static void ValidateParameters(TimeSpan timeout, int delayInMs)
+        {
+            if (timeout.TotalMilliseconds < 30)
+                throw new ArgumentOutOfRangeException(nameof(timeout),
+                    $"{timeout} is too short. It must be higher than {30}");
+            if (delayInMs < 15)
+                throw new ArgumentOutOfRangeException(nameof(delayInMs),
+                    $"{delayInMs} is too short. It must be higher than {30}");
+            if (timeout.TotalMilliseconds < delayInMs)
                 throw new ArgumentException(
-                    $"{nameof(timeOut)} ({timeOut}) must be longer than {nameof(delayMilliseconds)} ({delayMilliseconds})");
-            //initialize
-            var isFirstRun = true;
-            var timeOutDate = DateTime.UtcNow.Add(timeOut);
-            var success = false;
-            //run
-            while (!success && (DateTime.UtcNow < timeOutDate))
+                    $"{nameof(timeout)} ({timeout}) must be longer than {nameof(delayInMs)} ({delayInMs})");
+        }
+        private class RetrySession
+        {
+            private readonly int _delayInMs;
+            public bool IsSuccess { get; private set; } = false;
+            public bool CanRun => !IsSuccess && DateTime.UtcNow < _finishDate;
+            private readonly DateTime _finishDate;
+            private bool isFirstRun = true;
+            public RetrySession(TimeSpan timeout, int delayInMs)
+            {
+                _delayInMs = delayInMs;
+                _finishDate = DateTime.UtcNow.Add(timeout);
+            }
+            public void Run(Func<bool> func)
             {
                 if (isFirstRun)
                 {
@@ -47,14 +70,12 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
                 }
                 else
                 {
-                    if (delayMilliseconds != 0)
-                        if (DateTime.Now < timeOutDate.AddMilliseconds(delayMilliseconds))
-                            Task.Delay(delayMilliseconds);
+                    if (_delayInMs != 0)
+                        if (DateTime.Now < _finishDate.AddMilliseconds(_delayInMs))
+                            Task.Delay(_delayInMs);
                 }
-                success = task();
+                IsSuccess = func();
             }
-            //return
-            return success;
         }
     }
 }

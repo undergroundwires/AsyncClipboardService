@@ -18,7 +18,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
         public IClipboardOperationResult Open(IWindowsClipboardSession session, TimeSpan timeout,
             int delayMilliseconds = DefaultDelayMilliseconds)
         {
-            //validate parameter
+            // Validate parameter
             if (session == null) throw new ArgumentNullException(nameof(session));
             if (session.IsOpen)
                 return new ClipboardOperationResult(ClipboardOperationResultCode.Success,
