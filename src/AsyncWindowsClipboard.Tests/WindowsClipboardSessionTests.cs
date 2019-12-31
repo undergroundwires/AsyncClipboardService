@@ -75,6 +75,6 @@ namespace AsyncWindowsClipboard.Tests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        private IWindowsClipboardSession GetSut() => new WindowsClipboardSession();
+        private static IWindowsClipboardSession GetSut() => new WindowsClipboardSession();
     }
 }

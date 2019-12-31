@@ -10,7 +10,7 @@ namespace AsyncWindowsClipboard.Tests
     public class WindowsClipboardServiceTests
     {
         [Test]
-        public async Task CanSetText_and_GetText()
+        public async Task Can_set_and_get_text()
         {
             var sut = new WindowsClipboardService(TimeSpan.FromMinutes(1));
             var expected = "Hello world";
