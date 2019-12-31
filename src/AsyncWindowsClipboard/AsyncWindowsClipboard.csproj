@@ -1,59 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFrameworks>net45;net451;net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
+    <PackageId>AsyncWindowsClipboard</PackageId>
+    <LangVersion>latest</LangVersion>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Optimize>true</Optimize>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>Thread-safe, asynchronous windows clipboard service with timeout strategy for .NET, C#.</Description>
     <Copyright>MIT-licensed</Copyright>
     <AssemblyTitle>AsyncWindowsClipboard</AssemblyTitle>
     <Authors>undergroundwires</Authors>
     <AssemblyName>AsyncWindowsClipboard</AssemblyName>
-    <PackageId>AsyncClipboardService</PackageId>
     <PackageProjectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</RepositoryUrl>
-    <ProjectGuid>{B9B2FF2F-1EF9-4891-9A83-6C1D90FFB39B}</ProjectGuid>
-    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AsyncWindowsClipboard</RootNamespace>
     <AssemblyName>AsyncClipboardService</AssemblyName>
-	  <TargetFrameworks>
-      net45;net451;net452;net46;net461;net462;net47;net471;net472
-      <!--https://docs.microsoft.com/en-us/dotnet/standard/frameworks-->
-	  </TargetFrameworks>
-    <FileAlignment>512</FileAlignment>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <Version>1.6.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>- Included documentation file
-- Added support for net45, net451, net46, net462, net47, net471, net472</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      - Included documentation file
+      - Added support for net45, net451, net46, net462, net47, net471, net472
+    </PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</PackageIconUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup />
 </Project>
