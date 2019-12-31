@@ -15,9 +15,5 @@ namespace AsyncWindowsClipboard.Exceptions
         public ClipboardWindowsApiException(string message) : base(message)
         {
         }
-
-        public ClipboardWindowsApiException(uint error, string message) : base((int) error, message)
-        {
-        }
     }
 }

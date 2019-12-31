@@ -47,13 +47,12 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
         /// <exception cref="ClipboardWindowsApiException">Communication with windows API's has failed.</exception>
         private static void ThrowIfNotSuccessful(IClipboardOperationResult result)
         {
-            if (!result.IsSuccessful)
-            {
-                var message = result.ResultCode.ToString();
-                if (result.LastError.HasValue)
-                    throw new ClipboardWindowsApiException(result.LastError.Value, message);
-                throw new ClipboardWindowsApiException(message);
-            }
+            if (result.IsSuccessful)
+                return;
+            if (result.LastError.HasValue)
+                throw new ClipboardWindowsApiException(result.LastError.Value);
+            var message = result.ResultCode.ToString();
+            throw new ClipboardWindowsApiException(message);
         }
 
         /// <summary>
