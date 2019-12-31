@@ -60,8 +60,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers
         /// <exception cref="ClipboardWindowsApiException">
         ///     Connection to the clipboard could not be established.
         /// </exception>
-        /// <exception cref="ClipboardTimeoutException">
-        /// </exception>
+        /// <exception cref="ClipboardTimeoutException"> Connection to clipboard fails after timeout </exception>
         protected void EnsureOpenConnection(IWindowsClipboardSession session)
         {
             if (Timeout.HasValue)
@@ -78,12 +77,9 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers
 
         private ClipboardWindowsApiException GetException(IClipboardOperationResult result)
         {
-            var message = string.IsNullOrEmpty(result.Message)
-                ? "Connection to the clipboard could not be established."
-                : result.Message;
-            if (result.LastError.HasValue)
-                return new ClipboardWindowsApiException(result.LastError.Value, message);
-            return new ClipboardWindowsApiException(message);
+            return result.LastError.HasValue ?
+                new ClipboardWindowsApiException(result.LastError.Value)
+                : new ClipboardWindowsApiException("Connection to the clipboard could not be established.");
         }
 
         private static ClipboardTimeoutException GetTimeOutException(IClipboardOperationResult result)

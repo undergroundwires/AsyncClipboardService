@@ -25,6 +25,8 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
         ///     <p>Communication with windows API's has failed.</p>
         ///     <p>Connection to the clipboard could not be opened</p>
         /// </exception>
+        /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="data"/> is <see langword="null"/></exception>
         public Task<bool> WriteAsync(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
@@ -36,7 +38,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
                     EnsureOpenConnection(clipboard);
                     ClearClipboard(clipboard);
                     var result = Write(context, data);
-                    //ThrowIfNotSuccessful(result);
+                    ThrowIfNotSuccessful(result);
                     return result.IsSuccessful;
                 }
             });
@@ -45,13 +47,12 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
         /// <exception cref="ClipboardWindowsApiException">Communication with windows API's has failed.</exception>
         private static void ThrowIfNotSuccessful(IClipboardOperationResult result)
         {
-            if (!result.IsSuccessful)
-            {
-                var message = result.ResultCode.ToString();
-                if (result.LastError.HasValue)
-                    throw new ClipboardWindowsApiException(result.LastError.Value, message);
-                throw new ClipboardWindowsApiException(message);
-            }
+            if (result.IsSuccessful)
+                return;
+            if (result.LastError.HasValue)
+                throw new ClipboardWindowsApiException(result.LastError.Value);
+            var message = result.ResultCode.ToString();
+            throw new ClipboardWindowsApiException(message);
         }
 
         /// <summary>

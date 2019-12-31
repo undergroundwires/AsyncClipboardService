@@ -10,10 +10,13 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
     /// <seealso cref="IClipboardWritingContext" />
     internal class UnicodeBytesWriter : ClipboardWriterBase<byte[]>
     {
+        /// <exception cref="ArgumentNullException"><paramref name="context" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="data" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException"><paramref name="data" /> is empty.</exception>
         public override IClipboardOperationResult Write(IClipboardWritingContext context, byte[] data)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (data == null) throw new ArgumentNullException(nameof(data));
             if (!data.Any()) throw new ArgumentException($"{nameof(data)} cannot be empty.");
             var unicodeData = TransformToUnicodeClipboardBytes(data);
             try

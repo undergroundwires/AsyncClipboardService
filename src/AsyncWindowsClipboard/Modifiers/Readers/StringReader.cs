@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+﻿namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
 {
     /// <summary>
     ///     Reads a <see cref="string" /> text from an <see cref="IClipboardReadingContext" />.

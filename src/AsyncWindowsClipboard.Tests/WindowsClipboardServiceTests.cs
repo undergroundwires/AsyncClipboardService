@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -14,7 +12,7 @@ namespace AsyncWindowsClipboard.Tests
         [Test]
         public async Task CanSetText_and_GetText()
         {
-            var sut = new WindowsClipboardService();
+            var sut = new WindowsClipboardService(TimeSpan.FromMinutes(1));
             var expected = "Hello world";
             await sut.SetTextAsync(expected);
             var actual = await sut.GetTextAsync();
@@ -27,6 +25,5 @@ namespace AsyncWindowsClipboard.Tests
             var sut = new WindowsClipboardService(span);
             Assert.That(span, Is.EqualTo(sut.Timeout));
         }
-        protected IAsyncClipboardService GetSut() => new WindowsClipboardService();
     }
 }
