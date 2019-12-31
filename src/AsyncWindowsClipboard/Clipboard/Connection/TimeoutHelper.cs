@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace AsyncWindowsClipboard.Helpers
+namespace AsyncWindowsClipboard.Clipboard.Connection
 {
     public static class TimeoutHelper
     {
