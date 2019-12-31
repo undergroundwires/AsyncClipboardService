@@ -177,10 +177,6 @@ namespace AsyncClipboardService.Clipboard
             }
             return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorOpenClipboard);
         }
-        public void OpenUntilSucceed(TimeSpan timeOut)
-        {
-
-        }
 
         /// <summary>
         ///     Closes the clipboard.
