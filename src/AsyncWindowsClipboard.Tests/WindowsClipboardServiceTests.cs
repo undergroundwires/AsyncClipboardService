@@ -27,6 +27,5 @@ namespace AsyncWindowsClipboard.Tests
             var sut = new WindowsClipboardService(span);
             Assert.That(span, Is.EqualTo(sut.Timeout));
         }
-        protected IAsyncClipboardService GetSut() => new WindowsClipboardService();
     }
 }
