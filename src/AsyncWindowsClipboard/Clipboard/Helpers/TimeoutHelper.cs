@@ -27,10 +27,10 @@ namespace AsyncWindowsClipboard.Helpers
             //validate parameters
             if (timeOut.TotalMilliseconds < 30)
                 throw new ArgumentOutOfRangeException(nameof(timeOut),
-                    $"{timeOut} is too short. It must be heigher than {30}");
+                    $"{timeOut} is too short. It must be higher than {30}");
             if (delayMilliseconds < 15)
                 throw new ArgumentOutOfRangeException(nameof(delayMilliseconds),
-                    $"{delayMilliseconds} is too short. It must be heigher than {30}");
+                    $"{delayMilliseconds} is too short. It must be higher than {30}");
             if (timeOut.TotalMilliseconds < delayMilliseconds)
                 throw new ArgumentException(
                     $"{nameof(timeOut)} ({timeOut}) must be longer than {nameof(delayMilliseconds)} ({delayMilliseconds})");
