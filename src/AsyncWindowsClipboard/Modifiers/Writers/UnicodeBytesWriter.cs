@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
-using AsyncClipboardService.Clipboard;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Clipboard.Result;
+using AsyncWindowsClipboard.Modifiers.Writers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Modifiers.Writers
 {
     /// <summary>
     ///     Writes a byte array containing unicode characters to a <see cref="IClipboardWritingContext" />.

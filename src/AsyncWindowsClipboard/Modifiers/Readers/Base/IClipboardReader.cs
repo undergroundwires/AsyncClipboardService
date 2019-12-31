@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
     /// <summary>
     ///     Abstraction for different data readers from clipboard.

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using AsyncClipboardService.Clipboard;
+using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Connection;
-using AsyncWindowsClipboard.Exceptions;
-using AsyncWindowsClipboard.Text;
+using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Result;
+using AsyncWindowsClipboard.Clipboard.Text;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers
+namespace AsyncWindowsClipboard.Modifiers
 {
     /// <summary>
     ///     <p>Provides helper methods/services to manipulate a clipboard connection.</p>

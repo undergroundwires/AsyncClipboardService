@@ -1,4 +1,4 @@
-﻿namespace AsyncClipboardService.Clipboard
+﻿namespace AsyncWindowsClipboard.Clipboard.Result
 {
     internal interface IClipboardOperationResult
     {

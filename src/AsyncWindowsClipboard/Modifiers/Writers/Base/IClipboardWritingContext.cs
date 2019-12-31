@@ -1,7 +1,8 @@
-﻿using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
+﻿using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Clipboard.Result;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Modifiers.Writers.Base
 {
     /// <summary>
     ///     Context to be used by clipboard writers in an <see cref="IWindowsClipboardSession" />

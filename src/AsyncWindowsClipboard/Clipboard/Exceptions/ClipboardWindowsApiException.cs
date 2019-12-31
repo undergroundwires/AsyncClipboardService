@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace AsyncWindowsClipboard.Exceptions
+namespace AsyncWindowsClipboard.Clipboard.Exceptions
 {
     /// <summary>
     ///     This type of exception is thrown if there has been any errors during communication with windows api.

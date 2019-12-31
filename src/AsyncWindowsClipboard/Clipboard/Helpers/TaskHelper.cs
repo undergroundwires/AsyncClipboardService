@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AsyncWindowsClipboard.Helpers
+namespace AsyncWindowsClipboard.Clipboard.Helpers
 {
     internal static class TaskHelper
     {

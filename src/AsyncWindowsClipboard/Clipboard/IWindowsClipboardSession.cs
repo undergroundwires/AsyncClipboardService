@@ -1,6 +1,6 @@
-﻿using AsyncWindowsClipboard;
+﻿using AsyncWindowsClipboard.Clipboard.Result;
 
-namespace AsyncClipboardService.Clipboard
+namespace AsyncWindowsClipboard.Clipboard
 {
     /// <summary>
     ///     Reveals bunch of methods for synchronous communication with the windows native functions.

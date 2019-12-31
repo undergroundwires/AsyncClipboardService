@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AsyncWindowsClipboard;
-using AsyncWindowsClipboard.Exceptions;
-using AsyncWindowsClipboard.Native;
+using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Result;
+using NativeMethods = AsyncWindowsClipboard.Clipboard.Native.NativeMethods;
 
-namespace AsyncClipboardService.Clipboard
+namespace AsyncWindowsClipboard.Clipboard
 {
     /// <summary>
     ///     A wrapper for native windows methods. It should be used to communicate with the native methods.

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace AsyncWindowsClipboard.Text
+namespace AsyncWindowsClipboard.Clipboard.Text
 {
     /// <summary>
     ///     <see cref="UnicodeTextService" /> is a wrapper around <see cref="System.Text.Encoding" /> using

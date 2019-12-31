@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers
+namespace AsyncWindowsClipboard.Modifiers
 {
     /// <summary>
     ///     Generic factory pattern to get the right clipboard modifier instance implementing abstract

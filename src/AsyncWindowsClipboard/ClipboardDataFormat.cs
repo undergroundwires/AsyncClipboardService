@@ -1,4 +1,6 @@
-﻿namespace AsyncWindowsClipboard
+﻿using AsyncWindowsClipboard.Clipboard;
+
+namespace AsyncWindowsClipboard
 {
     /// <summary>
     ///     An enum representing clipboard data formats.

@@ -1,4 +1,4 @@
-﻿namespace AsyncWindowsClipboard.Native
+﻿namespace AsyncWindowsClipboard.Clipboard.Native
 {
     internal static partial class NativeMethods
     {

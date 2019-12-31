@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AsyncWindowsClipboard.Clipboard.Connection;
-using AsyncWindowsClipboard.Clipboard.Modifiers;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
-using AsyncWindowsClipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Modifiers;
+using AsyncWindowsClipboard.Modifiers.Readers;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
+using AsyncWindowsClipboard.Modifiers.Writers;
 
 namespace AsyncWindowsClipboard
 {

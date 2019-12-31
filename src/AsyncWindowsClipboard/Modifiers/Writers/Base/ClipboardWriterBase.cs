@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Exceptions;
-using AsyncWindowsClipboard.Helpers;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Helpers;
+using AsyncWindowsClipboard.Clipboard.Result;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Modifiers.Writers.Base
 {
     /// <summary>
     ///     <p>Base class that clipboard writers must implement.</p>

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Exceptions;
-using AsyncWindowsClipboard.Helpers;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Helpers;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
     /// <summary>
     ///     <p>Base class that clipboard readers must implement.</p>

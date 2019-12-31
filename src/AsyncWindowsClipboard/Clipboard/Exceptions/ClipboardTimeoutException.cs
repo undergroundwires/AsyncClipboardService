@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AsyncWindowsClipboard.Exceptions;
 
 namespace AsyncWindowsClipboard.Clipboard.Exceptions
 {

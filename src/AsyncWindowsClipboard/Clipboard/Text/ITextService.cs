@@ -1,4 +1,4 @@
-﻿namespace AsyncWindowsClipboard.Text
+﻿namespace AsyncWindowsClipboard.Clipboard.Text
 {
     /// <summary>
     ///     Defines an interface to convert between a <see cref="byte" /> array and <see cref="string" /> with an constant

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers
 {
     /// <summary>
     ///     Reads byte array containing unicode text from an <see cref="IClipboardReadingContext" />.

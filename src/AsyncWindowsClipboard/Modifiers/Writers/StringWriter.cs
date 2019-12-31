@@ -1,6 +1,7 @@
-﻿using AsyncClipboardService.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard.Result;
+using AsyncWindowsClipboard.Modifiers.Writers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
+namespace AsyncWindowsClipboard.Modifiers.Writers
 {
     /// <summary>
     ///     Writes a <see cref="string" /> text to a <see cref="IClipboardWritingContext" />.

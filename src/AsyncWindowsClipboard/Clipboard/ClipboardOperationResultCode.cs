@@ -1,4 +1,4 @@
-﻿namespace AsyncClipboardService.Clipboard
+﻿namespace AsyncWindowsClipboard.Clipboard
 {
     public enum ClipboardOperationResultCode
     {

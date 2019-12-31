@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
     /// <summary>
     ///     Abstraction for a class that can check if its data type exists in the clipboard.

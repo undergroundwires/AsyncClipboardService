@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace AsyncWindowsClipboard.Native
+namespace AsyncWindowsClipboard.Clipboard.Native
 {
     // Documentations from MSDN are updated 2016-09-26
     internal static partial class NativeMethods

@@ -1,4 +1,4 @@
-﻿using AsyncClipboardService.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using NUnit.Framework;
 
 namespace AsyncWindowsClipboard.Tests

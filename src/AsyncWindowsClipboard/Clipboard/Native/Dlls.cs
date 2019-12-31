@@ -1,4 +1,4 @@
-﻿namespace AsyncWindowsClipboard.Native
+﻿namespace AsyncWindowsClipboard.Clipboard.Native
 {
     /// <summary>
     /// A class holding .dll file names.

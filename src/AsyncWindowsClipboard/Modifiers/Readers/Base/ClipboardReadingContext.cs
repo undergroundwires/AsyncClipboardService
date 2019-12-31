@@ -1,8 +1,8 @@
 ﻿using System;
-using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Writers;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Modifiers.Writers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
     /// <summary>
     ///     <p>A class to be used during read operations.</p>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers
+namespace AsyncWindowsClipboard.Modifiers
 {
     /// <summary>
     ///     Factory implementation to get the modifier instance implementing abstract <see cref="ClipboardModifierBase" />

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AsyncWindowsClipboard.Native;
+using NativeMethods = AsyncWindowsClipboard.Clipboard.Native.NativeMethods;
 
-namespace AsyncClipboardService.Clipboard
+namespace AsyncWindowsClipboard.Clipboard.Result
 {
     internal sealed class ClipboardOperationResult : IClipboardOperationResult
     {

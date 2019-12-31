@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
 
-namespace AsyncWindowsClipboard.Clipboard.Modifiers.Readers
+namespace AsyncWindowsClipboard.Modifiers.Readers
 {
     /// <summary>
     ///     Reads the clipboard data as a list of file paths
