@@ -36,7 +36,7 @@ namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
                     EnsureOpenConnection(clipboard);
                     ClearClipboard(clipboard);
                     var result = Write(context, data);
-                    //ThrowIfNotSuccessful(result);
+                    ThrowIfNotSuccessful(result);
                     return result.IsSuccessful;
                 }
             });
