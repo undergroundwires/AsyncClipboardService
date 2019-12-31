@@ -110,8 +110,11 @@ namespace AsyncWindowsClipboard
         ///     Sets a <see cref="string" /> as the clipboard data asynchronously.
         /// </summary>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/></exception>
+        /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
         public Task<bool> SetTextAsync(string value)
         {
+            if (value == null) throw new ArgumentNullException(nameof(value));
             var writer = _clipboardModifierFactory.Get<StringWriter>(Timeout);
             return writer.WriteAsync(value);
         }
