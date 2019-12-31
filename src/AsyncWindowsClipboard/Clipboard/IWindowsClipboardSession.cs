@@ -1,5 +1,4 @@
-﻿using System;
-using AsyncWindowsClipboard;
+﻿using AsyncWindowsClipboard;
 
 namespace AsyncClipboardService.Clipboard
 {

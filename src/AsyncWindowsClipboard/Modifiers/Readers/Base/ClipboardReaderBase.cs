@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AsyncClipboardService.Clipboard;
 using AsyncWindowsClipboard.Exceptions;
 using AsyncWindowsClipboard.Helpers;

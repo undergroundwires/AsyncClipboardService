@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AsyncClipboardService.Clipboard;
-using AsyncWindowsClipboard.Clipboard.Modifiers.Readers;
+﻿using AsyncClipboardService.Clipboard;
 
 namespace AsyncWindowsClipboard.Clipboard.Modifiers.Writers
 {
