@@ -70,9 +70,6 @@ namespace AsyncWindowsClipboard.Native
         internal static extern IntPtr GlobalFree(IntPtr hMem);
 
         [DllImport(Dlls.Kernel32)]
-        internal static extern IntPtr GetConsoleWindow();
-
-        [DllImport(Dlls.Kernel32)]
         internal static extern IntPtr GlobalAlloc(uint uFlags, UIntPtr dwBytes);
 
         /// <summary>

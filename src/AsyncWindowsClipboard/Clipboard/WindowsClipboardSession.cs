@@ -164,8 +164,12 @@ namespace AsyncClipboardService.Clipboard
         public IClipboardOperationResult Open()
         {
             if (IsOpen) return ClipboardOperationResult.SuccessResult;
-            var hOwner = NativeMethods.GetConsoleWindow();
-            var result = NativeMethods.OpenClipboard(hOwner);
+            // OpenClipboard expects a window pointer or a NULL pointer.
+            //  - However when we send NULL pointer is associates the clipboard connection with the current thread.
+            //  - Only one thread can access a shared resource at one time and this library ensures that we always run in a single thread.
+            //  - We lose connection if Window become invalid, however if we send null PTR we keep the connection as thread is active.
+            // The decision is to go with the NULL pointer.
+            var result = NativeMethods.OpenClipboard(IntPtr.Zero);
             if (result)
             {
                 IsOpen = true;
