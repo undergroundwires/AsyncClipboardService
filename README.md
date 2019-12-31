@@ -1,7 +1,7 @@
 # AsyncWindowsClipboard
-**AsyncWindowsClipboard** is an async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
+[![NuGet Status](https://img.shields.io/nuget/v/AsyncClipboardService.svg?style=flat)](https://nuget.org/packages/AsyncClipboardService/) ![](https://github.com/undergroundwires/AsyncWindowsClipboard/workflows/Build%20&%20test/badge.svg [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/goodparts/issues) [![Maintainability](https://api.codeclimate.com/v1/badges/22aa4312f0f93e671a73/maintainability)](https://codeclimate.com/github/undergroundwires/AsyncWindowsClipboard/maintainability)
 
-## Nuget package  [![NuGet Status](https://img.shields.io/nuget/v/AsyncClipboardService.svg?style=flat)](https://nuget.org/packages/AsyncClipboardService/)
+**AsyncWindowsClipboard** is an async, thread-safe windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
 
 ## What is it?
 - It gives async/await syntax to communicate with Windows clipboard API's.
