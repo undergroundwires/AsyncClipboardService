@@ -151,15 +151,12 @@ namespace AsyncWindowsClipboard
         /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
         private IClipboardDataChecker GetDataChecker(ClipboardDataFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case ClipboardDataFormat.Text:
-                    return _clipboardModifierFactory.Get<StringReader>();
-                case ClipboardDataFormat.FileDropList:
-                    return _clipboardModifierFactory.Get<StringReader>();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(format), format, $"{nameof(format)} is unknown.");
-            }
+                ClipboardDataFormat.Text => _clipboardModifierFactory.Get<StringReader>(),
+                ClipboardDataFormat.FileDropList => _clipboardModifierFactory.Get<StringReader>(),
+                _ => throw new ArgumentOutOfRangeException(nameof(format), format, $"{nameof(format)} is unknown.")
+            };
         }
     }
 }
