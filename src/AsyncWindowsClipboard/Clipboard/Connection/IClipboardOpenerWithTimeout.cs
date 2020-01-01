@@ -1,5 +1,5 @@
-﻿using AsyncWindowsClipboard.Clipboard.Result;
-using System;
+﻿using System;
+using AsyncWindowsClipboard.Clipboard.Result;
 
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {

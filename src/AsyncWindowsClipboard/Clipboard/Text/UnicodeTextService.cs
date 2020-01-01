@@ -17,12 +17,15 @@ namespace AsyncWindowsClipboard.Clipboard.Text
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="bytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">The byte array contains invalid encoding code points.</exception>
-        /// <exception cref="T:System.Text.DecoderFallbackException">A fallback occurred (see Character Encoding in .NET for complete explanation)  
-        ///  -and-  
-        ///  <see cref="P:System.Text.Encoding.DecoderFallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</exception>
+        /// <exception cref="T:System.Text.DecoderFallbackException">
+        ///     A fallback occurred (see Character Encoding in .NET for complete explanation)
+        ///     -and-
+        ///     <see cref="P:System.Text.Encoding.DecoderFallback" /> is set to
+        ///     <see cref="T:System.Text.DecoderExceptionFallback" />.
+        /// </exception>
         public string GetString(byte[] bytes)
         {
-            if ((bytes == null) || !bytes.Any())
+            if (bytes == null || !bytes.Any())
                 throw new ArgumentNullException(nameof(bytes));
             return Encoding.Unicode.GetString(bytes);
         }

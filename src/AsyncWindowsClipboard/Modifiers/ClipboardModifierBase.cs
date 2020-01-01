@@ -1,11 +1,11 @@
-﻿using AsyncWindowsClipboard.Clipboard;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Connection;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Clipboard.Result;
 using AsyncWindowsClipboard.Clipboard.Text;
-using System;
-using System.Diagnostics;
-using System.Linq;
 
 namespace AsyncWindowsClipboard.Modifiers
 {
@@ -28,12 +28,14 @@ namespace AsyncWindowsClipboard.Modifiers
         ///     <p>Gets or sets the timeout.</p>
         ///     <p>
         ///         If value is <see langword="null" /> then the  <see cref="ClipboardModifierBase" />  instance will have no time
-        ///         out strategy. It'll  try to open a connection to the windows clipboard api and returns failed status if the initial
+        ///         out strategy. It'll  try to open a connection to the windows clipboard api and returns failed status if the
+        ///         initial
         ///         try fails.
         ///     </p>
         ///     <p>
         ///         If value is not <see langword="null" /> the <see cref="ClipboardModifierBase" /> instance will try to connect
-        ///         to the windows clipboard until the value of <see cref="Timeout" /> is reached. This might be needed if clipboard is
+        ///         to the windows clipboard until the value of <see cref="Timeout" /> is reached. This might be needed if
+        ///         clipboard is
         ///         locked by another application.
         ///     </p>
         /// </summary>
@@ -77,8 +79,8 @@ namespace AsyncWindowsClipboard.Modifiers
 
         private ClipboardWindowsApiException GetException(IClipboardOperationResult result)
         {
-            return result.LastError.HasValue ?
-                new ClipboardWindowsApiException(result.LastError.Value)
+            return result.LastError.HasValue
+                ? new ClipboardWindowsApiException(result.LastError.Value)
                 : new ClipboardWindowsApiException("Connection to the clipboard could not be established.");
         }
 
@@ -98,11 +100,13 @@ namespace AsyncWindowsClipboard.Modifiers
                     exception
                 );
             }
+
             if (result.LastErrors?.Any() == true)
             {
                 var innerExceptions = result.LastErrors.Select(e => new ClipboardWindowsApiException(e));
                 throw new ClipboardTimeoutException(message, innerExceptions);
             }
+
             return new ClipboardTimeoutException(message);
         }
     }

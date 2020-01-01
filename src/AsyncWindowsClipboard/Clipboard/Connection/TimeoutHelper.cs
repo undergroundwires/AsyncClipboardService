@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {
     /// <summary>
-    /// Utility class to help with retry and timeout logic.
+    ///     Utility class to help with retry and timeout logic.
     /// </summary>
     public static class TimeoutHelper
     {
@@ -34,6 +34,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
                 session.Run(func);
             return session.IsSuccess;
         }
+
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <p><paramref name="timeout" /> is too short. It must be higher than 30.</p>
         ///     <p><paramref name="delayInMs" /> is too short. It must be higher than 15.</p>
@@ -53,18 +54,22 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
                 throw new ArgumentException(
                     $"{nameof(timeout)} ({timeout}) must be longer than {nameof(delayInMs)} ({delayInMs})");
         }
+
         private class RetrySession
         {
             private readonly int _delayInMs;
-            public bool IsSuccess { get; private set; } = false;
-            public bool CanRun => !IsSuccess && DateTime.UtcNow < _finishDate;
             private readonly DateTime _finishDate;
             private bool isFirstRun = true;
+
             public RetrySession(TimeSpan timeout, int delayInMs)
             {
                 _delayInMs = delayInMs;
                 _finishDate = DateTime.UtcNow.Add(timeout);
             }
+
+            public bool IsSuccess { get; private set; }
+            public bool CanRun => !IsSuccess && DateTime.UtcNow < _finishDate;
+
             public void Run(Func<bool> func)
             {
                 if (isFirstRun)
@@ -77,6 +82,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
                         if (DateTime.Now < _finishDate.AddMilliseconds(_delayInMs))
                             Task.Delay(_delayInMs);
                 }
+
                 IsSuccess = func();
             }
         }

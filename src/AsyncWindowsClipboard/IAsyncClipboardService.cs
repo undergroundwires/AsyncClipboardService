@@ -11,7 +11,8 @@ namespace AsyncWindowsClipboard
     {
         /// <summary>
         ///     <p>
-        ///         If value is <see langword="null" /> then the instance will have no time out strategy. It'll  try to open a connection to
+        ///         If value is <see langword="null" /> then the instance will have no time out strategy. It'll  try to open a
+        ///         connection to
         ///         the windows clipboard api and returns failed status if the initial try fails.
         ///     </p>
         ///     <p>

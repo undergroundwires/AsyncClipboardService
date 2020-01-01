@@ -8,7 +8,8 @@ namespace AsyncWindowsClipboard.WpfTests
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IAsyncClipboardService _asyncClipboardService = new WindowsClipboardService(timeout:TimeSpan.FromMilliseconds(100));
+        private readonly IAsyncClipboardService _asyncClipboardService =
+            new WindowsClipboardService(timeout: TimeSpan.FromMilliseconds(100));
 
         public MainWindow()
         {
@@ -32,10 +33,7 @@ namespace AsyncWindowsClipboard.WpfTests
         private async void ButtonDropFileListPaste_Click(object sender, RoutedEventArgs e)
         {
             var files = await _asyncClipboardService.GetFileDropListAsync();
-            if (files != null)
-            {
-                TextBoxText.Text = string.Join(System.Environment.NewLine, files);
-            }
+            if (files != null) TextBoxText.Text = string.Join(Environment.NewLine, files);
         }
 
         private async void ButtonDropFileListCopy_Click(object sender, RoutedEventArgs e)

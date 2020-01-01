@@ -1,7 +1,7 @@
-﻿using AsyncWindowsClipboard.Clipboard.Result;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AsyncWindowsClipboard.Clipboard.Result;
 
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {
@@ -9,12 +9,15 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
     {
         public const int DefaultDelayMilliseconds = 30;
 
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is <see langword="null"/></exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="session" /> is <see langword="null" /></exception>
         /// <exception cref="T:System.ArgumentOutOfRangeException">
-        /// <p><paramref name="timeout" /> is too short. It must be higher than 30.</p>
+        ///     <p><paramref name="timeout" /> is too short. It must be higher than 30.</p>
         ///     <p><paramref name="delayMilliseconds" /> is too short. It must be higher than 15.</p>
         /// </exception>
-        /// <exception cref="T:System.ArgumentException"><paramref name="timeout" /> must is lower than <paramref name="delayMilliseconds" /></exception>
+        /// <exception cref="T:System.ArgumentException">
+        ///     <paramref name="timeout" /> must is lower than
+        ///     <paramref name="delayMilliseconds" />
+        /// </exception>
         public IClipboardOperationResult Open(IWindowsClipboardSession session, TimeSpan timeout,
             int delayMilliseconds = DefaultDelayMilliseconds)
         {
@@ -33,7 +36,8 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
             return result ? ClipboardOperationResult.SuccessResult : GetErrorResult(errorCodes, counter);
         }
 
-        private static bool TryOpenSession(IWindowsClipboardSession session, ICollection<uint> errorCodes, ref int counter)
+        private static bool TryOpenSession(IWindowsClipboardSession session, ICollection<uint> errorCodes,
+            ref int counter)
         {
             counter++;
             var result = session.Open();
@@ -58,7 +62,8 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
         {
             return new ClipboardOperationResult(
                 resultCode: ClipboardOperationResultCode.ErrorOpenClipboard,
-                message: $"Clipboard has been tried to be reached {counter} times and all of them returned {error} error code.",
+                message:
+                $"Clipboard has been tried to be reached {counter} times and all of them returned {error} error code.",
                 errorCode: error);
         }
 
@@ -66,7 +71,8 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
         {
             return new ClipboardOperationResult(
                 resultCode: ClipboardOperationResultCode.ErrorOpenClipboard,
-                message: $"Clipboard has been tried to be reached {counter} times and returned {errorList.Count()} unique errors.");
+                message:
+                $"Clipboard has been tried to be reached {counter} times and returned {errorList.Count()} unique errors.");
         }
     }
 }

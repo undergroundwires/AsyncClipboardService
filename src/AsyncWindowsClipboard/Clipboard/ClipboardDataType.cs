@@ -9,7 +9,7 @@ namespace AsyncWindowsClipboard.Clipboard
     ///     The clipboard formats defined by the system are called standard clipboard formats.
     ///     See more at : https://kutt.it/EGdSiY
     /// </remarks>
-    /// <seealso cref="NativeMethods"/>
+    /// <seealso cref="NativeMethods" />
     internal enum ClipboardDataType : uint
     {
         /// <summary>

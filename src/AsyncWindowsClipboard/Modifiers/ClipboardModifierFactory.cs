@@ -18,7 +18,7 @@ namespace AsyncWindowsClipboard.Modifiers
         public TModifier CreateInstance<TModifier>(TimeSpan? timeout = null)
             where TModifier : ClipboardModifierBase, new()
         {
-            var instance = new TModifier { Timeout = timeout };
+            var instance = new TModifier {Timeout = timeout};
             return instance;
         }
     }

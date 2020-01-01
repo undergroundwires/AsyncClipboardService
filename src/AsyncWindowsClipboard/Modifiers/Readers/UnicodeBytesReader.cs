@@ -1,7 +1,7 @@
-﻿using AsyncWindowsClipboard.Clipboard;
-using AsyncWindowsClipboard.Modifiers.Readers.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers
 {
@@ -33,6 +33,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers
                     Array.Clear(clipboardData, 0, clipboardData.Length);
             }
         }
+
         /// <summary>
         ///     Clears the extra zeros that's created by windows clipboard api.
         ///     Clipboard data returns text bytes with extra zeros. 2 zeros bytes in the end for unicode.
@@ -46,16 +47,20 @@ namespace AsyncWindowsClipboard.Modifiers.Readers
             Array.Copy(clipboardData, bytesCharsOnly, charBytesTotal);
             return bytesCharsOnly;
         }
+
         private static int CountTotalCharacterBytes(IReadOnlyList<byte> clipboardData, bool isUnicode)
         {
             var charBytes = 0;
             for (var i = 0; i < clipboardData.Count; i += isUnicode ? 2 : 1)
             {
-                var uValue = isUnicode ? (ushort)((clipboardData[i] << 8) |
-                                      clipboardData[i + 1]) : clipboardData[i];
+                var uValue = isUnicode
+                    ? (ushort) ((clipboardData[i] << 8) |
+                                clipboardData[i + 1])
+                    : clipboardData[i];
                 if (uValue == 0) break;
                 charBytes += isUnicode ? 2 : 1;
             }
+
             return charBytes;
         }
     }

@@ -1,6 +1,6 @@
-﻿using AsyncWindowsClipboard.Clipboard;
+﻿using System;
+using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Modifiers.Writers.Base;
-using System;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
@@ -14,7 +14,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
     {
         private readonly IWindowsClipboardSession _session;
 
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is <see langword="null"/></exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="session" /> is <see langword="null" /></exception>
         public ClipboardReadingContext(IWindowsClipboardSession session)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));

@@ -1,7 +1,7 @@
-﻿using AsyncWindowsClipboard.Clipboard;
-using AsyncWindowsClipboard.Modifiers.Readers.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Modifiers.Readers.Base;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers
 {

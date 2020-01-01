@@ -1,12 +1,12 @@
-﻿using AsyncWindowsClipboard.Clipboard.Connection;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AsyncWindowsClipboard.Clipboard.Connection;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Modifiers;
 using AsyncWindowsClipboard.Modifiers.Readers;
 using AsyncWindowsClipboard.Modifiers.Readers.Base;
 using AsyncWindowsClipboard.Modifiers.Writers;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard
 {
@@ -87,7 +87,7 @@ namespace AsyncWindowsClipboard
 
         /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value" /> is <see langword="null" /></exception>
         /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
         public Task<bool> SetTextAsync(string value)
         {
