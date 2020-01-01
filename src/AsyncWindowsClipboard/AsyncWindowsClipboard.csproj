@@ -37,7 +37,7 @@
       - Namespace changes in internal classes.
       - Support for .netstandard2.0
     </PackageReleaseNotes>
-    <PackageIconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <!-- including PDB files in NuGet for source link because symbolsource.org does not support portable PDBs -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <IncludeSymbols>true</IncludeSymbols>
