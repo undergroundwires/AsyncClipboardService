@@ -10,6 +10,9 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
     internal interface IClipboardReader<TResult> : IClipboardDataChecker
         where TResult : class
     {
+        /// <summary>
+        ///     Reads and returns the <typeparam name="TResult" />
+        /// </summary>
         Task<TResult> ReadAsync();
     }
 }

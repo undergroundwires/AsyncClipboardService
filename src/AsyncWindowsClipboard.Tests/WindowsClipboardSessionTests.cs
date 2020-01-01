@@ -8,71 +8,67 @@ namespace AsyncWindowsClipboard.Tests
     [TestFixture]
     public class WindowsClipboardSessionTests
     {
+
         [Test]
-        public void OpenAsync_Sets_IsOpen_To_True()
+        public void IsOpen_InstanceClosed_ReturnsFalse()
         {
-            //arrange
+            // Arrange
             var sut = GetSut();
-            const bool expected = true;
-            //act
+            // Act
+            var actual = sut.IsOpen;
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Test]
+        public void IsOpen_InstanceOpened_ReturnsTrue()
+        {
+            // Arrange
+            var sut = GetSut();
+            // Act
             sut.Open();
             var actual = sut.IsOpen;
-            //assert
-            Assert.That(actual, Is.EqualTo(expected));
+            // Assert
+            Assert.True(actual);
         }
 
         [Test]
-        public void OpenAsync_ForOpenInstance_ReturnsTrue()
+        public void IsOpen_InstanceClosed_ReturnsTrue()
         {
-            //arrange
+            // Arrange
             var sut = GetSut();
-            const bool expected = true;
             sut.Open();
-            //act
-            var openResult = sut.Open();
-            var actual = openResult.IsSuccessful;
-            //assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void IsOpen_ForANewInstance_IsFalse()
-        {
-            //arrange
-            var sut = GetSut();
-            const bool expected = false;
-            //act
-            var actual = sut.IsOpen;
-            //assert
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void CloseAsync_ForOpenInstance_SetsIsOpenToFalse()
-        {
-            //arrange
-            var sut = GetSut();
-            const bool expected = false;
-            sut.Open();
-            //act
+            // Act
             sut.Close();
             var actual = sut.IsOpen;
-            //assert
-            Assert.That(actual, Is.EqualTo(expected));
+            // Assert
+            Assert.False(actual);
         }
 
         [Test]
-        public void CloseAsync_ForOpenInstance_ReturnsTrue()
+        public void IsSuccessful_InstanceOpened_ReturnsTrue()
         {
-            //arrange
+            // Arrange
             var sut = GetSut();
-            const bool expected = true;
             sut.Open();
-            //act
+            // Act
+            var openResult = sut.Open();
+            var actual = openResult.IsSuccessful;
+            // Assert
+            Assert.True(actual);
+        }
+
+        [Test]
+        public void IsSuccessful_InstanceClosed_ReturnsTrue()
+        {
+            // Arrange
+            var sut = GetSut();
+            sut.Open();
+            // Act
             var closeResult = sut.Close();
             var actual = closeResult.IsSuccessful;
-            //assert
-            Assert.That(actual, Is.EqualTo(expected));
+            // Assert
+            Assert.True(actual);
         }
 
         private static IWindowsClipboardSession GetSut() => new WindowsClipboardSession();

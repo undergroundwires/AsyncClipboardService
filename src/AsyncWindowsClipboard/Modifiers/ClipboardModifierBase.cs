@@ -99,7 +99,7 @@ namespace AsyncWindowsClipboard.Modifiers
                     exception
                 );
             }
-            if ((result.LastErrors != null) && result.LastErrors.Any())
+            if (result.LastErrors?.Any() == true)
             {
                 var innerExceptions = result.LastErrors.Select(e => new ClipboardWindowsApiException(e));
                 throw new ClipboardTimeoutException(message, innerExceptions);

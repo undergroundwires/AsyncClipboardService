@@ -11,11 +11,9 @@ namespace AsyncWindowsClipboard.Modifiers
     {
         public static IClipboardModifierFactory StaticInstance = new ClipboardModifierFactory();
 
+        /// <inheritdoc />
         public TModifier Get<TModifier>(TimeSpan? timeout = null) where TModifier : ClipboardModifierBase, new()
-        {
-            var result = CreateInstance<TModifier>(timeout);
-            return result;
-        }
+            => CreateInstance<TModifier>(timeout);
 
         public TModifier CreateInstance<TModifier>(TimeSpan? timeout = null)
             where TModifier : ClipboardModifierBase, new()

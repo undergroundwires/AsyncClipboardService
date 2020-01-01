@@ -28,23 +28,10 @@ namespace AsyncWindowsClipboard.Clipboard
                 Close();
         }
 
-        /// <summary>
-        ///     A <see cref="bool" /> representing whether this <seealso cref="WindowsClipboardSession" /> instance has an open
-        ///     communication with the windows clipboard.
-        /// </summary>
-        /// <remarks>
-        ///     <p>Use <see cref="Open" /> method to open the communication</p>
-        ///     <p>Use <see cref="Close" /> method to close the communication</p>
-        /// </remarks>
-        /// <seealso cref="Open" />
-        /// <seealso cref="Close" />
+        /// <inheritdoc />
         public bool IsOpen { get; private set; }
 
-        /// <summary>
-        ///     Empties the clipboard and frees handles to data in the clipboard.
-        /// </summary>
-        /// <returns><c>true</c> if the function succeeds, <c>false</c> the function fails.</returns>
-        /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
+        /// <inheritdoc />
         /// <remarks>
         ///     <p>
         ///         Before calling <seealso cref="Clear" />, an application must open the clipboard by using the
@@ -52,7 +39,6 @@ namespace AsyncWindowsClipboard.Clipboard
         ///     </p>
         /// </remarks>
         /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
-        /// <seealso cref="Open" />
         public IClipboardOperationResult Clear()
         {
             ThrowIfNotOpen();
@@ -61,16 +47,10 @@ namespace AsyncWindowsClipboard.Clipboard
                 : new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
         }
 
-        /// <summary>
-        ///     Places data on the clipboard in a specified clipboard format.
-        /// </summary>
+        /// <inheritdoc />
         /// <remarks>
-        ///     <p>
-        ///         A connection must be made using <see cref="Open" /> method in the same thread.
-        ///     </p>
-        ///     <p>
-        ///         Data might not be set before <see cref="Close" /> or <see cref="Dispose" /> methods are called.
-        ///     </p>
+        ///     <p>A connection must be made using <see cref="Open" /> method in the same thread.</p>
+        ///     <p>Data might not be set before <see cref="Close" /> or <see cref="Dispose" /> methods are called.</p>
         /// </remarks>
         /// <exception cref="ArgumentNullException"><paramref name="data" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -99,9 +79,7 @@ namespace AsyncWindowsClipboard.Clipboard
         }
 
 
-        /// <summary>
-        ///     Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
-        /// </summary>
+        /// <inheritdoc />
         /// <remarks>
         ///     <p>
         ///         A connection must be made using <see cref="Open" /> method in the same thread.
@@ -131,6 +109,7 @@ namespace AsyncWindowsClipboard.Clipboard
         }
 
 
+        /// <inheritdoc />
         public IClipboardOperationResult Open()
         {
             if (IsOpen) return ClipboardOperationResult.SuccessResult;
@@ -140,18 +119,13 @@ namespace AsyncWindowsClipboard.Clipboard
             //  - We lose connection if Window become invalid, however if we send null PTR we keep the connection as thread is active.
             // The decision is to go with the NULL pointer.
             var result = NativeMethods.OpenClipboard(IntPtr.Zero);
-            if (result)
-            {
-                IsOpen = true;
-                return ClipboardOperationResult.SuccessResult;
-            }
-            return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorOpenClipboard);
+            if (!result)
+                return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorOpenClipboard);
+            IsOpen = true;
+            return ClipboardOperationResult.SuccessResult;
         }
 
-        /// <summary>
-        ///     Closes the clipboard.
-        /// </summary>
-        /// <returns><c>true</c> if the function succeeds, <c>false</c> the function fails.</returns>
+        /// <inheritdoc />
         /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
         /// <remarks>
         ///     <p>

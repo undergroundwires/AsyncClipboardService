@@ -15,13 +15,14 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
     ///     </p>
     ///     <p>Provides helper classes and navigation properties for its members.</p>
     /// </summary>
-    /// <typeparam name="TData">Data type that'll be set during this operation.</typeparam>
+    /// <typeparam name="TData">Data type which will be set during this operation.</typeparam>
     /// <seealso cref="IClipboardWritingContext" />
     /// <seealso cref="IClipboardWriter{TResult}" />
     /// <seealso cref="ClipboardModifierBase" />
     internal abstract class ClipboardWriterBase<TData> : ClipboardModifierBase, IClipboardWriter<TData>
     {
 
+        /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">
         ///     <p>Communication with windows API's has failed.</p>
         ///     <p>Connection to the clipboard could not be opened</p>
@@ -33,19 +34,17 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
             if (data == null) throw new ArgumentNullException(nameof(data));
             return TaskHelper.StartStaTask(() =>
             {
-                using (var clipboard = new WindowsClipboardSession())
-                {
-                    var context = new ClipboardWritingContext(clipboard);
-                    EnsureOpenConnection(clipboard);
-                    ClearClipboard(clipboard);
-                    var result = Write(context, data);
-                    ThrowIfNotSuccessful(result);
-                    return result.IsSuccessful;
-                }
+                using var clipboard = new WindowsClipboardSession();
+                var context = new ClipboardWritingContext(clipboard);
+                EnsureOpenConnection(clipboard);
+                ClearClipboard(clipboard);
+                var result = Write(context, data);
+                ThrowIfNotSuccessful(result);
+                return result.IsSuccessful;
             });
         }
 
-        /// <exception cref="ClipboardWindowsApiException">Communication with windows API's has failed.</exception>
+        /// <exception cref="ClipboardWindowsApiException">Communication with windows APIs has failed.</exception>
         private static void ThrowIfNotSuccessful(IClipboardOperationResult result)
         {
             if (result.IsSuccessful)
@@ -60,6 +59,7 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
         ///     Reads the data from specified <see cref="IWindowsClipboardSession" />.
         /// </summary>
         /// <param name="context">Clipboard session context.</param>
+        /// <param name="data">Data to write to clipboard.</param>
         /// <returns>Result of the reading operation.</returns>
         public abstract IClipboardOperationResult Write(IClipboardWritingContext context, TData data);
     }

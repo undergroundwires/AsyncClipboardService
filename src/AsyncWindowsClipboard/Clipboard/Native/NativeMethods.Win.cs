@@ -52,10 +52,14 @@ namespace AsyncWindowsClipboard.Clipboard.Native
         ///     </p>
         ///     <p>
         ///         The internal data structures for each memory object include a lock count that is initially zero. For movable
-        ///         memory objects, <see cref="GlobalLock"/> increments the count by one, and the <see cref="GlobalUnlock"/> function decrements the count by
-        ///         one. Each successful call that a process makes to <see cref="GlobalLock"/> for an object must be matched by a corresponding
-        ///         call to <see cref="GlobalUnlock"/>. Locked memory will not be moved or discarded, unless the memory object is reallocated by
-        ///         using the <c>GlobalReAlloc</c> function. The memory block of a locked memory object remains locked until its lock
+        ///         memory objects, <see cref="GlobalLock" /> increments the count by one, and the <see cref="GlobalUnlock" />
+        ///         function decrements the count by
+        ///         one. Each successful call that a process makes to <see cref="GlobalLock" /> for an object must be matched by a
+        ///         corresponding
+        ///         call to <see cref="GlobalUnlock" />. Locked memory will not be moved or discarded, unless the memory object is
+        ///         reallocated by
+        ///         using the <c>GlobalReAlloc</c> function. The memory block of a locked memory object remains locked until its
+        ///         lock
         ///         count is decremented to zero, at which time it can be moved or discarded.
         ///     </p>
         /// </remarks>

@@ -14,14 +14,16 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
     {
         private readonly IWindowsClipboardSession _session;
 
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is <see langword="null"/></exception>
         public ClipboardReadingContext(IWindowsClipboardSession session)
         {
-            if (session == null) throw new ArgumentNullException(nameof(session));
-            _session = session;
+            _session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
+        /// <inheritdoc />
         public bool IsContentTypeOf(ClipboardDataType dataType) => _session.IsContentTypeOf(dataType);
 
+        /// <inheritdoc />
         public byte[] GetData(ClipboardDataType dataType)
             => _session.GetData(dataType);
     }

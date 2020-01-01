@@ -20,30 +20,26 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
     internal abstract class ClipboardReaderBase<TResult> : ClipboardModifierBase, IClipboardReader<TResult>
         where TResult : class
     {
-        /// <summary>
-        ///     <p>
-        ///         Reads and returns the
-        ///         <typeparam name="TResult" />
-        ///     </p>
+        /// <remarks>
         ///     <p>Starts a <see cref="WindowsClipboardSession" /> in an async contexts.</p>
         ///     <p>Sends the session to abstract <see cref="Exists" /> and <see cref="Read" /> methods.</p>
-        /// </summary>
+        /// </remarks>
+        /// <inheritdoc />
         /// <returns>Null if <see cref="Exists" /> method returns <c>FALSE</c>; otherwise result from <see cref="Read" /></returns>
         /// <seealso cref="Exists" />
         /// <seealso cref="Read" />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
+        /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
         public Task<TResult> ReadAsync()
         {
             return TaskHelper.StartStaTask(() =>
             {
-                using (var session = new WindowsClipboardSession())
-                {
-                    var context = new ClipboardReadingContext(session);
-                    if (!Exists(context)) return null;
-                    EnsureOpenConnection(session);
-                    var result = Read(context);
-                    return result;
-                }
+                using var session = new WindowsClipboardSession();
+                var context = new ClipboardReadingContext(session);
+                if (!Exists(context)) return null;
+                EnsureOpenConnection(session);
+                var result = Read(context);
+                return result;
             });
         }
 
@@ -52,7 +48,8 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
         /// </summary>
         /// <returns><c>TRUE</c> if exists, <c>False</c> if it does not.</returns>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        public async Task<bool> ExistsAsync() => await ReadAsync() == null;
+        public async Task<bool> ExistsAsync() => 
+            await ReadAsync() == null;
 
         /// <summary>
         ///     Returns if the reading object type exists in the given <see cref="context" />.

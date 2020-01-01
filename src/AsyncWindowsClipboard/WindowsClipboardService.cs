@@ -66,26 +66,10 @@ namespace AsyncWindowsClipboard
             _clipboardModifierFactory = clipboardModifierFactory;
         }
 
-        /// <summary>
-        ///     <p>Gets or sets the timeout.</p>
-        ///     <p>
-        ///         If value is <see langword="null" /> then the  <see cref="WindowsClipboardService" />  instance will have no
-        ///         time out strategy. It'll  try to open a connection to the windows clipboard api and returns failed status if
-        ///         the initial try fails.
-        ///     </p>
-        ///     <p>
-        ///         If value is not <see langword="null" /> the <see cref="WindowsClipboardService" /> instance will try to connect
-        ///         to the windows clipboard until the value of <see cref="Timeout" /> is reached. This might be needed if
-        ///         clipboard is locked by another application.
-        ///     </p>
-        /// </summary>
+        /// <inheritdoc />
         /// <seealso cref="ClipboardOpenerWithTimeout" />
         public TimeSpan? Timeout { get; set; }
 
-        /// <summary>
-        ///     Gets the clipboard data as <c>UTF-16 little endian</c> bytes asynchronously.
-        /// </summary>
-        /// <returns>The data in the clipboard as bytes, <see langword="null" /> if no data exists in clipboard.</returns>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<byte[]> GetAsUnicodeBytesAsync()
         {
@@ -93,13 +77,7 @@ namespace AsyncWindowsClipboard
             return reader.ReadAsync();
         }
 
-        /// <summary>
-        ///     Retrieves the text in clipboard as a <see cref="string" /> asynchronously.
-        /// </summary>
-        /// <returns>
-        ///     <p>The data in the clipboard as <see cref="string" /></p>
-        ///     <p><see langword="null" /> if there is no string data available in the clipboard.</p>
-        /// </returns>
+        /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<string> GetTextAsync()
         {
@@ -107,9 +85,7 @@ namespace AsyncWindowsClipboard
             return reader.ReadAsync();
         }
 
-        /// <summary>
-        ///     Sets a <see cref="string" /> as the clipboard data asynchronously.
-        /// </summary>
+        /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/></exception>
         /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
@@ -120,13 +96,7 @@ namespace AsyncWindowsClipboard
             return writer.WriteAsync(value);
         }
 
-        /// <summary>
-        ///     Retrieves a collection of file names from the clipboard asynchronously.
-        /// </summary>
-        /// <returns>
-        ///     A <see cref="IEnumerable{String}" /> containing file names or <see langword="null" /> if the clipboard does not
-        ///     contain any data that is in the FileDrop format or can be converted to that format.
-        /// </returns>
+        /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<IEnumerable<string>> GetFileDropListAsync()
         {
@@ -134,11 +104,7 @@ namespace AsyncWindowsClipboard
             return reader.ReadAsync();
         }
 
-        /// <summary>
-        ///     Sets list of file path <see cref="string" />'s as file drop list.
-        /// </summary>
-        /// <param name="filePaths">List of absolute file paths.</param>
-        /// <returns>If the operation was successful.</returns>
+        /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
         public Task<bool> SetFileDropListAsync(IEnumerable<string> filePaths)
         {
@@ -146,10 +112,7 @@ namespace AsyncWindowsClipboard
             return writer.WriteAsync(filePaths);
         }
 
-        /// <summary>
-        ///     Indicates whether there is data on the clipboard that is in the specified format or can be converted to that
-        ///     format.
-        /// </summary>
+        /// <inheritdoc />
         /// <remarks>
         ///     The alternative way of checking if the data format exists can be using one of Get methods and check if the result
         ///     is <see langword="null" />.
@@ -164,11 +127,6 @@ namespace AsyncWindowsClipboard
         ///         </code>
         ///     </example>
         /// </remarks>
-        /// <param name="format">The format of the data to look for.</param>
-        /// <returns>
-        ///     TRUE if there is data on the clipboard that is in the specified <see cref="format" /> or can be converted to
-        ///     that format; otherwise, false.
-        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
         /// <seealso cref="ClipboardDataFormat" />
         public Task<bool> ContainsAsync(ClipboardDataFormat format)
@@ -177,11 +135,7 @@ namespace AsyncWindowsClipboard
             return checker.ExistsAsync();
         }
 
-        /// <summary>
-        ///     Sets unicode (UTF16 little endian) bytes to the clipboard asynchronously.
-        /// </summary>
-        /// <param name="textBytes">Unicode (UTF16 little endian) byte representation of the text.</param>
-        /// <returns>If the operation was successful.</returns>
+        /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="textBytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException"><paramref name="textBytes" /> is empty.</exception>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>

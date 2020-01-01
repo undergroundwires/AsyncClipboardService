@@ -14,13 +14,9 @@ namespace AsyncWindowsClipboard.Clipboard.Text
         public static ITextService StaticInstance => StaticInstanceLazy.Value;
         private static Lazy<UnicodeTextService> StaticInstanceLazy => new Lazy<UnicodeTextService>();
 
-        /// <summary>
-        ///     Decodes a sequence of <c>unicode</c> bytes into a string.
-        /// </summary>
-        /// <param name="bytes">The byte array containing the sequence of bytes to decode.</param>
+        /// <inheritdoc />
         /// <exception cref="ArgumentNullException"><paramref name="bytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">The byte array contains invalid encoding code points.</exception>
-        /// <returns>A string that contains the results of decoding the specified sequence of bytes.</returns>
         /// <exception cref="T:System.Text.DecoderFallbackException">A fallback occurred (see Character Encoding in .NET for complete explanation)  
         ///  -and-  
         ///  <see cref="P:System.Text.Encoding.DecoderFallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</exception>
@@ -31,11 +27,7 @@ namespace AsyncWindowsClipboard.Clipboard.Text
             return Encoding.Unicode.GetString(bytes);
         }
 
-        /// <summary>
-        ///     Encodes all the <c>unicode</c> characters in the specified string into a sequence of bytes.
-        /// </summary>
-        /// <param name="text">The string containing the <c>unicode</c> characters to encode.</param>
-        /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
+        /// <inheritdoc />
         /// <exception cref="T:System.ArgumentException"><paramref name="text" /> is <see langword="null" /> or empty.</exception>
         /// <exception cref="System.Text.EncoderFallbackException">
         ///     A fallback occurred (see https://msdn.microsoft.com/en-us/library/ms404377(v=vs.110).aspx , Character Encoding in

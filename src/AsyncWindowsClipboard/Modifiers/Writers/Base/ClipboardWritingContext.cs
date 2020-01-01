@@ -14,12 +14,14 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
     {
         private readonly IWindowsClipboardSession _session;
 
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is <see langword="null"/></exception>
         public ClipboardWritingContext(IWindowsClipboardSession session)
         {
-            if (session == null) throw new ArgumentNullException(nameof(session));
-            _session = session;
+            _session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
-        public IClipboardOperationResult SetData(ClipboardDataType dataType, byte[] data) => _session.SetData(dataType, data);
+        /// <inheritdoc />
+        public IClipboardOperationResult SetData(ClipboardDataType dataType, byte[] data) =>
+            _session.SetData(dataType, data);
     }
 }

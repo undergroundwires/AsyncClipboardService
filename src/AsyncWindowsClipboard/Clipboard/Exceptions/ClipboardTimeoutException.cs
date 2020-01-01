@@ -12,36 +12,32 @@ namespace AsyncWindowsClipboard.Clipboard.Exceptions
     {
         /// <exception cref="ArgumentNullException"><paramref name="innerException"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="message"/> cannot be null or empty.</exception>
-        public ClipboardTimeoutException(string message, ClipboardWindowsApiException innerException) : base
-        (
-            $"{message}{Environment.NewLine}Check the inner exception ({nameof(InnerException)} property) for more details."
-        )
+        public ClipboardTimeoutException(string message, ClipboardWindowsApiException innerException)
+            : base(GetExceptionMessageWithInnerPropertyReference(message, nameof(InnerException)))
         {
-            if (string.IsNullOrEmpty(message))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(message));
+            if (string.IsNullOrEmpty(message)) throw new ArgumentException("Value cannot be null or empty.", nameof(message));
             InnerException = innerException ?? throw new ArgumentNullException(nameof(innerException));
         }
 
         /// <exception cref="ArgumentNullException"><paramref name="innerExceptions"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="message"/> cannot be null or empty.</exception>
         public ClipboardTimeoutException(string message, IEnumerable<ClipboardWindowsApiException> innerExceptions)
-            : base(
-                $"{message}{Environment.NewLine}Check the inner exceptions ({nameof(InnerExceptions)} property) for more details."
-            )
+            : base(GetExceptionMessageWithInnerPropertyReference(message, nameof(InnerExceptions)))
         {
-            if (string.IsNullOrEmpty(message))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(message));
+            if (string.IsNullOrEmpty(message)) throw new ArgumentException("Value cannot be null or empty.", nameof(message));
             InnerExceptions = innerExceptions ?? throw new ArgumentNullException(nameof(innerExceptions));
         }
 
         /// <exception cref="ArgumentException"><paramref name="message"/> cannot be null or empty.</exception>
         public ClipboardTimeoutException(string message) : base(message)
         {
-            if (string.IsNullOrEmpty(message))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(message));
+            if (string.IsNullOrEmpty(message)) throw new ArgumentException("Value cannot be null or empty.", nameof(message));
         }
 
         public new ClipboardWindowsApiException InnerException { get; }
         public IEnumerable<ClipboardWindowsApiException> InnerExceptions { get; }
+
+        private static string GetExceptionMessageWithInnerPropertyReference(string message, string propertyName) 
+            => $"{message}{Environment.NewLine}Check the inner exceptions ({propertyName} property) for more details.";
     }
 }

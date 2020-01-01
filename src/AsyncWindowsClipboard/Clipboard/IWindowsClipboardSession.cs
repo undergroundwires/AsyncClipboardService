@@ -34,6 +34,7 @@ namespace AsyncWindowsClipboard.Clipboard
         ///     Clears the clipboard.
         /// </summary>
         /// <returns><c>true</c> if the function succeeds, <c>false</c> the function fails.</returns>
+        /// <seealso cref="Open" />
         IClipboardOperationResult Clear();
 
         /// <summary>
