@@ -10,7 +10,7 @@ namespace AsyncWindowsClipboard.Clipboard.Exceptions
     public sealed class ClipboardWindowsApiException : Win32Exception
     {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="error"/> is not unsigned</exception>
-        public ClipboardWindowsApiException(uint error) : base((int) error)
+        public ClipboardWindowsApiException(uint error) : base((int)error)
         {
             if (error <= 0) throw new ArgumentOutOfRangeException(nameof(error));
         }

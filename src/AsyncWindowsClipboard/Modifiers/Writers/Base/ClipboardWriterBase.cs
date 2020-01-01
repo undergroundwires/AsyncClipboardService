@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AsyncWindowsClipboard.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Clipboard.Result;
 using AsyncWindowsClipboard.Modifiers.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard.Modifiers.Writers.Base
 {

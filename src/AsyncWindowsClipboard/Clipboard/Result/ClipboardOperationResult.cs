@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AsyncWindowsClipboard.Clipboard.Native;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AsyncWindowsClipboard.Clipboard.Native;
 
 namespace AsyncWindowsClipboard.Clipboard.Result
 {
@@ -13,8 +13,8 @@ namespace AsyncWindowsClipboard.Clipboard.Result
         public ClipboardOperationResult(ClipboardOperationResultCode resultCode, string message, IEnumerable<uint> errorCodes) :
             this
             (
-                resultCode : resultCode,
-                message : $"{message}{Environment.NewLine}See: {nameof(LastErrors)} property"
+                resultCode: resultCode,
+                message: $"{message}{Environment.NewLine}See: {nameof(LastErrors)} property"
             )
         {
             if (errorCodes == null) throw new ArgumentNullException(nameof(errorCodes));

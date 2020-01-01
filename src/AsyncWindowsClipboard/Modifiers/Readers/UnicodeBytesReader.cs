@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using AsyncWindowsClipboard.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Modifiers.Readers.Base;
+using System;
+using System.Collections.Generic;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers
 {

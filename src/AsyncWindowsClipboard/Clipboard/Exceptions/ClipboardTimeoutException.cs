@@ -43,7 +43,7 @@ namespace AsyncWindowsClipboard.Clipboard.Exceptions
         /// </summary>
         public IEnumerable<ClipboardWindowsApiException> InnerExceptions { get; }
 
-        private static string GetExceptionMessageWithInnerPropertyReference(string message, string propertyName) 
+        private static string GetExceptionMessageWithInnerPropertyReference(string message, string propertyName)
             => $"{message}{Environment.NewLine}Check the inner exceptions ({propertyName} property) for more details.";
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using AsyncWindowsClipboard.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Modifiers.Helpers;
+using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
@@ -48,7 +48,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
         /// </summary>
         /// <returns><c>TRUE</c> if exists, <c>False</c> if it does not.</returns>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        public async Task<bool> ExistsAsync() => 
+        public async Task<bool> ExistsAsync() =>
             await ReadAsync() == null;
 
         /// <summary>

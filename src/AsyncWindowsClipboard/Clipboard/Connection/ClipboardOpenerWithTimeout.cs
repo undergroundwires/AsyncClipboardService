@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AsyncWindowsClipboard.Clipboard.Result;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AsyncWindowsClipboard.Clipboard.Result;
 
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {
@@ -50,7 +50,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
             if (errors.Any())
                 return GetResultForMultipleErrors(errors, counter);
             return new ClipboardOperationResult(
-                resultCode: ClipboardOperationResultCode.ErrorOpenClipboard, 
+                resultCode: ClipboardOperationResultCode.ErrorOpenClipboard,
                 message: $"Clipboard could not be opened after {counter} tries");
         }
 

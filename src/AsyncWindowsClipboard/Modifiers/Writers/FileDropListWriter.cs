@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AsyncWindowsClipboard.Clipboard;
+using AsyncWindowsClipboard.Clipboard.Result;
+using AsyncWindowsClipboard.Modifiers.Writers.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AsyncWindowsClipboard.Clipboard;
-using AsyncWindowsClipboard.Clipboard.Result;
-using AsyncWindowsClipboard.Modifiers.Writers.Base;
 
 namespace AsyncWindowsClipboard.Modifiers.Writers
 {

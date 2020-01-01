@@ -1,6 +1,6 @@
-﻿using System;
-using AsyncWindowsClipboard.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Result;
+using System;
 
 namespace AsyncWindowsClipboard.Modifiers.Writers.Base
 {

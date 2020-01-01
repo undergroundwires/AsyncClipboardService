@@ -1,11 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using AsyncWindowsClipboard.Clipboard;
+﻿using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Connection;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Clipboard.Result;
 using AsyncWindowsClipboard.Clipboard.Text;
+using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace AsyncWindowsClipboard.Modifiers
 {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using AsyncWindowsClipboard.Clipboard.Exceptions;
+using AsyncWindowsClipboard.Clipboard.Native;
+using AsyncWindowsClipboard.Clipboard.Result;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AsyncWindowsClipboard.Clipboard.Exceptions;
-using AsyncWindowsClipboard.Clipboard.Result;
-using AsyncWindowsClipboard.Clipboard.Native;
 
 namespace AsyncWindowsClipboard.Clipboard
 {
@@ -43,7 +43,7 @@ namespace AsyncWindowsClipboard.Clipboard
         {
             ThrowIfNotOpen();
             var result = NativeMethods.EmptyClipboard();
-            return result ? ClipboardOperationResult.SuccessResult 
+            return result ? ClipboardOperationResult.SuccessResult
                 : new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
         }
 
@@ -171,7 +171,7 @@ namespace AsyncWindowsClipboard.Clipboard
         public bool IsContentTypeOf(ClipboardDataType dataType)
         {
             ThrowIfNotInRange(dataType);
-            var format = (uint) dataType;
+            var format = (uint)dataType;
             var result = NativeMethods.IsClipboardFormatAvailable(format);
             return result;
         }
