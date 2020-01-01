@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AsyncWindowsClipboard.Clipboard;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
-using AsyncWindowsClipboard.Clipboard.Helpers;
+using AsyncWindowsClipboard.Modifiers.Helpers;
 
 namespace AsyncWindowsClipboard.Modifiers.Readers.Base
 {
