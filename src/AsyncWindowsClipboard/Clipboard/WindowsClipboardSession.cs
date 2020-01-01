@@ -222,7 +222,7 @@ namespace AsyncWindowsClipboard.Clipboard
             if (lockedMemoryPtr == IntPtr.Zero)
             {
                 NativeMethods.GlobalFree(destination);
-                return ClipboardOperationResultCode.ErrorGlobalAlloc;
+                return ClipboardOperationResultCode.ErrorGlobalLock;
             }
             Marshal.Copy(source, 0, lockedMemoryPtr, source.Length);
             NativeMethods.GlobalUnlock(lockedMemoryPtr); // May return false on success
