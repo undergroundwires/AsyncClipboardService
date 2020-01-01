@@ -22,7 +22,6 @@
     <Authors>undergroundwires</Authors>
     <AssemblyName>AsyncWindowsClipboard</AssemblyName>
     <PackageProjectUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/LICENSE</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/undergroundwires/AsyncWindowsClipboard</RepositoryUrl>
     <AppDesignerFolder>Properties</AppDesignerFolder>
