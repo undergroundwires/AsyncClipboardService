@@ -14,8 +14,7 @@
     <PackageReference Include="System.Threading.Thread">
       <Version>4.3.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  </ItemGroup>  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>true</Optimize>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -32,12 +31,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AsyncWindowsClipboard</RootNamespace>
     <AssemblyName>AsyncClipboardService</AssemblyName>
-    <Version>1.6.0</Version>
+    <Version>1.7.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-
     <PackageReleaseNotes>
-      - Included documentation file
-      - Added support for net45, net451, net46, net462, net47, net471, net472
+      - Changed license to MIT.
+      - More documentation and typo fixes.
+      - Better exception messages for OS errors and fixed swollen exception.
+      - Changed locking logic to support all types of applications (not Window only).
+      - Namespace changes in internal classes.
+      - Support for .netstandard2.0
     </PackageReleaseNotes>
     <PackageIconUrl>https://raw.githubusercontent.com/undergroundwires/AsyncWindowsClipboard/master/icon.png</PackageIconUrl>
   </PropertyGroup>
