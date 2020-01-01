@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net45;net451;net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
+    <TargetFrameworks>net45;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
     <PackageId>AsyncWindowsClipboard.Tests</PackageId>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
