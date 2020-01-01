@@ -60,4 +60,4 @@ For reference implementations, take look at [Readers](./src/AsyncWindowsClipboar
 
 ## License
 
-[GNU General Public License](./LICENSE)
+[This project is MIT Licensed.](./LICENSE)
