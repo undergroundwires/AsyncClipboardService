@@ -125,7 +125,7 @@ namespace AsyncWindowsClipboard.Clipboard
             if (dataPtr == IntPtr.Zero) return null;
 
             var buffer = GetManagedBuffer(dataPtr);
-            CopyToManaged(dataPtr, buffer);
+            Marshal.Copy(dataPtr, buffer, 0, buffer.Length);
 
             return buffer;
         }
@@ -227,14 +227,6 @@ namespace AsyncWindowsClipboard.Clipboard
             Marshal.Copy(source, 0, lockedMemoryPtr, source.Length);
             NativeMethods.GlobalUnlock(lockedMemoryPtr); // May return false on success
             return ClipboardOperationResultCode.Success;
-        }
-        private static void CopyToManaged(IntPtr source, byte[] destination)
-        {
-            var lockedMemoryPtr = NativeMethods.GlobalLock(source);
-            if (lockedMemoryPtr == IntPtr.Zero)
-                throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
-            Marshal.Copy(lockedMemoryPtr, destination, 0, destination.Length);
-            NativeMethods.GlobalUnlock(lockedMemoryPtr);
         }
         private static byte[] GetManagedBuffer(IntPtr nativeBytesPtr)
         {
