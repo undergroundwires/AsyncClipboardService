@@ -21,9 +21,13 @@ namespace AsyncWindowsClipboard.Clipboard.Text
         /// <exception cref="ArgumentNullException"><paramref name="bytes" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">The byte array contains invalid encoding code points.</exception>
         /// <returns>A string that contains the results of decoding the specified sequence of bytes.</returns>
+        /// <exception cref="T:System.Text.DecoderFallbackException">A fallback occurred (see Character Encoding in .NET for complete explanation)  
+        ///  -and-  
+        ///  <see cref="P:System.Text.Encoding.DecoderFallback" /> is set to <see cref="T:System.Text.DecoderExceptionFallback" />.</exception>
         public string GetString(byte[] bytes)
         {
-            if ((bytes == null) || !bytes.Any()) throw new ArgumentNullException(nameof(bytes));
+            if ((bytes == null) || !bytes.Any())
+                throw new ArgumentNullException(nameof(bytes));
             return Encoding.Unicode.GetString(bytes);
         }
 
@@ -32,7 +36,7 @@ namespace AsyncWindowsClipboard.Clipboard.Text
         /// </summary>
         /// <param name="text">The string containing the <c>unicode</c> characters to encode.</param>
         /// <returns>A byte array containing the results of encoding the specified set of characters.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="text" /> is <see langword="null" /> or empty.</exception>
+        /// <exception cref="T:System.ArgumentException"><paramref name="text" /> is <see langword="null" /> or empty.</exception>
         /// <exception cref="System.Text.EncoderFallbackException">
         ///     A fallback occurred (see https://msdn.microsoft.com/en-us/library/ms404377(v=vs.110).aspx , Character Encoding in
         ///     the .NET Framework)-and-<see cref="P:System.Text.Encoding.EncoderFallback" /> is set to

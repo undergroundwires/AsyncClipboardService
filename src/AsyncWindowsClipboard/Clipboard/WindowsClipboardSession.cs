@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
 using AsyncWindowsClipboard.Clipboard.Result;
-using NativeMethods = AsyncWindowsClipboard.Clipboard.Native.NativeMethods;
+using AsyncWindowsClipboard.Clipboard.Native;
 
 namespace AsyncWindowsClipboard.Clipboard
 {
@@ -21,6 +21,7 @@ namespace AsyncWindowsClipboard.Clipboard
         /// <summary>
         ///     Calls <see cref="Clear" />
         /// </summary>
+        /// <exception cref="T:System.ArgumentException">Throws if clipboard is closed.</exception>
         public void Dispose()
         {
             if (IsOpen)
@@ -56,8 +57,8 @@ namespace AsyncWindowsClipboard.Clipboard
         {
             ThrowIfNotOpen();
             var result = NativeMethods.EmptyClipboard();
-            if (result) return ClipboardOperationResult.SuccessResult;
-            return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
+            return result ? ClipboardOperationResult.SuccessResult 
+                : new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
         }
 
         /// <summary>
@@ -82,40 +83,21 @@ namespace AsyncWindowsClipboard.Clipboard
             ThrowIfNotOpen();
             if (data == null) throw new ArgumentNullException(nameof(data));
             ThrowIfNotInRange(dataType);
-            //prepare variable to retrieve clipboard data
-            var sizePtr = new UIntPtr((uint) data.Length);
 
-            var dataPtr = NativeMethods.GlobalAlloc(NativeMethods.GHND, sizePtr);
-            if (dataPtr == IntPtr.Zero)
+            var result = TryCreateNativeBytes(data, out var nativeBytes);
+            if (result != ClipboardOperationResultCode.Success)
+                return new ClipboardOperationResult(result);
+
+            // Set clipboard data
+            if (NativeMethods.SetClipboardData((uint)dataType, nativeBytes) == IntPtr.Zero)
             {
-                Debug.Assert(false);
-                return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorGlobalAlloc);
-            }
-
-            Debug.Assert(NativeMethods.GlobalSize(dataPtr).ToUInt64() >= (ulong) data.Length); // Might be larger
-
-            var lockedMemoryPtr = NativeMethods.GlobalLock(dataPtr);
-            if (lockedMemoryPtr == IntPtr.Zero)
-            {
-                Debug.Assert(false);
-                NativeMethods.GlobalFree(dataPtr);
-                return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorGlobalLock);
-            }
-
-            Marshal.Copy(data, 0, lockedMemoryPtr, data.Length);
-            NativeMethods.GlobalUnlock(dataPtr); // May return false on success
-            //retrieve clipboard data
-            var uFormat = (uint) dataType;
-            if (NativeMethods.SetClipboardData(uFormat, dataPtr) == IntPtr.Zero)
-            {
-                Debug.Assert(false);
-                NativeMethods.GlobalFree(dataPtr);
+                NativeMethods.GlobalFree(nativeBytes);
                 return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorSetClipboardData);
             }
-            // SetClipboardData takes ownership of dataPtr upon success.
-            dataPtr = IntPtr.Zero;
+            nativeBytes = IntPtr.Zero; // SetClipboardData takes ownership of dataPtr upon success
             return ClipboardOperationResult.SuccessResult;
         }
+
 
         /// <summary>
         ///     Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
@@ -138,24 +120,16 @@ namespace AsyncWindowsClipboard.Clipboard
         {
             ThrowIfNotOpen();
             ThrowIfNotInRange(dataType);
-            var format = (uint) dataType;
 
-            var dataPtr = NativeMethods.GetClipboardData(format);
+            var dataPtr = NativeMethods.GetClipboardData((uint)dataType);
             if (dataPtr == IntPtr.Zero) return null;
 
-            var sizePtr = NativeMethods.GlobalSize(dataPtr);
-            if (sizePtr == UIntPtr.Zero) throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
-
-            var lockedMemoryPtr = NativeMethods.GlobalLock(dataPtr);
-            if (lockedMemoryPtr == IntPtr.Zero) throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
-
-            var buffer = new byte[sizePtr.ToUInt64()];
-            Marshal.Copy(lockedMemoryPtr, buffer, 0, buffer.Length);
-
-            NativeMethods.GlobalUnlock(dataPtr);
+            var buffer = GetManagedBuffer(dataPtr);
+            CopyToManaged(dataPtr, buffer);
 
             return buffer;
         }
+
 
         public IClipboardOperationResult Open()
         {
@@ -201,12 +175,10 @@ namespace AsyncWindowsClipboard.Clipboard
         {
             ThrowIfNotOpen();
             var result = NativeMethods.CloseClipboard();
-            if (result)
-            {
-                IsOpen = false;
-                return ClipboardOperationResult.SuccessResult;
-            }
-            return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorCloseClipboard);
+            if (!result)
+                return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorCloseClipboard);
+            IsOpen = false;
+            return ClipboardOperationResult.SuccessResult;
         }
 
         /// <summary>
@@ -227,7 +199,53 @@ namespace AsyncWindowsClipboard.Clipboard
             return result;
         }
 
-
+        private static ClipboardOperationResultCode TryCreateNativeBytes(byte[] data, out IntPtr bytesPointer)
+        {
+            var bufferResult = TryCreateNativeBuffer(data.Length, out bytesPointer);
+            if (bufferResult != ClipboardOperationResultCode.Success)
+                return bufferResult;
+            var copyResult = TryCopyToNative(data, bytesPointer);
+            return copyResult;
+        }
+        private static ClipboardOperationResultCode TryCreateNativeBuffer(int length, out IntPtr dataPtr)
+        {
+            var sizePtr = new UIntPtr((uint)length);
+            dataPtr = NativeMethods.GlobalAlloc(NativeMethods.GHND, sizePtr);
+            if (dataPtr == IntPtr.Zero)
+                return ClipboardOperationResultCode.ErrorGlobalAlloc;
+            Debug.Assert(NativeMethods.GlobalSize(dataPtr).ToUInt64() >= (ulong)length); // Might be larger
+            return ClipboardOperationResultCode.Success;
+        }
+        private static ClipboardOperationResultCode TryCopyToNative(byte[] source, IntPtr destination)
+        {
+            var lockedMemoryPtr = NativeMethods.GlobalLock(destination);
+            if (lockedMemoryPtr == IntPtr.Zero)
+            {
+                NativeMethods.GlobalFree(destination);
+                return ClipboardOperationResultCode.ErrorGlobalAlloc;
+            }
+            Marshal.Copy(source, 0, lockedMemoryPtr, source.Length);
+            NativeMethods.GlobalUnlock(lockedMemoryPtr); // May return false on success
+            return ClipboardOperationResultCode.Success;
+        }
+        private static void CopyToManaged(IntPtr source, byte[] destination)
+        {
+            var lockedMemoryPtr = NativeMethods.GlobalLock(source);
+            if (lockedMemoryPtr == IntPtr.Zero)
+                throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
+            Marshal.Copy(lockedMemoryPtr, destination, 0, destination.Length);
+            NativeMethods.GlobalUnlock(lockedMemoryPtr);
+        }
+        private static byte[] GetManagedBuffer(IntPtr nativeBytesPtr)
+        {
+            if (nativeBytesPtr == IntPtr.Zero)
+                throw new ClipboardTimeoutException($"{nameof(nativeBytesPtr)} is zero");
+            var sizePtr = NativeMethods.GlobalSize(nativeBytesPtr);
+            if (sizePtr == UIntPtr.Zero)
+                throw new ClipboardWindowsApiException(NativeMethods.GetLastError());
+            var buffer = new byte[sizePtr.ToUInt64()];
+            return buffer;
+        }
         /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
         private void ThrowIfNotOpen()
         {
@@ -245,7 +263,5 @@ namespace AsyncWindowsClipboard.Clipboard
                 throw new ArgumentOutOfRangeException(nameof(dataType),
                     $"Value must be defined in the {nameof(ClipboardDataType)} enum.");
         }
-
-
     }
 }

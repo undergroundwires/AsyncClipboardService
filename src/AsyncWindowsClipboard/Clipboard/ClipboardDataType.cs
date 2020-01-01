@@ -1,4 +1,4 @@
-﻿using NativeMethods = AsyncWindowsClipboard.Clipboard.Native.NativeMethods;
+﻿using AsyncWindowsClipboard.Clipboard.Native;
 
 namespace AsyncWindowsClipboard.Clipboard
 {
@@ -9,7 +9,7 @@ namespace AsyncWindowsClipboard.Clipboard
     ///     The clipboard formats defined by the system are called standard clipboard formats.
     ///     See more at : https://msdn.microsoft.com/en-us/library/windows/desktop/ff729168%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396
     /// </remarks>
-    /// <seealso cref="Clipboard.Native.NativeMethods"/>
+    /// <seealso cref="NativeMethods"/>
     internal enum ClipboardDataType : uint
     {
         /// <summary>

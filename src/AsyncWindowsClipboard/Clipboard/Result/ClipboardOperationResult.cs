@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NativeMethods = AsyncWindowsClipboard.Clipboard.Native.NativeMethods;
+using AsyncWindowsClipboard.Clipboard.Native;
 
 namespace AsyncWindowsClipboard.Clipboard.Result
 {
     internal sealed class ClipboardOperationResult : IClipboardOperationResult
     {
         public static IClipboardOperationResult SuccessResult = new ClipboardOperationResult(ClipboardOperationResultCode.Success);
+
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="errorCodes"/> is <see langword="null"/></exception>
         public ClipboardOperationResult(ClipboardOperationResultCode resultCode, string message, IEnumerable<uint> errorCodes) :
             this
             (
                 resultCode : resultCode,
-                message : $"{message}{Environment.NewLine}The error codes are : {string.Join(",", errorCodes?.Select(e => e.ToString()))} (see: {nameof(LastErrors)} property)"
+                message : $"{message}{Environment.NewLine}See: {nameof(LastErrors)} property"
             )
         {
             if (errorCodes == null) throw new ArgumentNullException(nameof(errorCodes));
