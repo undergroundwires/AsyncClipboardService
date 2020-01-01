@@ -74,7 +74,10 @@ namespace AsyncWindowsClipboard.Clipboard
                 NativeMethods.GlobalFree(nativeBytes);
                 return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorSetClipboardData);
             }
-            nativeBytes = IntPtr.Zero; // SetClipboardData takes ownership of dataPtr upon success
+            // ReSharper disable once RedundantAssignment
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            nativeBytes = IntPtr.Zero; // SetClipboardData takes ownership of dataPtr upon success 
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             return ClipboardOperationResult.SuccessResult;
         }
 
