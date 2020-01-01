@@ -15,7 +15,6 @@ namespace AsyncWindowsClipboard.Modifiers
     /// </summary>
     internal abstract class ClipboardModifierBase
     {
-        private const int DelayLength = 30; //delay in milliseconds
         private readonly IClipboardOpenerWithTimeout _clipboardOpenerWithTimeout;
 
         protected ClipboardModifierBase()
@@ -66,7 +65,7 @@ namespace AsyncWindowsClipboard.Modifiers
         {
             if (Timeout.HasValue)
             {
-                var result = _clipboardOpenerWithTimeout.Open(session, Timeout.Value, DelayLength);
+                var result = _clipboardOpenerWithTimeout.Open(session, Timeout.Value);
                 if (!result.IsSuccessful) throw GetTimeOutException(result);
             }
             else
