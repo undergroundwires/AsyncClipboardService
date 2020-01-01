@@ -10,8 +10,8 @@ namespace AsyncWindowsClipboard.Modifiers.Writers
     /// <seealso cref="IClipboardWritingContext" />
     internal class StringWriter : ClipboardWriterBase<string>
     {
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="context"/> is <see langword="null"/></exception>
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is <see langword="null"/></exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="context" /> is <see langword="null" /></exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="data" /> is <see langword="null" /></exception>
         public override IClipboardOperationResult Write(IClipboardWritingContext context, string data)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));

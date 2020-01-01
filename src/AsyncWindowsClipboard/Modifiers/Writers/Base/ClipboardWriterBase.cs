@@ -21,14 +21,13 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
     /// <seealso cref="ClipboardModifierBase" />
     internal abstract class ClipboardWriterBase<TData> : ClipboardModifierBase, IClipboardWriter<TData>
     {
-
         /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">
         ///     <p>Communication with windows API's has failed.</p>
         ///     <p>Connection to the clipboard could not be opened</p>
         /// </exception>
         /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="data"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentNullException"><paramref name="data" /> is <see langword="null" /></exception>
         public Task<bool> WriteAsync(TData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));

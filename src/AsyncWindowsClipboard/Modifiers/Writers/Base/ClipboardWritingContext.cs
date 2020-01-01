@@ -14,7 +14,7 @@ namespace AsyncWindowsClipboard.Modifiers.Writers.Base
     {
         private readonly IWindowsClipboardSession _session;
 
-        /// <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is <see langword="null"/></exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="session" /> is <see langword="null" /></exception>
         public ClipboardWritingContext(IWindowsClipboardSession session)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));

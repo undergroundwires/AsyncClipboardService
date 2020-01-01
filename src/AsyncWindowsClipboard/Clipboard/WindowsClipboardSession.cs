@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AsyncWindowsClipboard.Clipboard.Exceptions;
-using AsyncWindowsClipboard.Clipboard.Result;
 using AsyncWindowsClipboard.Clipboard.Native;
+using AsyncWindowsClipboard.Clipboard.Result;
 
 namespace AsyncWindowsClipboard.Clipboard
 {
@@ -43,7 +43,8 @@ namespace AsyncWindowsClipboard.Clipboard
         {
             ThrowIfNotOpen();
             var result = NativeMethods.EmptyClipboard();
-            return result ? ClipboardOperationResult.SuccessResult 
+            return result
+                ? ClipboardOperationResult.SuccessResult
                 : new ClipboardOperationResult(ClipboardOperationResultCode.ErrorClearClipboard);
         }
 
@@ -69,12 +70,15 @@ namespace AsyncWindowsClipboard.Clipboard
                 return new ClipboardOperationResult(result);
 
             // Set clipboard data
-            if (NativeMethods.SetClipboardData((uint)dataType, nativeBytes) == IntPtr.Zero)
+            if (NativeMethods.SetClipboardData((uint) dataType, nativeBytes) == IntPtr.Zero)
             {
                 NativeMethods.GlobalFree(nativeBytes);
                 return new ClipboardOperationResult(ClipboardOperationResultCode.ErrorSetClipboardData);
             }
-            nativeBytes = IntPtr.Zero; // SetClipboardData takes ownership of dataPtr upon success
+            // ReSharper disable once RedundantAssignment
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
+            nativeBytes = IntPtr.Zero; // SetClipboardData takes ownership of dataPtr upon success 
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
             return ClipboardOperationResult.SuccessResult;
         }
 
@@ -99,7 +103,7 @@ namespace AsyncWindowsClipboard.Clipboard
             ThrowIfNotOpen();
             ThrowIfNotInRange(dataType);
 
-            var dataPtr = NativeMethods.GetClipboardData((uint)dataType);
+            var dataPtr = NativeMethods.GetClipboardData((uint) dataType);
             if (dataPtr == IntPtr.Zero) return null;
 
             var buffer = GetManagedBuffer(dataPtr);
@@ -181,15 +185,17 @@ namespace AsyncWindowsClipboard.Clipboard
             var copyResult = TryCopyToNative(data, bytesPointer);
             return copyResult;
         }
+
         private static ClipboardOperationResultCode TryCreateNativeBuffer(int length, out IntPtr dataPtr)
         {
-            var sizePtr = new UIntPtr((uint)length);
+            var sizePtr = new UIntPtr((uint) length);
             dataPtr = NativeMethods.GlobalAlloc(NativeMethods.GHND, sizePtr);
             if (dataPtr == IntPtr.Zero)
                 return ClipboardOperationResultCode.ErrorGlobalAlloc;
-            Debug.Assert(NativeMethods.GlobalSize(dataPtr).ToUInt64() >= (ulong)length); // Might be larger
+            Debug.Assert(NativeMethods.GlobalSize(dataPtr).ToUInt64() >= (ulong) length); // Might be larger
             return ClipboardOperationResultCode.Success;
         }
+
         private static ClipboardOperationResultCode TryCopyToNative(byte[] source, IntPtr destination)
         {
             var lockedMemoryPtr = NativeMethods.GlobalLock(destination);
@@ -198,10 +204,12 @@ namespace AsyncWindowsClipboard.Clipboard
                 NativeMethods.GlobalFree(destination);
                 return ClipboardOperationResultCode.ErrorGlobalLock;
             }
+
             Marshal.Copy(source, 0, lockedMemoryPtr, source.Length);
             NativeMethods.GlobalUnlock(lockedMemoryPtr); // May return false on success
             return ClipboardOperationResultCode.Success;
         }
+
         private static byte[] GetManagedBuffer(IntPtr nativeBytesPtr)
         {
             if (nativeBytesPtr == IntPtr.Zero)
@@ -212,6 +220,7 @@ namespace AsyncWindowsClipboard.Clipboard
             var buffer = new byte[sizePtr.ToUInt64()];
             return buffer;
         }
+
         /// <exception cref="ArgumentException">Throws if clipboard is closed.</exception>
         private void ThrowIfNotOpen()
         {

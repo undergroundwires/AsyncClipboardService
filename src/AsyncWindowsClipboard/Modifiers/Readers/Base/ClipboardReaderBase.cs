@@ -48,11 +48,11 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
         /// </summary>
         /// <returns><c>TRUE</c> if exists, <c>False</c> if it does not.</returns>
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        public async Task<bool> ExistsAsync() => 
+        public async Task<bool> ExistsAsync() =>
             await ReadAsync() == null;
 
         /// <summary>
-        ///     Returns if the reading object type exists in the given <see cref="context" />.
+        ///     Returns if the reading object type exists in the given <paramref name="context" />.
         /// </summary>
         /// <param name="context">Clipboard session context.</param>
         /// <returns><c>true</c> if the object type is in clipboard data, <c>false</c> otherwise.</returns>

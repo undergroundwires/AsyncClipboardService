@@ -11,7 +11,8 @@ namespace AsyncWindowsClipboard
     {
         /// <summary>
         ///     <p>
-        ///         If value is <see langword="null" /> then the instance will have no time out strategy. It'll  try to open a connection to
+        ///         If value is <see langword="null" /> then the instance will have no time out strategy. It'll  try to open a
+        ///         connection to
         ///         the windows clipboard api and returns failed status if the initial try fails.
         ///     </p>
         ///     <p>
@@ -73,7 +74,7 @@ namespace AsyncWindowsClipboard
         /// </summary>
         /// <param name="format">The format of the data to look for.</param>
         /// <returns>
-        ///     TRUE if there is data on the clipboard that is in the specified <see cref="format" /> or can be converted to
+        ///     TRUE if there is data on the clipboard that is in the specified <paramref name="format" /> or can be converted to
         ///     that format; otherwise, false.
         /// </returns>
         /// <seealso cref="ClipboardDataFormat" />

@@ -7,11 +7,13 @@ namespace AsyncWindowsClipboard.Modifiers.Helpers
     internal static class TaskHelper
     {
         /// <summary>
-        ///     Runs the given <param name="func"/> as a <see cref="Task"/>.
+        ///     Runs the given
+        ///     <param ref="func" />
+        ///     as a <see cref="Task" />.
         /// </summary>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="func">The function to run.</param>
-        /// <returns>A <see cref="Task{TResult}"/> that runs <param name="func"></param></returns>
+        /// <returns>A <see cref="Task{TResult}" /> that runs <paramref name="func"></paramref></returns>
         /// <exception cref="ArgumentNullException"><paramref name="func" /> is <see langword="null" />.</exception>
         internal static Task<TResult> StartStaTask<TResult>(Func<TResult> func)
         {

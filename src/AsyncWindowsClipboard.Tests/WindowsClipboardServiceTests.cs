@@ -18,6 +18,7 @@ namespace AsyncWindowsClipboard.Tests
             var actual = await sut.GetTextAsync();
             Assert.That(actual, Is.EqualTo(expected));
         }
+
         [Test]
         public void Ctor_SetsTheTimeoutProperty()
         {

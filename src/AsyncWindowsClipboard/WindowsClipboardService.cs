@@ -87,7 +87,7 @@ namespace AsyncWindowsClipboard
 
         /// <inheritdoc />
         /// <exception cref="ClipboardWindowsApiException">Connection to the clipboard could not be opened.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/></exception>
+        /// <exception cref="ArgumentNullException"><paramref name="value" /> is <see langword="null" /></exception>
         /// <exception cref="ClipboardTimeoutException">Connection to clipboard fails after timeout</exception>
         public Task<bool> SetTextAsync(string value)
         {
@@ -127,7 +127,7 @@ namespace AsyncWindowsClipboard
         ///         </code>
         ///     </example>
         /// </remarks>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="format" /> is unknown.</exception>
         /// <seealso cref="ClipboardDataFormat" />
         public Task<bool> ContainsAsync(ClipboardDataFormat format)
         {
@@ -148,18 +148,15 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Gets right <seealso cref="IClipboardDataChecker" /> instance for the given format.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="format" /> is unknown.</exception>
         private IClipboardDataChecker GetDataChecker(ClipboardDataFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case ClipboardDataFormat.Text:
-                    return _clipboardModifierFactory.Get<StringReader>();
-                case ClipboardDataFormat.FileDropList:
-                    return _clipboardModifierFactory.Get<StringReader>();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(format), format, $"{nameof(format)} is unknown.");
-            }
+                ClipboardDataFormat.Text => _clipboardModifierFactory.Get<StringReader>(),
+                ClipboardDataFormat.FileDropList => _clipboardModifierFactory.Get<StringReader>(),
+                _ => throw new ArgumentOutOfRangeException(nameof(format), format, $"{nameof(format)} is unknown.")
+            };
         }
     }
 }

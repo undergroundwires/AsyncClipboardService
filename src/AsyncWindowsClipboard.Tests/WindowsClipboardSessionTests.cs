@@ -8,6 +8,7 @@ namespace AsyncWindowsClipboard.Tests
     [TestFixture]
     public class WindowsClipboardSessionTests
     {
+        private static IWindowsClipboardSession GetSut() => new WindowsClipboardSession();
 
         [Test]
         public void IsOpen_InstanceClosed_ReturnsFalse()
@@ -15,6 +16,19 @@ namespace AsyncWindowsClipboard.Tests
             // Arrange
             var sut = GetSut();
             // Act
+            var actual = sut.IsOpen;
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Test]
+        public void IsOpen_InstanceClosed_ReturnsTrue()
+        {
+            // Arrange
+            var sut = GetSut();
+            sut.Open();
+            // Act
+            sut.Close();
             var actual = sut.IsOpen;
             // Assert
             Assert.False(actual);
@@ -33,16 +47,16 @@ namespace AsyncWindowsClipboard.Tests
         }
 
         [Test]
-        public void IsOpen_InstanceClosed_ReturnsTrue()
+        public void IsSuccessful_InstanceClosed_ReturnsTrue()
         {
             // Arrange
             var sut = GetSut();
             sut.Open();
             // Act
-            sut.Close();
-            var actual = sut.IsOpen;
+            var closeResult = sut.Close();
+            var actual = closeResult.IsSuccessful;
             // Assert
-            Assert.False(actual);
+            Assert.True(actual);
         }
 
         [Test]
@@ -57,20 +71,5 @@ namespace AsyncWindowsClipboard.Tests
             // Assert
             Assert.True(actual);
         }
-
-        [Test]
-        public void IsSuccessful_InstanceClosed_ReturnsTrue()
-        {
-            // Arrange
-            var sut = GetSut();
-            sut.Open();
-            // Act
-            var closeResult = sut.Close();
-            var actual = closeResult.IsSuccessful;
-            // Assert
-            Assert.True(actual);
-        }
-
-        private static IWindowsClipboardSession GetSut() => new WindowsClipboardSession();
     }
 }
