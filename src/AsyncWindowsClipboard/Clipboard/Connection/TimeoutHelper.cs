@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {
+    /// <summary>
+    /// Utility class to help with retry and timeout logic.
+    /// </summary>
     public static class TimeoutHelper
     {
         /// <summary>

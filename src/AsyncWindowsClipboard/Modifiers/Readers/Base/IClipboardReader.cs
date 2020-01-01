@@ -11,7 +11,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
         where TResult : class
     {
         /// <summary>
-        ///     Reads and returns the <typeparam name="TResult" />
+        ///     Reads and returns the <typeparam ref="TResult" />
         /// </summary>
         Task<TResult> ReadAsync();
     }

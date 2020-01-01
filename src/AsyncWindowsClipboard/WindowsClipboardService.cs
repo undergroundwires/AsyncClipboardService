@@ -127,7 +127,7 @@ namespace AsyncWindowsClipboard
         ///         </code>
         ///     </example>
         /// </remarks>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="format" /> is unknown.</exception>
         /// <seealso cref="ClipboardDataFormat" />
         public Task<bool> ContainsAsync(ClipboardDataFormat format)
         {
@@ -148,7 +148,7 @@ namespace AsyncWindowsClipboard
         /// <summary>
         ///     Gets right <seealso cref="IClipboardDataChecker" /> instance for the given format.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><see cref="format" /> is unknown.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="format" /> is unknown.</exception>
         private IClipboardDataChecker GetDataChecker(ClipboardDataFormat format)
         {
             return format switch

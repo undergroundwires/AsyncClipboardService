@@ -1,5 +1,8 @@
 ﻿namespace AsyncWindowsClipboard.Clipboard
 {
+    /// <summary>
+    /// Result of the Clipboard operation
+    /// </summary>
     public enum ClipboardOperationResultCode
     {
         /// <summary>
@@ -18,9 +21,17 @@
         /// Clipboard operation failed due to an error during clearing clipboard.
         /// </summary>
         ErrorClearClipboard,
-
+        /// <summary>
+        /// Clipboard operation when allocating native bytes for the clipboard.
+        /// </summary>
         ErrorGlobalAlloc,
+        /// <summary>
+        /// Clipboard operation when communicating native bytes with the clipboard.
+        /// </summary>
         ErrorGlobalLock,
+        /// <summary>
+        /// Clipboard operation when communicating wit the clipboard.
+        /// </summary>
         ErrorSetClipboardData
     };
 }

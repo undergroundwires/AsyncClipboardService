@@ -34,7 +34,13 @@ namespace AsyncWindowsClipboard.Clipboard.Exceptions
             if (string.IsNullOrEmpty(message)) throw new ArgumentException("Value cannot be null or empty.", nameof(message));
         }
 
+        /// <summary>
+        /// The inner exception that caused this exception.
+        /// </summary>
         public new ClipboardWindowsApiException InnerException { get; }
+        /// <summary>
+        /// List of innerexceptions that caused this exception.
+        /// </summary>
         public IEnumerable<ClipboardWindowsApiException> InnerExceptions { get; }
 
         private static string GetExceptionMessageWithInnerPropertyReference(string message, string propertyName) 

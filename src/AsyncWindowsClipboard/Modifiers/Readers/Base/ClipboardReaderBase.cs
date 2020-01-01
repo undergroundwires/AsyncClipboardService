@@ -52,7 +52,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers.Base
             await ReadAsync() == null;
 
         /// <summary>
-        ///     Returns if the reading object type exists in the given <see cref="context" />.
+        ///     Returns if the reading object type exists in the given <paramref name="context" />.
         /// </summary>
         /// <param name="context">Clipboard session context.</param>
         /// <returns><c>true</c> if the object type is in clipboard data, <c>false</c> otherwise.</returns>
