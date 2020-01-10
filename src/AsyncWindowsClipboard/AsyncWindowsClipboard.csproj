@@ -27,15 +27,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AsyncWindowsClipboard</RootNamespace>
     <AssemblyName>AsyncClipboardService</AssemblyName>
-    <Version>1.7.0</Version>
+    <Version>1.7.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - Changed license to MIT.
-      - More documentation and typo fixes.
-      - Better exception messages for OS errors and fixed swollen exception.
-      - Changed locking logic to support all types of applications (not Window only).
-      - Namespace changes in internal classes.
-      - Support for .netstandard2.0
+      - Exceptions are now properly serializable
     </PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
