@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace AsyncWindowsClipboard.Clipboard.Connection
 {
@@ -49,7 +49,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
                     $"{timeout} is too short. It must be higher than {30}");
             if (delayInMs < 15)
                 throw new ArgumentOutOfRangeException(nameof(delayInMs),
-                    $"{delayInMs} is too short. It must be higher than {30}");
+                    $"{delayInMs} is too short. It must be higher than {15}");
             if (timeout.TotalMilliseconds < delayInMs)
                 throw new ArgumentException(
                     $"{nameof(timeout)} ({timeout}) must be longer than {nameof(delayInMs)} ({delayInMs})");
@@ -59,7 +59,7 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
         {
             private readonly int _delayInMs;
             private readonly DateTime _finishDate;
-            private bool isFirstRun = true;
+            private bool _isFirstRun = true;
 
             public RetrySession(TimeSpan timeout, int delayInMs)
             {
@@ -72,17 +72,18 @@ namespace AsyncWindowsClipboard.Clipboard.Connection
 
             public void Run(Func<bool> func)
             {
-                if (isFirstRun)
+                if (_isFirstRun)
                 {
-                    isFirstRun = false;
+                    _isFirstRun = false;
                 }
                 else
                 {
-                    if (_delayInMs != 0)
-                        if (DateTime.Now < _finishDate.AddMilliseconds(_delayInMs))
-                            Task.Delay(_delayInMs);
+                    if (_delayInMs != 0
+                        && DateTime.Now < _finishDate.AddMilliseconds(_delayInMs))
+                    {
+                        Thread.Sleep(_delayInMs);
+                    }
                 }
-
                 IsSuccess = func();
             }
         }

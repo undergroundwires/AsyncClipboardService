@@ -30,7 +30,8 @@
     <Version>1.7.1</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - Exceptions are now properly serializable
+      - Exceptions are now properly serializable.
+      - Fixed delay for retrying connection is being ignored.
     </PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
