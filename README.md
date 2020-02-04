@@ -6,7 +6,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/undergroundwires/AsyncWindowsClipboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/22aa4312f0f93e671a73/maintainability)](https://codeclimate.com/github/undergroundwires/AsyncWindowsClipboard/maintainability)
 
-**AsyncWindowsClipboard** is an async, thread-safe & async Windows clipboard service implementation for .NET, C#. It's free of charge for any purpose.
+**AsyncWindowsClipboard** is thread-safe, asynchronous windows clipboard service with retry strategy for .NET
 
 ## What it is
 

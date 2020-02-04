@@ -15,8 +15,8 @@
     <Optimize>true</Optimize>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>Thread-safe, asynchronous windows clipboard service with timeout strategy for .NET, C#.</Description>
-    <PackageTags>asynchronous async clipboard timeout WPF windows forms</PackageTags>
+    <Description>Thread-safe, asynchronous windows clipboard service with retry strategy for .NET.</Description>
+    <PackageTags>asynchronous async clipboard timeout retry WPF windows forms</PackageTags>
     <Copyright>Copyright 2016 - 2019</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageId>AsyncClipboardService</PackageId>
