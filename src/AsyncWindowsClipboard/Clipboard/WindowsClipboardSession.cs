@@ -94,7 +94,7 @@ namespace AsyncWindowsClipboard.Clipboard
             ThrowIfNotInRange(dataType);
 
             var dataPtr = NativeMethods.GetClipboardData((uint) dataType);
-            if (dataPtr == IntPtr.Zero) return null;
+            if (dataPtr == IntPtr.Zero) return new byte[0];
 
             var buffer = GetManagedBuffer(dataPtr);
             Marshal.Copy(dataPtr, buffer, 0, buffer.Length);

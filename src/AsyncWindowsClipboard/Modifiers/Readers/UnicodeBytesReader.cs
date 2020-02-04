@@ -22,7 +22,7 @@ namespace AsyncWindowsClipboard.Modifiers.Readers
             try
             {
                 if (clipboardData == null)
-                    return null;
+                    return new byte[0];
                 if (clipboardData.Length <= 2)
                     return clipboardData;
                 return GetBytes(clipboardData, true);
