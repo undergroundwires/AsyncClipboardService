@@ -3,7 +3,7 @@
     /// <summary>
     ///     A class holding .dll file names.
     /// </summary>
-    public class Dlls
+    public static class Dlls
     {
         /// <summary>
         ///     The user32 dll.

@@ -16,18 +16,8 @@ namespace AsyncWindowsClipboard.Clipboard
     /// </remarks>
     /// <seealso cref="IWindowsClipboardSession" />
     /// <seealso cref="IDisposable" />
-    internal class WindowsClipboardSession : IWindowsClipboardSession, IDisposable
+    internal sealed class WindowsClipboardSession : IWindowsClipboardSession, IDisposable
     {
-        /// <summary>
-        ///     Calls <see cref="Clear" />
-        /// </summary>
-        /// <exception cref="T:System.ArgumentException">Throws if clipboard is closed.</exception>
-        public void Dispose()
-        {
-            if (IsOpen)
-                Close();
-        }
-
         /// <inheritdoc />
         public bool IsOpen { get; private set; }
 
@@ -175,6 +165,15 @@ namespace AsyncWindowsClipboard.Clipboard
             var format = (uint) dataType;
             var result = NativeMethods.IsClipboardFormatAvailable(format);
             return result;
+        }
+
+        /// <summary>
+        ///     Calls <see cref="Clear" />
+        /// </summary>
+        public void Dispose()
+        {
+            if (IsOpen)
+                Close();
         }
 
         private static ClipboardOperationResultCode TryCreateNativeBytes(byte[] data, out IntPtr bytesPointer)

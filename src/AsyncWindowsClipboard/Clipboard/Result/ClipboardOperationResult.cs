@@ -7,7 +7,7 @@ namespace AsyncWindowsClipboard.Clipboard.Result
 {
     internal sealed class ClipboardOperationResult : IClipboardOperationResult
     {
-        public static IClipboardOperationResult SuccessResult =
+        public static readonly IClipboardOperationResult SuccessResult =
             new ClipboardOperationResult(ClipboardOperationResultCode.Success);
 
         /// <exception cref="T:System.ArgumentNullException"><paramref name="errorCodes" /> is <see langword="null" /></exception>

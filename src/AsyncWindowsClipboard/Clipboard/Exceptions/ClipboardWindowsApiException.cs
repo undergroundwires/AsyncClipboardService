@@ -28,7 +28,7 @@ namespace AsyncWindowsClipboard.Clipboard.Exceptions
         /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="info"/> parameter is <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or <see cref="Exception.HResult"/> is zero (0).</exception>
-        public ClipboardWindowsApiException(SerializationInfo info, StreamingContext context)
+        private ClipboardWindowsApiException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

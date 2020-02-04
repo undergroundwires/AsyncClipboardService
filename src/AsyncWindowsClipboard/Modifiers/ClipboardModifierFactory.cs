@@ -9,7 +9,7 @@ namespace AsyncWindowsClipboard.Modifiers
     /// <seealso cref="ClipboardModifierBase" />
     internal class ClipboardModifierFactory : IClipboardModifierFactory
     {
-        public static IClipboardModifierFactory StaticInstance = new ClipboardModifierFactory();
+        public static readonly IClipboardModifierFactory StaticInstance = new ClipboardModifierFactory();
 
         /// <inheritdoc />
         public TModifier Get<TModifier>(TimeSpan? timeout = null) where TModifier : ClipboardModifierBase, new()
